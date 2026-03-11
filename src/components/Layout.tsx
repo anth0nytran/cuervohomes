@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 interface LayoutProps {
     children: ReactNode;
@@ -11,10 +12,15 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const location = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location.pathname]);
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
+            setScrolled(window.scrollY > 80);
         };
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
@@ -30,98 +36,91 @@ export default function Layout({ children }: LayoutProps) {
         return () => { document.body.style.overflow = "unset"; };
     }, [mobileMenuOpen]);
 
-    const scrollToSection = (id: string) => {
-        setMobileMenuOpen(false);
-        const element = document.getElementById(id);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
+
 
     return (
         <div className="min-h-screen bg-white text-black font-sans selection:bg-black selection:text-white">
             {/* Navigation - Fixed & Dynamic */}
-            <nav aria-label="Primary navigation" className={cn(
-                "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 md:px-12 transition-all duration-300",
-                scrolled ? "bg-black/90 backdrop-blur-md py-2 shadow-lg border-b border-white/10" : "bg-transparent py-6"
-            )}>
-                <a
-                    href="#home"
-                    onClick={(event) => {
-                        event.preventDefault();
-                        scrollToSection('home');
+            <nav aria-label="Primary navigation" className="fixed top-0 left-0 right-0 z-50">
+                {/* Background pill — fades in on scroll */}
+                <div
+                    className="absolute left-1/2 -translate-x-1/2"
+                    style={{
+                        top: scrolled ? '10px' : '0px',
+                        width: scrolled ? 'min(56rem, calc(100% - 2rem))' : '100%',
+                        height: scrolled ? '52px' : '72px',
+                        backgroundColor: scrolled ? 'rgba(0,0,0,0.92)' : 'transparent',
+                        borderRadius: scrolled ? '9999px' : '0px',
+                        boxShadow: scrolled ? '0 8px 32px rgba(0,0,0,0.4)' : 'none',
+                        border: scrolled ? '1px solid rgba(255,255,255,0.1)' : '1px solid transparent',
+                        backdropFilter: scrolled ? 'blur(24px)' : 'none',
+                        transition: 'background-color 400ms cubic-bezier(0.22,1,0.36,1), backdrop-filter 400ms cubic-bezier(0.22,1,0.36,1), border-color 400ms cubic-bezier(0.22,1,0.36,1), border-radius 700ms cubic-bezier(0.22,1,0.36,1), width 900ms cubic-bezier(0.22,1,0.36,1), height 700ms cubic-bezier(0.22,1,0.36,1), top 700ms cubic-bezier(0.22,1,0.36,1), box-shadow 500ms cubic-bezier(0.22,1,0.36,1)',
                     }}
-                    className="cursor-pointer mix-blend-difference"
-                >
-                    <img
-                        src="/logo.svg"
-                        alt="The Toro Group Corp logo"
-                        width={1563}
-                        height={1563}
-                        loading="eager"
-                        fetchPriority="high"
-                        decoding="async"
-                        className="h-16 md:h-24 w-auto object-contain brightness-0 invert"
-                    />
-                </a>
+                />
 
-                <div className="hidden md:flex items-center gap-10 text-xs font-bold tracking-widest uppercase text-white mix-blend-difference">
-                    <a
-                        href="#stats"
-                        onClick={(event) => {
-                            event.preventDefault();
-                            scrollToSection('stats');
-                        }}
-                        className="hover:text-neutral-300 transition-colors relative group"
+                {/* Nav content — always on top, consistent layout */}
+                <div className={cn(
+                    "relative z-10 flex items-center justify-between mx-auto transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                    scrolled
+                        ? "max-w-3xl md:max-w-4xl px-6 h-[52px] mt-2.5"
+                        : "max-w-none px-6 md:px-12 h-[72px]"
+                )}>
+                    <Link
+                        to="/"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="cursor-pointer flex items-center gap-2.5"
                     >
-                        Why Us
-                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full" />
-                    </a>
-                    <a
-                        href="#team"
-                        onClick={(event) => {
-                            event.preventDefault();
-                            scrollToSection('team');
-                        }}
-                        className="hover:text-neutral-300 transition-colors relative group"
+                        <img
+                            src="/c_homes/main_logo_full_logo_only_copy.png"
+                            alt="Cuervo Homes Logo"
+                            className={cn(
+                                "object-contain transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                                scrolled ? "h-5" : "h-7 md:h-8"
+                            )}
+                        />
+                        <span className={cn(
+                            "font-serif font-bold text-white tracking-widest uppercase transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                            scrolled ? "text-xs" : "text-lg md:text-xl"
+                        )}>
+                            Cuervo Homes
+                        </span>
+                    </Link>
+
+                    <div className="hidden md:flex items-center gap-8 text-xs font-bold tracking-widest uppercase text-white">
+                        <Link
+                            to="/"
+                            className="hover:text-neutral-300 transition-colors relative group"
+                        >
+                            Home
+                            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full" />
+                        </Link>
+                        <Link
+                            to="/services"
+                            className="hover:text-neutral-300 transition-colors relative group"
+                        >
+                            Services
+                            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full" />
+                        </Link>
+                        <Link
+                            to="/contact"
+                            className={cn(
+                                "transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                                scrolled
+                                    ? "px-5 py-1.5 border border-white/30 text-white hover:bg-white hover:text-black rounded-full text-[10px]"
+                                    : "px-5 py-2 border border-white bg-white text-black hover:bg-transparent hover:text-white"
+                            )}
+                        >
+                            Contact
+                        </Link>
+                    </div>
+
+                    <button
+                        onClick={() => setMobileMenuOpen(true)}
+                        className="md:hidden uppercase text-xs tracking-widest font-bold text-white"
                     >
-                        Team
-                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full" />
-                    </a>
-                    <a
-                        href="#areas"
-                        onClick={(event) => {
-                            event.preventDefault();
-                            scrollToSection('areas');
-                        }}
-                        className="hover:text-neutral-300 transition-colors relative group"
-                    >
-                        Areas
-                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full" />
-                    </a>
-                    <a
-                        href="#contact"
-                        onClick={(event) => {
-                            event.preventDefault();
-                            scrollToSection('contact');
-                        }}
-                        className={cn(
-                            "px-6 py-2 border transition-all duration-300",
-                            scrolled
-                                ? "border-white text-white hover:bg-white hover:text-black"
-                                : "border-white bg-white text-black hover:bg-transparent hover:text-white"
-                        )}
-                    >
-                        Contact
-                    </a>
+                        Menu
+                    </button>
                 </div>
-
-                <button
-                    onClick={() => setMobileMenuOpen(true)}
-                    className="md:hidden uppercase text-xs tracking-widest font-bold text-white mix-blend-difference"
-                >
-                    Menu
-                </button>
             </nav>
 
             {/* Mobile Menu Overlay */}
@@ -135,35 +134,39 @@ export default function Layout({ children }: LayoutProps) {
                         className="fixed inset-0 z-[60] bg-black text-white flex flex-col p-6 md:p-12"
                     >
                         <div className="flex justify-between items-center mb-12">
-                            <span className="text-xl font-serif font-bold">The Toro Group</span>
+                            <span className="text-xl font-serif font-bold">Cuervo Homes</span>
                             <button onClick={() => setMobileMenuOpen(false)} className="p-2">
                                 <X className="w-8 h-8 text-white" />
                             </button>
                         </div>
 
                         <div className="flex flex-col gap-8 items-start">
-                            {['home', 'stats', 'team', 'areas', 'contact'].map((section, i) => (
-                                <motion.a
-                                    key={section}
-                                    href={`#${section}`}
+                            {[
+                                { name: 'Home', path: '/' },
+                                { name: 'Services', path: '/services' },
+                                { name: 'Contact', path: '/contact' }
+                            ].map((route, i) => (
+                                <motion.div
+                                    key={route.name}
                                     initial={{ opacity: 0, x: -20 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.1 + (i * 0.1) }}
-                                    onClick={(event) => {
-                                        event.preventDefault();
-                                        scrollToSection(section);
-                                    }}
-                                    className="text-4xl font-serif hover:text-neutral-400 transition-colors capitalize"
                                 >
-                                    {section === 'stats' ? 'Why Us' : section}
-                                </motion.a>
+                                    <Link
+                                        to={route.path}
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className="text-4xl font-serif hover:text-neutral-400 transition-colors capitalize block"
+                                    >
+                                        {route.name}
+                                    </Link>
+                                </motion.div>
                             ))}
                         </div>
 
                         <div className="mt-auto">
                             <p className="text-neutral-500 text-xs uppercase tracking-widest mb-2">Contact</p>
-                            <a href="tel:7147321429" className="block text-xl font-serif mb-1">714.732.1429</a>
-                            <a href="mailto:jack@soldbytoro.com" className="block text-sm text-neutral-400">jack@soldbytoro.com</a>
+                            <a href="tel:7143195966" className="block text-xl font-serif mb-1">714.319.5966</a>
+                            <a href="mailto:info@cuervohomes.com" className="block text-sm text-neutral-400">info@cuervohomes.com</a>
                         </div>
                     </motion.div>
                 )}
@@ -175,13 +178,13 @@ export default function Layout({ children }: LayoutProps) {
                 scrolled && !mobileMenuOpen ? "translate-y-0" : "translate-y-full"
             )}>
                 <div className="bg-accent p-4 flex items-center justify-between">
-                    <span className="text-white text-sm font-bold">Ready to get started?</span>
-                    <button
-                        onClick={() => scrollToSection('contact')}
+                    <span className="text-white text-sm font-bold">Want your home's true value?</span>
+                    <Link
+                        to="/contact"
                         className="bg-white text-black px-6 py-2 text-xs font-bold uppercase tracking-widest hover:bg-neutral-100 transition-colors"
                     >
-                        Book Consultation
-                    </button>
+                        Free Equity Report
+                    </Link>
                 </div>
             </div>
 
@@ -189,87 +192,108 @@ export default function Layout({ children }: LayoutProps) {
                 {children}
             </main>
 
-            <footer className="bg-neutral-950 text-white pt-24 pb-12 px-6 md:px-12 border-t border-neutral-800">
+            <footer className="bg-neutral-950 text-white border-t border-white/10 relative overflow-hidden">
                 <div className="max-w-[1800px] mx-auto">
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-16 mb-24">
-
+                    {/* Top Row - Bento Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-4 border-b border-white/10">
                         {/* Brand Column */}
-                        <div className="col-span-1 md:col-span-4">
-                            <h3 className="text-2xl font-serif font-bold mb-6">The Toro Group Corp.</h3>
-                            <p className="text-neutral-500 text-sm leading-relaxed mb-6 max-w-sm">
-                                Representing the finest estates in Newport Beach, Laguna Beach, and Corona Del Mar. A legacy of precision, discretion, and record-breaking results.
-                            </p>
-
-                            <div className="space-y-4">
+                        <div className="p-8 md:p-16 border-b md:border-b-0 md:border-r border-white/10 flex flex-col justify-between">
+                            <div>
+                                <img
+                                    src="/c_homes/main_logo_full_logo_only_copy.png"
+                                    alt="Cuervo Homes"
+                                    className="h-16 md:h-20 object-contain mb-6"
+                                />
+                                <p className="text-neutral-400 text-[13px] leading-[1.8] font-medium mb-10 max-w-sm">
+                                    Helping families buy and sell homes across all of Orange County. 33+ homes sold. 5.0★ rating. Your trust is everything to us.
+                                </p>
+                            </div>
+                            
+                            <div className="space-y-4 pt-8 border-t border-white/10">
                                 <div>
-                                    <p className="text-[10px] uppercase tracking-widest text-neutral-400 font-bold mb-1">Jack Toro</p>
-                                    <p className="text-[10px] text-neutral-500">CA DRE 02198741 • AZ License SA691674000</p>
-                                </div>
-                                <div>
-                                    <p className="text-[10px] uppercase tracking-widest text-neutral-400 font-bold mb-1">Sebastian Street</p>
-                                    <p className="text-[10px] text-neutral-500">CA DRE 02208742</p>
-                                </div>
-                                <div>
-                                    <p className="text-[10px] uppercase tracking-widest text-neutral-400 font-bold mb-1">Seth Bewley</p>
-                                    <p className="text-[10px] text-neutral-500">CA DRE 02239999</p>
+                                    <p className="text-[9px] uppercase tracking-[0.2em] text-white font-bold mb-1.5">Regina Cuervo, REALTOR®</p>
+                                    <p className="text-[10px] text-neutral-500 font-medium">Cal DRE #02144970</p>
+                                    <p className="text-[10px] text-neutral-500 font-medium tracking-wide">WE'RE Real Estate Inc</p>
+                                    <p className="text-[10px] text-neutral-500 font-medium mt-1.5 flex items-center gap-2">
+                                        <div className="w-1 h-1 rounded-full bg-neutral-600" /> Speaks English & Spanish
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
                         {/* Navigation */}
-                        <div className="col-span-1 md:col-span-2">
-                            <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-400 mb-8">Navigation</h4>
-                            <ul className="space-y-4 text-sm text-neutral-300">
-                                <li><a href="#home" onClick={(event) => { event.preventDefault(); scrollToSection('home'); }} className="hover:text-white transition-colors">Home</a></li>
-                                <li><a href="#stats" onClick={(event) => { event.preventDefault(); scrollToSection('stats'); }} className="hover:text-white transition-colors">Why Us</a></li>
-                                <li><a href="#team" onClick={(event) => { event.preventDefault(); scrollToSection('team'); }} className="hover:text-white transition-colors">Team</a></li>
-                                <li><a href="#areas" onClick={(event) => { event.preventDefault(); scrollToSection('areas'); }} className="hover:text-white transition-colors">Areas</a></li>
-                                <li><a href="#contact" onClick={(event) => { event.preventDefault(); scrollToSection('contact'); }} className="hover:text-white transition-colors">Contact</a></li>
+                        <div className="p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/10">
+                            <h4 className="text-[9px] font-bold tracking-[0.2em] uppercase text-neutral-500 mb-8 flex items-center gap-3">
+                                <span className="w-4 h-[1px] bg-neutral-700" /> Navigation
+                            </h4>
+                            <ul className="space-y-5 text-[11px] font-bold tracking-widest uppercase text-neutral-300">
+                                <li><Link to="/" onClick={() => setMobileMenuOpen(false)} className="hover:text-white transition-colors flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-[1px] bg-white transition-all duration-300" />Home</Link></li>
+                                <li><Link to="/services" onClick={() => setMobileMenuOpen(false)} className="hover:text-white transition-colors flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-[1px] bg-white transition-all duration-300" />Services</Link></li>
+                                <li><Link to="/contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-white transition-colors flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-[1px] bg-white transition-all duration-300" />Contact</Link></li>
                             </ul>
                         </div>
 
                         {/* Areas */}
-                        <div className="col-span-1 md:col-span-3">
-                            <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-400 mb-8">Areas</h4>
-                            <ul className="space-y-4 text-sm text-neutral-300">
-                                <li><span className="cursor-default">Newport Beach</span></li>
-                                <li><span className="cursor-default">Irvine</span></li>
-                                <li><span className="cursor-default">Huntington Beach</span></li>
-                                <li><span className="cursor-default">Laguna Beach</span></li>
-                                <li><span className="cursor-default">Corona Del Mar</span></li>
-                                <li><span className="cursor-default">Dana Point</span></li>
+                        <div className="p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/10">
+                            <h4 className="text-[9px] font-bold tracking-[0.2em] uppercase text-neutral-500 mb-8 flex items-center gap-3">
+                                <span className="w-4 h-[1px] bg-neutral-700" /> Key Areas
+                            </h4>
+                            <ul className="space-y-4 text-[11px] font-medium tracking-wide text-neutral-400">
+                                <li><span className="cursor-default hover:text-white transition-colors">Orange County</span></li>
+                                <li><span className="cursor-default hover:text-white transition-colors">Newport Beach</span></li>
+                                <li><span className="cursor-default hover:text-white transition-colors">Costa Mesa</span></li>
+                                <li><span className="cursor-default hover:text-white transition-colors">Corona Del Mar</span></li>
+                                <li><span className="cursor-default hover:text-white transition-colors">Huntington Beach</span></li>
+                                <li><span className="cursor-default hover:text-white transition-colors">North Tustin</span></li>
+                                <li><span className="cursor-default hover:text-white transition-colors">Santa Ana</span></li>
+                                <li><span className="cursor-default hover:text-white transition-colors">Orange</span></li>
+                                <li><span className="cursor-default hover:text-white transition-colors">Anaheim</span></li>
                             </ul>
                         </div>
 
                         {/* Contact */}
-                        <div className="col-span-1 md:col-span-3 text-right md:text-right">
-                            <h4 className="text-xs font-bold tracking-widest uppercase text-neutral-400 mb-8">Inquiries</h4>
-                            <div className="space-y-2">
-                                <a href="tel:7147321429" className="block text-2xl font-serif hover:text-neutral-300 transition-colors">714.732.1429</a>
-                                <a href="mailto:jack@soldbytoro.com" className="block text-lg text-neutral-400 hover:text-white transition-colors">jack@soldbytoro.com</a>
+                        <div className="p-8 md:p-12 flex flex-col justify-between">
+                            <div>
+                                <h4 className="text-[9px] font-bold tracking-[0.2em] uppercase text-neutral-500 mb-8 flex items-center gap-3">
+                                    <span className="w-4 h-[1px] bg-neutral-700" /> Inquiries
+                                </h4>
+                                <div className="space-y-3">
+                                    <a href="tel:7143195966" className="block text-xl font-serif font-medium hover:text-neutral-300 transition-colors">714.319.5966</a>
+                                    <a href="mailto:info@cuervohomes.com" className="block text-sm font-sans tracking-wide text-neutral-400 hover:text-white transition-colors pb-6 border-b border-white/10 inline-block w-full">info@cuervohomes.com</a>
+                                </div>
                             </div>
-                            <div className="mt-8">
-                                <p className="text-sm text-neutral-500">
-                                    123 Pacific Coast Highway <br />
-                                    Newport Beach, CA 92660
+                            
+                            <div className="mt-8 pt-6">
+                                <p className="text-[11px] text-neutral-500 font-medium leading-[1.8]">
+                                    <span className="text-white block mb-1">Operating Hours</span>
+                                    8:00 AM - 8:00 PM <br />
+                                    <span className="italic">(After hours available)</span><br />
+                                    Orange County, CA
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    {/* Bottom Bar */}
-                    <div className="border-t border-neutral-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p className="text-[10px] text-neutral-600 uppercase tracking-widest">
-                            © 2026 The Toro Group Corp. All Rights Reserved.
+                    {/* Massive Graphic Watermark */}
+                    <div className="w-full flex items-center justify-center pt-16 pb-10 px-6 md:px-0 select-none pointer-events-none overflow-hidden">
+                        <span className="text-[15vw] md:text-[11.5vw] xl:text-[200px] font-serif font-black tracking-tighter leading-none text-white/5 whitespace-nowrap">
+                            CUERVO HOMES
+                        </span>
+                    </div>
+
+                    {/* Bottom Utility Bar */}
+                    <div className="border-t border-white/10 p-6 md:px-12 md:py-8 flex flex-col md:flex-row justify-between items-center gap-6 bg-black/50">
+                        <p className="text-[9px] text-neutral-500 uppercase tracking-[0.2em] font-bold">
+                            © 2026 Cuervo Homes. All Rights Reserved.
                         </p>
                         <div className="flex gap-6">
                             <a
                                 href="https://quicklaunchweb.us"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-[10px] text-neutral-600 uppercase tracking-widest hover:text-white cursor-pointer transition-colors"
+                                className="text-[9px] text-neutral-500 uppercase tracking-[0.2em] font-bold hover:text-white transition-colors flex items-center gap-2"
                             >
-                                Website by <span className="font-bold">QuickLaunchWeb</span>
+                                Website by <span className="text-white">QuickLaunchWeb</span>
                             </a>
                         </div>
                     </div>

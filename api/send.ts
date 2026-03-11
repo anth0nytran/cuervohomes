@@ -416,7 +416,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const escapedMessage = message ? escapeHtml(message).replace(/\n/g, "<br />") : "";
 
-    const brandName = "The Toro Group Corp.";
+    const brandName = "Cuervo Homes";
     const brandColor = "#000000";
     const brandAccent = "#333333";
 
@@ -527,7 +527,7 @@ message: ${message || "(none)"}
 
     try {
         const { error: sendError } = await resend.emails.send({
-            from: "The Toro Group | New Lead <leads@quicklaunchweb.us>",
+            from: "Cuervo Homes | New Lead <leads@quicklaunchweb.us>",
             to: [toEmail],
             bcc,
             replyTo: email || undefined,

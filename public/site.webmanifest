@@ -1,10 +1,10 @@
 {
-  "name": "The Toro Group Corp",
-  "short_name": "Toro Group",
-  "description": "Orange County real estate advisors for buying, selling, relocation, and distressed properties.",
+  "name": "Cuervo Homes",
+  "short_name": "Cuervo Homes",
+  "description": "Orange County luxury real estate advisory — buy, sell, relocate, and invest with confidence.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#0a0a0a",
   "theme_color": "#0a0a0a",
   "icons": [
     {

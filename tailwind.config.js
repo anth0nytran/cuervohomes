@@ -8,8 +8,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                serif: ['Playfair Display', 'serif'],
-                sans: ['Montserrat', 'sans-serif']
+                serif: ['"Montserrat"', 'sans-serif'], 
+                sans: ['"Inter"', 'sans-serif']
             },
             colors: {
                 border: "hsl(var(--border))",
@@ -34,7 +34,7 @@ export default {
                     foreground: "hsl(var(--muted-foreground))"
                 },
                 accent: {
-                    DEFAULT: "#C5A059", // Luxury Bronze
+                    DEFAULT: "#FACC15", // Bright Yellow
                     foreground: "hsl(var(--accent-foreground))"
                 },
                 popover: {
