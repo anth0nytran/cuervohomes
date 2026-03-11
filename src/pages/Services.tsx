@@ -32,7 +32,7 @@ const ServicesHero = () => (
 
         <div className="relative z-10 w-full max-w-5xl mx-auto px-6 md:px-12 text-center mt-20">
             <span className="inline-block py-1 px-3 border border-white/30 text-white/80 text-xs tracking-[0.2em] uppercase font-bold mb-6 bg-black/40 backdrop-blur-sm">
-                Trusted By Families Across Orange County
+                Trusted Advisor Across Orange County
             </span>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-black text-white leading-[1.05] tracking-tight mb-8 drop-shadow-2xl">
                 WE DO THE <br/>
@@ -57,10 +57,10 @@ const ProofStrip = () => (
         <div className="max-w-7xl mx-auto px-6 md:px-12">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
                 {[
-                    { number: "33+", label: "Homes Sold" },
-                    { number: "5.0", label: "Client Rating" },
-                    { number: "$1.2M", label: "Avg. Sale Price" },
-                    { number: "6+", label: "Years Experience" },
+                    { number: "1,312", label: "Team Sales" },
+                    { number: "5.0", label: "Team Rating" },
+                    { number: "$753K", label: "Avg. Sale Price" },
+                    { number: "656", label: "Team Reviews" },
                 ].map((stat, idx) => (
                     <div key={idx} className="flex flex-col items-center justify-center text-center">
                         <span className="text-3xl md:text-4xl font-serif font-black text-white mb-2">{stat.number}</span>

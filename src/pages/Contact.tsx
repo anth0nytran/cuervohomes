@@ -51,10 +51,10 @@ export default function Contact() {
                 <div className="max-w-7xl mx-auto px-6 md:px-12">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
                         {[
-                            { number: "33+", label: "Homes Sold" },
-                            { number: "5.0", label: "Client Rating" },
-                            { number: "$1.2M", label: "Avg. Sale Price" },
-                            { number: "6+", label: "Years Experience" },
+                            { number: "1,312", label: "Team Sales" },
+                            { number: "5.0", label: "Team Rating" },
+                            { number: "$753K", label: "Avg. Sale Price" },
+                            { number: "656", label: "Team Reviews" },
                         ].map((stat, idx) => (
                             <div key={idx} className="flex flex-col items-center justify-center text-center">
                                 <span className="text-3xl md:text-4xl font-serif font-black text-white mb-2">{stat.number}</span>
@@ -178,12 +178,12 @@ export default function Contact() {
                     <div className="relative z-10 flex flex-col justify-center h-full p-8 md:p-12 lg:p-16">
                         <div className="mb-12">
                             <ShieldCheck className="w-12 h-12 text-accent mb-6" strokeWidth={1} />
-                            <h3 className="text-2xl md:text-3xl font-serif font-black text-white mb-4">Why Families Choose Regina</h3>
+                            <h3 className="text-2xl md:text-3xl font-serif font-black text-white mb-4">Why Clients Choose Our Team</h3>
                             <ul className="space-y-3">
                                 {[
-                                    "Perfect 5.0★ rating — 17 verified reviews",
-                                    "33+ homes sold across Orange County",
-                                    "$1.2M average sale price",
+                                    "Perfect 5.0★ rating — 656 team reviews",
+                                    "1,312+ team sales across Southern California",
+                                    "$753K average sale price",
                                     "Speaks English & Spanish",
                                 ].map((item, idx) => (
                                     <li key={idx} className="flex items-center gap-3 text-sm text-neutral-300 font-sans">

@@ -1,0 +1,508 @@
+﻿diff --git a/src/pages/Home.tsx b/src/pages/Home.tsx
+index 20f4da8..07da94f 100644
+--- a/src/pages/Home.tsx
++++ b/src/pages/Home.tsx
+@@ -1,6 +1,6 @@
+ import { useState, useRef } from "react";
+ import { Link } from "react-router-dom";
+-import { ArrowRight, ChevronLeft, ChevronRight, Star, ShieldCheck, HomeIcon, Briefcase, MapPin, Quote, LineChart } from "lucide-react";
++import { ArrowRight, ChevronLeft, ChevronRight, Star, ShieldCheck, HomeIcon, Briefcase, MapPin, Quote, LineChart, CheckCircle } from "lucide-react";
+ import { motion } from "framer-motion";
+ 
+ // --- Phase 9: Magazine-Quality, Photogenic, Trust-First Homepage ---
+@@ -29,7 +29,7 @@ const HeroHQ = () => {
+                         transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                         className="inline-block py-1 px-3 border border-white/30 text-white/80 text-xs tracking-[0.2em] uppercase font-bold mb-6 bg-black/40 backdrop-blur-sm"
+                     >
+-                        Trusted By Families Across Orange County
++                        Trusted Advisor Across Orange County
+                     </motion.span>
+ 
+                     <motion.h1
+@@ -81,9 +81,9 @@ const HeroHQ = () => {
+                         className="hidden lg:flex items-center gap-10 mt-10 border-t border-white/15 pt-8"
+                     >
+                         {[
+-                            { number: "33+", label: "Homes Sold" },
+-                            { number: "5.0Γÿà", label: "Client Rating" },
+-                            { number: "$1.2M", label: "Avg. Sale Price" },
++                            { number: "1,312", label: "Team Sales" },
++                            { number: "5.0Γÿà", label: "Team Rating" },
++                            { number: "$753K", label: "Avg. Sale Price" },
+                         ].map((stat, idx) => (
+                             <div key={idx}>
+                                 <span className="block text-2xl font-serif font-black text-white leading-none mb-1 tracking-tight">{stat.number}</span>
+@@ -93,76 +93,110 @@ const HeroHQ = () => {
+                     </motion.div>
+                 </div>
+ 
+-                {/* Right side ΓÇö Form (desktop only) */}
++                {/* Right side ΓÇö Integrated Form Panel (desktop only) */}
+                 <motion.div
+                     initial={{ y: 30 }}
+                     animate={{ y: 0 }}
+                     transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+-                    className="hidden lg:block w-full max-w-md flex-shrink-0"
++                    className="hidden lg:block w-full max-w-[640px] flex-shrink-0"
+                 >
+-                    <div className="bg-[#111]/95 backdrop-blur-md border border-white/10 p-8 xl:p-10 shadow-2xl">
+-                        <h3 className="text-lg font-serif font-black text-white mb-1 tracking-tight">Get Your Free Home Equity Report</h3>
+-                        <p className="text-[11px] text-neutral-500 font-sans mb-6">Find out what your home is really worth. 100% free.</p>
+-
+-                        <form className="space-y-3" autoComplete="off">
+-                            <div>
+-                                <label className="text-[9px] font-bold tracking-[0.2em] uppercase text-neutral-500 mb-1.5 block">Full Name *</label>
+-                                <input
+-                                    type="text"
+-                                    className="w-full bg-black border border-white/10 px-4 py-3 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-700"
+-                                    placeholder="John Doe"
+-                                    required
+-                                />
+-                            </div>
+-                            <div>
+-                                <label className="text-[9px] font-bold tracking-[0.2em] uppercase text-neutral-500 mb-1.5 block">Phone *</label>
+-                                <input
+-                                    type="tel"
+-                                    className="w-full bg-black border border-white/10 px-4 py-3 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-700"
+-                                    placeholder="(714) 555-0198"
+-                                    required
+-                                />
+-                            </div>
+-                            <div>
+-                                <label className="text-[9px] font-bold tracking-[0.2em] uppercase text-neutral-500 mb-1.5 block">Email *</label>
+-                                <input
+-                                    type="email"
+-                                    className="w-full bg-black border border-white/10 px-4 py-3 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-700"
+-                                    placeholder="john@email.com"
+-                                    required
+-                                />
+-                            </div>
+-                            <div>
+-                                <label className="text-[9px] font-bold tracking-[0.2em] uppercase text-neutral-500 mb-1.5 block">Property Address</label>
+-                                <input
+-                                    type="text"
+-                                    className="w-full bg-black border border-white/10 px-4 py-3 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-700"
+-                                    placeholder="123 Main St, Newport Beach, CA"
+-                                />
++                    <div className="bg-[#111]/95 backdrop-blur-md border border-white/10 shadow-2xl relative">
++                        {/* Top accent line */}
++                        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-white/50 to-transparent" />
++
++                        <div className="grid grid-cols-5">
++                            {/* LEFT COLUMN ΓÇö Info */}
++                            <div className="col-span-2 p-8 border-r border-white/10 flex flex-col justify-between bg-black/40">
++                                <div>
++                                    <span className="text-white/60 text-[8px] tracking-[0.3em] font-bold uppercase block mb-4">Free Valuation</span>
++                                    <h3 className="text-[26px] font-serif font-black text-white tracking-tight leading-[1.1] uppercase mb-8">
++                                        What is <br/>Your Home <br/>
++                                        <span className="italic font-light text-neutral-300">Really</span><br/>
++                                        Worth?
++                                    </h3>
++
++                                    {/* Agent Card */}
++                                    <div className="flex flex-col gap-3 mb-8 pt-6 border-t border-white/10">
++                                        <div className="flex items-center gap-4">
++                                            <div className="w-12 h-12 rounded-full overflow-hidden border border-white/20 flex-shrink-0 bg-neutral-800">
++                                                <img src="/c_homes/headshot_copy.png" alt="Regina Cuervo" className="w-full h-full object-cover grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all" />
++                                            </div>
++                                            <div>
++                                                <h4 className="text-white font-bold text-[10px] tracking-[0.2em] uppercase leading-tight mb-1">Regina Cuervo</h4>
++                                                <p className="text-neutral-500 text-[8px] tracking-widest uppercase">Top Zillow Agent</p>
++                                            </div>
++                                        </div>
++                                        <div className="flex items-center gap-2 mt-1">
++                                            <span className="text-white/80 text-[9px] font-bold tracking-widest uppercase">WE'RE</span>
++                                            <span className="text-neutral-700 text-[10px]">|</span>
++                                            <span className="text-white font-bold text-[11px]">5.0</span>
++                                            <Star className="w-3 h-3 text-accent fill-accent"/>
++                                            <span className="text-neutral-500 text-[8px] uppercase tracking-widest">656 Reviews</span>
++                                        </div>
++                                    </div>
++                                </div>
++
++                                {/* Checkmarks */}
++                                <div className="space-y-4 pt-6 border-t border-white/10 flex-grow flex flex-col justify-end">
++                                    {[
++                                        "100% Complimentary", 
++                                        "Confidential Review", 
++                                        "Within 24 Hours"
++                                    ].map((item) => (
++                                        <div key={item} className="flex items-center gap-3">
++                                            <CheckCircle className="w-4 h-4 text-white/40 flex-shrink-0" strokeWidth={2}/>
++                                            <span className="text-neutral-400 text-[9px] uppercase tracking-[0.15em] font-bold">{item}</span>
++                                        </div>
++                                    ))}
++                                </div>
+                             </div>
+-                            <div>
+-                                <label className="text-[9px] font-bold tracking-[0.2em] uppercase text-neutral-500 mb-1.5 block">I'm Interested In... *</label>
+-                                <select className="w-full bg-black border border-white/10 px-4 py-3 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all appearance-none cursor-pointer" required>
+-                                    <option value="" disabled selected>Choose one...</option>
+-                                    <option value="selling">Selling My Home</option>
+-                                    <option value="buying">Buying A Home</option>
+-                                    <option value="equity">Free Home Equity Report</option>
+-                                    <option value="investing">Investment Properties</option>
+-                                    <option value="relocating">Relocating to Orange County</option>
+-                                    <option value="first-time">First-Time Home Buyer</option>
+-                                </select>
++
++                            {/* RIGHT COLUMN ΓÇö Form */}
++                            <div className="col-span-3 p-8">
++                                <form className="space-y-5" autoComplete="off">
++                                    <div className="grid grid-cols-2 gap-4">
++                                        <div>
++                                            <label className="text-[8px] font-bold tracking-[0.2em] uppercase text-neutral-500 mb-2 block">Full Name</label>
++                                            <input type="text" className="w-full bg-black/50 border border-white/10 px-4 py-3 text-white text-xs focus:border-white/50 focus:bg-black focus:outline-none transition-all placeholder:text-neutral-700" placeholder="John Doe" required />
++                                        </div>
++                                        <div>
++                                            <label className="text-[8px] font-bold tracking-[0.2em] uppercase text-neutral-500 mb-2 block">Phone</label>
++                                            <input type="tel" className="w-full bg-black/50 border border-white/10 px-4 py-3 text-white text-xs focus:border-white/50 focus:bg-black focus:outline-none transition-all placeholder:text-neutral-700" placeholder="(714) 555-0198" required />
++                                        </div>
++                                    </div>
++                                    <div>
++                                        <label className="text-[8px] font-bold tracking-[0.2em] uppercase text-neutral-500 mb-2 block">Email Address</label>
++                                        <input type="email" className="w-full bg-black/50 border border-white/10 px-4 py-3 text-white text-xs focus:border-white/50 focus:bg-black focus:outline-none transition-all placeholder:text-neutral-700" placeholder="john@email.com" required />
++                                    </div>
++                                    <div>
++                                        <label className="text-[8px] font-bold tracking-[0.2em] uppercase text-neutral-500 mb-2 block">I'm Interested In...</label>
++                                        <select className="w-full bg-black/50 border border-white/10 px-4 py-3 text-white text-xs focus:border-white/50 focus:bg-black focus:outline-none transition-all appearance-none cursor-pointer" required>
++                                            <option value="" disabled selected>Select an option...</option>
++                                            <option value="selling">Selling My Home</option>
++                                            <option value="buying">Buying A Home</option>
++                                            <option value="equity">Free Home Equity Report</option>
++                                            <option value="investing">Investment Properties</option>
++                                        </select>
++                                    </div>
++                                    <div>
++                                        <label className="text-[8px] font-bold tracking-[0.2em] uppercase text-neutral-500 mb-2 block">Property Address</label>
++                                        <input type="text" className="w-full bg-black/50 border border-white/10 px-4 py-3 text-white text-xs focus:border-white/50 focus:bg-black focus:outline-none transition-all placeholder:text-neutral-700" placeholder="123 Main St, Newport Beach, CA" />
++                                    </div>
++
++                                    <button
++                                        type="submit"
++                                        className="group w-full flex items-center justify-between bg-white text-black px-6 py-4 mt-4 hover:bg-neutral-200 transition-all duration-300"
++                                    >
++                                        <span className="text-[10px] font-black tracking-[0.25em] uppercase">Get My Free Report</span>
++                                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
++                                    </button>
++
++                                    <p className="text-[7px] text-center text-neutral-600 uppercase tracking-widest mt-4">
++                                        Zero Obligation ┬╖ Private & Confidential
++                                    </p>
++                                </form>
+                             </div>
+-                            <button
+-                                type="submit"
+-                                className="group w-full flex items-center justify-center gap-3 bg-white text-black px-6 py-4 text-xs font-black tracking-[0.2em] uppercase hover:bg-neutral-200 transition-all duration-300 mt-3"
+-                            >
+-                                Get My Free Report
+-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+-                            </button>
+-                            <p className="text-center text-[9px] text-neutral-600 uppercase tracking-widest">
+-                                Zero Obligation ┬╖ Your info stays private
+-                            </p>
+-                        </form>
++                        </div>
+                     </div>
+                 </motion.div>
+             </div>
+@@ -189,35 +223,11 @@ const RecentSalesSection = () => {
+     const sectionRef = useRef(null);
+ 
+     const sales = [
+-        { price: "$1,860,000", beds: 4, baths: 3, sqft: "2,728", city: "Santa Ana, CA", address: "13241 Orange Knoll Dr", soldAgo: "26 days ago", role: "Buyer" },
+-        { price: "$904,000", beds: 2, baths: 2, sqft: "1,089", city: "Anaheim, CA", address: "203 S Kroeger St", soldAgo: "26 days ago", role: "Seller" },
+-        { price: "$488,000", beds: 3, baths: 1, sqft: "840", city: "Los Angeles, CA", address: "1257 S McBride Ave", soldAgo: "1 month ago", role: "Seller" },
+-        { price: "$1,375,000", beds: 4, baths: 2, sqft: "2,160", city: "Orange, CA", address: "822 E Lomita Ave", soldAgo: "2 months ago", role: "Buyer" },
+-        { price: "$1,200,000", beds: 2, baths: 2, sqft: "1,394", city: "Santa Ana, CA", address: "12931 Prospect Ave", soldAgo: "3 months ago", role: "Buyer ┬╖ Seller" },
+-    ];
+-
+-    const featured = [
+-        {
+-            image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=100&w=1600&auto=format&fit=crop",
+-            price: "$1,860,000",
+-            address: "13241 Orange Knoll Dr, Santa Ana",
+-            specs: "4 Beds ┬╖ 3 Baths ┬╖ 2,728 Sq.Ft.",
+-            status: "SOLD ΓÇö BUYER SIDE"
+-        },
+-        {
+-            image: "https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=100&w=1600&auto=format&fit=crop",
+-            price: "$1,375,000",
+-            address: "822 E Lomita Ave, Orange",
+-            specs: "4 Beds ┬╖ 2 Baths ┬╖ 2,160 Sq.Ft.",
+-            status: "SOLD ΓÇö BUYER SIDE"
+-        },
+-        {
+-            image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=100&w=1600&auto=format&fit=crop",
+-            price: "$1,200,000",
+-            address: "12931 Prospect Ave, Santa Ana",
+-            specs: "2 Beds ┬╖ 2 Baths ┬╖ 1,394 Sq.Ft.",
+-            status: "SOLD ΓÇö BUYER & SELLER"
+-        }
++        { price: "$660,000", beds: 3, baths: 2, sqft: "1,133", city: "Pomona, CA", address: "251 San Juan St", soldAgo: "7 days ago", role: "Buyer" },
++        { price: "$589,000", beds: 3, baths: 3, sqft: "1,521", city: "Azusa, CA", address: "750 E 5th St Unit 51", soldAgo: "10 days ago", role: "Buyer" },
++        { price: "$1,051,000", beds: 2, baths: 1, sqft: "1,184", city: "Long Beach, CA", address: "28 Hermosa Ave", soldAgo: "16 days ago", role: "Buyer" },
++        { price: "$1,300,000", beds: 3, baths: 3, sqft: "2,587", city: "Monrovia, CA", address: "926 Sierra Blanca Dr", soldAgo: "16 days ago", role: "Buyer" },
++        { price: "$820,000", beds: 3, baths: 3, sqft: "1,380", city: "La Puente, CA", address: "16410 Francisquito Ave", soldAgo: "23 days ago", role: "Seller" },
+     ];
+ 
+     return (
+@@ -226,16 +236,16 @@ const RecentSalesSection = () => {
+             <div className="w-full px-6 md:px-12 lg:px-24 py-6 md:py-8 border-b border-white/10">
+                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                     <div className="flex items-center gap-4">
+-                        <span className="text-accent text-[10px] md:text-xs tracking-[0.3em] font-bold uppercase">Real Results</span>
++                        <span className="text-accent text-[10px] md:text-xs tracking-[0.3em] font-bold uppercase">Team Results</span>
+                         <div className="hidden md:block w-px h-5 bg-white/20" />
+                         <h2 className="text-2xl md:text-3xl font-serif font-black tracking-tight leading-none text-white">RECENT SALES</h2>
+                     </div>
+                     <div className="grid grid-cols-2 sm:flex items-center gap-4 sm:gap-6 md:gap-10">
+                         {[
+-                            { number: "11", label: "Last 12 Mo." },
+-                            { number: "33", label: "Total Sales" },
+-                            { number: "$148KΓÇô$4.1M", label: "Price Range" },
+-                            { number: "$1.2M", label: "Avg. Price" },
++                            { number: "198", label: "Last 12 Mo." },
++                            { number: "1,312", label: "Total Team Sales" },
++                            { number: "$14KΓÇô$4.6M", label: "Price Range" },
++                            { number: "$753K", label: "Avg. Price" },
+                         ].map((stat, idx) => (
+                             <div key={idx} className="text-center">
+                                 <span className="block text-lg md:text-2xl font-serif font-black text-white leading-none mb-0.5 tracking-tight">{stat.number}</span>
+@@ -246,45 +256,7 @@ const RecentSalesSection = () => {
+                 </div>
+             </div>
+ 
+-            {/* Featured property photo cards - Truly Full Width */}
+-            <div className="w-full border-b border-black bg-black border-y">
+-                <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
+-                    {featured.map((prop, idx) => (
+-                        <motion.div
+-                            key={idx}
+-                            initial={{ opacity: 0, y: 40 }}
+-                            whileInView={{ opacity: 1, y: 0 }}
+-                            transition={{ duration: 0.8, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
+-                            viewport={{ once: true, margin: "-50px" }}
+-                            className={`group cursor-pointer relative overflow-hidden ${idx !== 2 ? 'border-b border-black md:border-b-0 md:border-r' : ''} bg-black hover:bg-neutral-900 transition-colors duration-500 min-h-[350px] md:min-h-[600px] flex flex-col justify-end`}
+-                        >
+-                            <div className="absolute inset-0 w-full z-0">
+-                                <img
+-                                    src={prop.image}
+-                                    alt={prop.address}
+-                                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 ease-out"
+-                                />
+-                            </div>
+-
+-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+-
+-                            <div className="absolute top-6 left-6 bg-black text-white px-3 py-1.5 text-[8px] font-bold tracking-[0.2em] uppercase z-10 border border-white/20">
+-                                {prop.status}
+-                            </div>
+-
+-                            <div className="relative z-10 p-8 md:p-10 flex flex-col space-y-1 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+-                                <h3 className="text-3xl md:text-4xl font-serif font-black tracking-tight text-white">{prop.price}</h3>
+-                                <p className="text-xs font-bold text-neutral-300 flex items-center gap-1.5 pt-2">
+-                                    <MapPin className="w-3 h-3 text-accent" /> {prop.address}
+-                                </p>
+-                                <p className="text-[9px] tracking-[0.15em] text-neutral-400 uppercase font-bold pt-2">{prop.specs}</p>
+-                            </div>
+-                        </motion.div>
+-                    ))}
+-                </div>
+-            </div>
+-
+-            {/* Re-open container for table */}
++            {/* Compact sales table */}
+             <div className="w-full bg-white">
+                 {/* Sales table ΓÇö all transactions */}
+                 <div className="bg-white">
+@@ -334,7 +306,7 @@ const RecentSalesSection = () => {
+                 {/* Bottom CTA row */}
+                 <div className="py-12 px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6 bg-white border-b border-black">
+                     <p className="text-[11px] font-bold tracking-[0.1em] text-neutral-400 font-sans uppercase">
+-                        5.0Γÿà client rating &nbsp;┬╖&nbsp; 6+ years experience &nbsp;┬╖&nbsp; English & Spanish
++                        5.0Γÿà team rating &nbsp;┬╖&nbsp; 656 team reviews &nbsp;┬╖&nbsp; English & Spanish
+                     </p>
+                     <Link to="/contact" className="group inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase text-black border-b border-black pb-1 hover:text-accent hover:border-accent transition-colors">
+                         Want Results Like These?
+@@ -451,24 +423,24 @@ const DirectorProfile = () => {
+                         "I know that buying or selling a home is one of the biggest decisions you'll ever make. I work hard to make it as stress-free and easy as possible."
+                     </p>
+                     <p className="text-[13px] text-neutral-500 font-sans leading-relaxed mb-6 font-medium">
+-                        With 6+ years of experience and 33+ homes sold, Regina has earned a perfect 5.0-star rating from 17 verified client reviews. Every single client rates her 5 out of 5 for local knowledge, negotiation skills, responsiveness, and process expertise.
++                        As lead of the WE'RE Real Estate team, our team has earned a perfect 5.0-star rating from 656 verified reviews. With over 1,312 team sales and an average sale price of $753K, we bring unmatched experience to every transaction.
+                     </p>
+                     <p className="text-[13px] text-neutral-500 font-sans leading-relaxed mb-12 font-medium">
+-                        She speaks both English and Spanish and is committed to giving every family the personal attention they deserve.
++                        Our team speaks both English and Spanish and is committed to giving every family the personal attention they deserve.
+                     </p>
+ 
+                     <div className="grid grid-cols-3 gap-0 border-y border-neutral-200">
+                         <div className="py-6 border-r border-neutral-200">
+-                            <span className="block text-3xl font-serif font-black text-black mb-1 tracking-tight">33+</span>
+-                            <span className="block text-[8px] font-bold tracking-[0.2em] text-neutral-400 uppercase">Homes Sold</span>
++                            <span className="block text-3xl font-serif font-black text-black mb-1 tracking-tight">1,312</span>
++                            <span className="block text-[8px] font-bold tracking-[0.2em] text-neutral-400 uppercase">Team Sales</span>
+                         </div>
+                         <div className="py-6 px-6 border-r border-neutral-200">
+                             <span className="block text-3xl font-serif font-black text-black mb-1 tracking-tight">5.0</span>
+-                            <span className="block text-[8px] font-bold tracking-[0.2em] text-neutral-400 uppercase">Star Rating</span>
++                            <span className="block text-[8px] font-bold tracking-[0.2em] text-neutral-400 uppercase">Team Rating</span>
+                         </div>
+                         <div className="py-6 pl-6">
+-                            <span className="block text-3xl font-serif font-black text-black mb-1 tracking-tight">6+</span>
+-                            <span className="block text-[8px] font-bold tracking-[0.2em] text-neutral-400 uppercase">Years Exp.</span>
++                            <span className="block text-3xl font-serif font-black text-black mb-1 tracking-tight">656</span>
++                            <span className="block text-[8px] font-bold tracking-[0.2em] text-neutral-400 uppercase">Team Reviews</span>
+                         </div>
+                     </div>
+                 </div>
+@@ -477,6 +449,102 @@ const DirectorProfile = () => {
+     );
+ };
+ 
++// --- The Cuervo Homes Signature Selling Experience ---
++const SignatureSellingExperience = () => {
++    const ref = useRef(null);
++
++    const steps = [
++        {
++            number: "01",
++            title: "Private Strategy Consultation",
++            description: "Every successful sale begins with a thoughtful strategy. During our private consultation, we evaluate your home, review market data, and discuss your goals and timeline. From there, we craft a tailored pricing and marketing plan designed to position your home competitively and attract the right buyers."
++        },
++        {
++            number: "02",
++            title: "Curated Preparation & Presentation",
++            description: "Presentation is everything in today's market. I coordinate professional photography, elevated marketing materials, and expert staging guidance to ensure your home is showcased at its absolute best. Every detail is carefully curated to create a powerful first impression."
++        },
++        {
++            number: "03",
++            title: "Strategic Exposure & Negotiation",
++            description: "Your home is introduced to the market with a targeted marketing launch designed to generate strong buyer interest. As offers come in, I leverage experience and negotiation expertise to secure the strongest possible terms and maximize your return."
++        },
++        {
++            number: "04",
++            title: "Seamless Closing & White-Glove Service",
++            description: "From inspections to escrow coordination and final documentation, I oversee every detail to ensure a smooth and successful closing. My goal is to make the process seamless, so you can move forward with confidence knowing your investment was handled with care and precision."
++        }
++    ];
++
++    return (
++        <section ref={ref} className="relative py-32 md:py-40 overflow-hidden">
++            <div className="absolute inset-0 z-0">
++                <img
++                    src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?q=100&w=3000&auto=format&fit=crop"
++                    alt="Luxury home interior"
++                    className="w-full h-full object-cover"
++                />
++                <div className="absolute inset-0 bg-black/92" />
++            </div>
++
++            <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
++                {/* Header */}
++                <div className="text-center mb-20 md:mb-24">
++                    <span className="inline-block text-accent text-xs tracking-[0.2em] font-bold uppercase mb-4">
++                        Our Process
++                    </span>
++                    <h2 className="text-3xl md:text-6xl font-serif font-black tracking-tight text-white leading-tight mb-6">
++                        THE CUERVO HOMES <br /> SIGNATURE SELLING EXPERIENCE
++                    </h2>
++                    <p className="text-neutral-400 max-w-2xl mx-auto font-sans text-lg leading-relaxed">
++                        A refined, strategic approach designed to position your home for maximum exposure, elite buyers, and exceptional results.
++                    </p>
++                </div>
++
++                {/* Steps */}
++                <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border border-white/10">
++                    {steps.map((step, idx) => (
++                        <motion.div
++                            key={idx}
++                            initial={{ opacity: 0, y: 30 }}
++                            whileInView={{ opacity: 1, y: 0 }}
++                            transition={{ duration: 0.8, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
++                            viewport={{ once: true }}
++                            className={`p-8 md:p-12 lg:p-14 group hover:bg-white/5 transition-colors duration-500 ${
++                                idx < 2 ? 'border-b border-white/10' : ''
++                            } ${idx % 2 === 0 ? 'md:border-r border-white/10' : ''}`}
++                        >
++                            <div className="flex items-start gap-6">
++                                <span className="text-4xl md:text-5xl font-serif font-black text-accent/30 group-hover:text-accent transition-colors duration-500 leading-none flex-shrink-0">
++                                    {step.number}
++                                </span>
++                                <div>
++                                    <div className="w-8 h-[2px] bg-accent/40 mb-4 group-hover:w-12 transition-all duration-500" />
++                                    <h3 className="text-xl md:text-2xl font-serif font-black text-white mb-4 tracking-tight leading-tight">
++                                        {step.title}
++                                    </h3>
++                                    <p className="text-[13px] md:text-sm text-neutral-400 font-sans leading-relaxed">
++                                        {step.description}
++                                    </p>
++                                </div>
++                            </div>
++                        </motion.div>
++                    ))}
++                </div>
++
++                {/* Bottom CTA */}
++                <div className="mt-16 text-center">
++                    <Link to="/contact" className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 font-bold tracking-widest uppercase text-sm hover:bg-neutral-200 transition-colors">
++                        Start Your Selling Journey <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
++                    </Link>
++                </div>
++            </div>
++        </section>
++    );
++};
++
++
++
+ // --- Neighborhoods: Full aerial banner + full-bleed photo tiles ---
+ const NeighborhoodShowcase = () => {
+     const ref = useRef(null);
+@@ -690,19 +758,31 @@ const BookingFunnelCTA = () => {
+                 <h2 className="text-3xl md:text-6xl font-serif font-black tracking-tight mb-6 text-white">
+                     WANT TO KNOW WHAT YOUR HOME IS REALLY WORTH?
+                 </h2>
+-                <p className="text-lg md:text-xl text-neutral-400 font-sans mb-12 max-w-2xl mx-auto">
+-                    Stop guessing. Get a free, accurate home equity report and see exactly how much you could walk away with. No strings attached.
++                <p className="text-lg md:text-xl text-neutral-400 font-sans mb-12 max-w-2xl mx-auto leading-relaxed">
++                    Online estimates can miss the mark by tens of thousands of dollars. Receive a personalized home value report prepared by a local expertΓÇöfactoring in your home's unique upgrades, condition, and the latest market activity.
+                 </p>
+ 
++                <div className="flex flex-col items-center gap-4 mb-12">
++                    <div className="flex items-center gap-3">
++                        <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
++                        <span className="text-sm md:text-base text-neutral-300 font-sans">100% Complimentary ΓÇö No Obligation</span>
++                    </div>
++                    <div className="flex items-center gap-3">
++                        <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
++                        <span className="text-sm md:text-base text-neutral-300 font-sans">Confidential Home Value & Strategy Review</span>
++                    </div>
++                    <div className="flex items-center gap-3">
++                        <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
++                        <span className="text-sm md:text-base text-neutral-300 font-sans">Delivered Within 24 Hours</span>
++                    </div>
++                </div>
++
+                 <Link
+                     to="/contact"
+                     className="inline-flex items-center justify-center bg-white text-black px-8 py-5 md:px-12 md:py-6 text-sm md:text-lg font-black tracking-[0.2em] uppercase hover:bg-neutral-200 transition-all duration-300 shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(255,255,255,0.2)]"
+                 >
+-                    Get Free Equity Report
++                    Get Free Home Value Report
+                 </Link>
+-                <p className="text-xs text-neutral-500 mt-8 font-bold uppercase tracking-widest">
+-                    No Obligation. 100% Free.
+-                </p>
+             </motion.div>
+         </section>
+     );
+@@ -714,6 +794,7 @@ export default function Home() {
+             <HeroHQ />
+             <RecentSalesSection />
+             <ContentWhyTrustUs />
++            <SignatureSellingExperience />
+             <DirectorProfile />
+             <NeighborhoodShowcase />
+             <CinematicTestimonials />
