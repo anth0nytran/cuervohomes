@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import { X } from "lucide-react";
+import { X, ArrowRight } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 interface LayoutProps {
@@ -174,16 +174,21 @@ export default function Layout({ children }: LayoutProps) {
 
             {/* Sticky Mobile CTA Bar */}
             <div className={cn(
-                "fixed bottom-0 left-0 right-0 z-40 md:hidden transition-all duration-300",
+                "fixed bottom-0 left-0 right-0 z-40 md:hidden transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
                 scrolled && !mobileMenuOpen ? "translate-y-0" : "translate-y-full"
             )}>
-                <div className="bg-accent p-4 flex items-center justify-between">
-                    <span className="text-white text-sm font-bold">Want your home's true value?</span>
+                <div className="bg-black border-t border-white/10 px-5 py-4">
                     <Link
                         to="/contact"
-                        className="bg-white text-black px-6 py-2 text-xs font-bold uppercase tracking-widest hover:bg-neutral-100 transition-colors"
+                        className="flex items-center justify-between w-full group"
                     >
-                        Free Equity Report
+                        <div>
+                            <span className="block text-[9px] font-bold tracking-[0.25em] text-accent uppercase mb-0.5">Limited — Free for homeowners</span>
+                            <span className="block text-white text-[15px] font-serif font-black tracking-tight">How Much Is Your Home Worth?</span>
+                        </div>
+                        <div className="bg-white text-black w-10 h-10 flex items-center justify-center flex-shrink-0 group-active:scale-95 transition-transform">
+                            <ArrowRight className="w-4 h-4" />
+                        </div>
                     </Link>
                 </div>
             </div>

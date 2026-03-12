@@ -24,45 +24,45 @@ const ServicesHero = () => (
         {/* Dark nav backdrop */}
         <div className="bg-black h-20 md:h-[72px]" />
 
-        <div className="flex flex-col md:flex-row min-h-[60vh] md:min-h-[85vh]">
+        <div className="flex flex-col-reverse md:flex-row min-h-[60vh] md:min-h-[85vh]">
             {/* Left — clean white editorial panel */}
-            <div className="w-full md:w-1/2 bg-white flex items-center p-8 md:p-16 lg:p-20 xl:p-24 border-b md:border-b-0 md:border-r border-neutral-200">
-                <div className="w-full max-w-lg pt-8 md:pt-0">
-                    <span className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block mb-5">
+            <div className="w-full md:w-1/2 bg-white flex items-center p-6 py-10 md:p-16 lg:p-20 xl:p-24 border-t md:border-t-0 md:border-r border-neutral-200">
+                <div className="w-full max-w-lg">
+                    <span className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block mb-4 md:mb-5">
                         Trusted Advisor · Orange County
                     </span>
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-black text-black leading-[1.05] tracking-tight mb-6">
+                    <h1 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-black text-black leading-[1.05] tracking-tight mb-5 md:mb-6">
                         WE DO THE{" "}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-black to-neutral-500">HARD WORK.</span>
                     </h1>
-                    <div className="w-10 h-[2px] bg-black mb-6" />
-                    <p className="text-[15px] text-neutral-500 font-sans leading-relaxed mb-10 max-w-md">
+                    <div className="w-10 h-[2px] bg-black mb-5 md:mb-6" />
+                    <p className="text-[14px] md:text-[15px] text-neutral-500 font-sans leading-relaxed mb-8 md:mb-10 max-w-md">
                         Whether you're selling, buying, investing, or relocating — we fight for the best deal possible and make the entire process easy for you and your family.
                     </p>
-                    <Link to="/contact" className="group inline-flex items-center justify-center gap-3 bg-black text-white px-8 py-4 text-xs font-black tracking-widest uppercase hover:bg-neutral-800 transition-all duration-300">
+                    <Link to="/contact" className="group inline-flex items-center justify-center gap-3 bg-black text-white px-8 py-4 text-xs font-black tracking-widest uppercase hover:bg-neutral-800 transition-all duration-300 w-full md:w-auto">
                         Get Started Today
                         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </Link>
 
                     {/* Stats — clean row with top border */}
-                    <div className="mt-12 pt-8 border-t border-neutral-200 grid grid-cols-4 gap-4">
+                    <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-neutral-200 grid grid-cols-4 gap-0">
                         {[
                             { number: "1,312", label: "Team Sales" },
                             { number: "5.0", label: "Rating" },
                             { number: "$753K", label: "Avg. Price" },
                             { number: "656", label: "Reviews" },
                         ].map((stat, idx) => (
-                            <div key={idx}>
-                                <span className="block text-xl md:text-2xl font-serif font-black text-black tracking-tight leading-none">{stat.number}</span>
-                                <span className="block text-[7px] tracking-[0.2em] font-bold text-neutral-400 uppercase mt-1.5">{stat.label}</span>
+                            <div key={idx} className={`text-center md:text-left ${idx < 3 ? "border-r border-neutral-200 md:border-r-0" : ""}`}>
+                                <span className="block text-lg md:text-2xl font-serif font-black text-black tracking-tight leading-none">{stat.number}</span>
+                                <span className="block text-[6px] md:text-[7px] tracking-[0.15em] md:tracking-[0.2em] font-bold text-neutral-400 uppercase mt-1.5">{stat.label}</span>
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
 
-            {/* Right — image */}
-            <div className="w-full md:w-1/2 relative min-h-[50vh] md:min-h-0 overflow-hidden">
+            {/* Right — image (shows FIRST on mobile via flex-col-reverse) */}
+            <div className="w-full md:w-1/2 relative h-[45vh] md:h-auto overflow-hidden">
                 <img
                     src="/services/hero.png"
                     alt="Orange County Real Estate Services"
@@ -102,15 +102,15 @@ const SignatureProcess = () => {
     return (
         <section className="bg-black text-white">
             {/* Header row */}
-            <div className="max-w-7xl mx-auto px-6 md:px-12 pt-16 md:pt-20 pb-10 md:pb-12 border-b border-white/[0.08]">
-                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div className="max-w-7xl mx-auto px-6 md:px-12 pt-12 md:pt-20 pb-8 md:pb-12 border-b border-white/[0.08]">
+                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 md:gap-4">
                     <div>
-                        <span className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block mb-3">Our Process</span>
-                        <h2 className="text-2xl md:text-4xl font-serif font-black tracking-tight leading-tight">
+                        <span className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block mb-2 md:mb-3">Our Process</span>
+                        <h2 className="text-xl md:text-4xl font-serif font-black tracking-tight leading-tight">
                             THE SIGNATURE SELLING EXPERIENCE
                         </h2>
                     </div>
-                    <p className="text-sm text-neutral-500 font-sans max-w-sm leading-relaxed md:text-right">
+                    <p className="text-[13px] md:text-sm text-neutral-500 font-sans max-w-sm leading-relaxed md:text-right">
                         A strategic, four-step approach designed for maximum exposure and exceptional results.
                     </p>
                 </div>
@@ -122,19 +122,19 @@ const SignatureProcess = () => {
                     {steps.map((step, idx) => (
                         <div
                             key={idx}
-                            className={`group p-8 md:p-10 border-b border-white/[0.08] ${
+                            className={`group p-5 md:p-10 border-b border-white/[0.08] ${
                                 idx % 2 === 0 ? "md:border-r md:border-white/[0.08]" : ""
                             } hover:bg-white/[0.03] transition-colors duration-300`}
                         >
-                            <div className="flex items-start gap-5">
-                                <span className="text-3xl font-serif font-black text-accent leading-none flex-shrink-0 pt-0.5">
+                            <div className="flex items-start gap-4 md:gap-5">
+                                <span className="text-2xl md:text-3xl font-serif font-black text-accent leading-none flex-shrink-0 pt-0.5">
                                     {step.number}
                                 </span>
                                 <div className="flex-1 min-w-0">
-                                    <h3 className="text-lg font-serif font-black text-white mb-2 tracking-tight leading-tight">
+                                    <h3 className="text-base md:text-lg font-serif font-black text-white mb-1.5 md:mb-2 tracking-tight leading-tight">
                                         {step.title}
                                     </h3>
-                                    <p className="text-[13px] text-neutral-400 font-sans leading-relaxed">
+                                    <p className="text-[12px] md:text-[13px] text-neutral-400 font-sans leading-relaxed">
                                         {step.description}
                                     </p>
                                 </div>
@@ -145,13 +145,13 @@ const SignatureProcess = () => {
             </div>
 
             {/* Bottom CTA row */}
-            <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 md:py-12 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="max-w-7xl mx-auto px-6 md:px-12 py-8 md:py-12 flex flex-col sm:flex-row items-center justify-between gap-4 md:gap-6">
                 <p className="text-[11px] font-bold tracking-[0.1em] text-neutral-500 font-sans uppercase">
                     Every home. Every detail. Every dollar.
                 </p>
                 <Link
                     to="/contact"
-                    className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-neutral-200 transition-all duration-300"
+                    className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-neutral-200 transition-all duration-300 w-full sm:w-auto justify-center"
                 >
                     Start Your Selling Journey
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -164,96 +164,102 @@ const SignatureProcess = () => {
 // --- #1 Service: Sell — Anchored Light Panel on Parallax ---
 const ServiceSell = () => (
     <section className="relative flex flex-col md:flex-row min-h-[80vh]">
-        {/* Full Parallax Background */}
+        {/* Full Background */}
         <div
-            className="absolute inset-0 z-0 bg-fixed bg-center bg-cover"
+            className="absolute inset-0 z-0 bg-center bg-cover bg-fixed"
             style={{ backgroundImage: "url('/services/sell.png')" }}
         >
-            <div className="absolute inset-0 bg-black/40 md:bg-black/20" />
+            <div className="absolute inset-0 bg-black/30 md:bg-black/20" />
         </div>
 
-        {/* Anchored Content Panel (Left) */}
-        <div className="relative z-10 w-full md:w-[55%] lg:w-1/2 bg-white text-black p-10 md:p-16 lg:p-24 shadow-2xl flex flex-col justify-center">
+        {/* Mobile: image peek area */}
+        <div className="relative z-10 w-full md:hidden h-[28vh] pointer-events-none" />
+
+        {/* Content Panel */}
+        <div className="relative z-10 w-full md:w-[55%] lg:w-1/2 bg-white text-black p-6 py-10 md:p-16 lg:p-24 shadow-2xl flex flex-col justify-center">
             <div className="max-w-xl">
-                <span className="text-[10px] font-bold tracking-[0.3em] text-accent uppercase mb-4 block">Our #1 Service</span>
-                <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif font-black mb-6 leading-[1.05] tracking-tight">
+                <span className="text-[10px] font-bold tracking-[0.3em] text-accent uppercase mb-3 md:mb-4 block">Our #1 Service</span>
+                <h2 className="text-2xl md:text-5xl lg:text-6xl font-serif font-black mb-5 md:mb-6 leading-[1.05] tracking-tight">
                     SELL YOUR HOME FOR THE HIGHEST PRICE
                 </h2>
-                <div className="w-12 h-1 bg-black mb-8" />
-                <p className="text-neutral-600 font-sans leading-relaxed mb-6">
+                <div className="w-12 h-1 bg-black mb-6 md:mb-8" />
+                <p className="text-[14px] md:text-base text-neutral-600 font-sans leading-relaxed mb-4 md:mb-6">
                     Most agents stick a sign in the yard and pray. We don't do that. We use aggressive marketing, professional photography, and hard negotiation to make sure you walk away with the most money possible.
                 </p>
-                <p className="text-sm text-neutral-500 font-sans leading-relaxed mb-8">
+                <p className="text-[13px] md:text-sm text-neutral-500 font-sans leading-relaxed mb-6 md:mb-8">
                     With an average sale price of $1.2M and 33+ homes closed across Newport Beach, Costa Mesa, Santa Ana, and more — Regina knows how to price it right, market it hard, and negotiate even harder.
                 </p>
 
-                <ul className="space-y-4 mb-10">
+                <ul className="space-y-3 md:space-y-4 mb-8 md:mb-10">
                     {[
                         "Custom marketing plan for your home",
                         "Professional HD photos & video tours",
                         "Aggressive pricing to attract top buyers",
                         "Hard negotiation — we fight for every dollar"
                     ].map((item, idx) => (
-                        <li key={idx} className="flex items-center gap-4 text-sm font-bold text-black font-sans">
-                            <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" /> {item}
+                        <li key={idx} className="flex items-center gap-3 md:gap-4 text-[13px] md:text-sm font-bold text-black font-sans">
+                            <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-accent flex-shrink-0" /> {item}
                         </li>
                     ))}
                 </ul>
 
-                <Link to="/contact" className="group inline-flex items-center gap-3 bg-black text-white px-8 py-5 font-black tracking-widest uppercase text-xs hover:bg-neutral-800 transition-colors w-full md:w-auto justify-center">
+                <Link to="/contact" className="group inline-flex items-center gap-3 bg-black text-white px-8 py-4 md:py-5 font-black tracking-widest uppercase text-xs hover:bg-neutral-800 transition-colors w-full md:w-auto justify-center">
                     Get Free Equity Report <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
             </div>
         </div>
 
-        {/* Parallax Window Area (Right) */}
-        <div className="relative z-10 w-full md:w-[45%] lg:w-1/2 min-h-[40vh] md:min-h-0 pointer-events-none"></div>
+        {/* Desktop: parallax window (right) */}
+        <div className="relative z-10 hidden md:block w-[45%] lg:w-1/2 pointer-events-none"></div>
     </section>
 );
 
 // --- #2 Service: Buy — Anchored Dark Panel on Parallax ---
 const ServiceBuy = () => (
     <section className="relative flex flex-col md:flex-row min-h-[80vh] border-t border-white/10">
-        {/* Full Parallax Background */}
+        {/* Full Background */}
         <div
-            className="absolute inset-0 z-0 bg-fixed bg-center bg-cover"
+            className="absolute inset-0 z-0 bg-center bg-cover bg-fixed"
             style={{ backgroundImage: "url('/services/buy.png')" }}
         >
-            <div className="absolute inset-0 bg-black/50 md:bg-black/40" />
+            <div className="absolute inset-0 bg-black/40" />
         </div>
 
-        {/* Parallax Window Area (Left) */}
-        <div className="relative z-10 w-full md:w-[45%] lg:w-1/2 min-h-[40vh] md:min-h-0 pointer-events-none"></div>
+        {/* Mobile: image peek area */}
+        <div className="relative z-10 w-full md:hidden h-[28vh] pointer-events-none" />
 
-        {/* Anchored Content Panel (Right) */}
-        <div className="relative z-10 w-full md:w-[55%] lg:w-1/2 bg-[#0a0a0a]/95 backdrop-blur-md text-white p-10 md:p-16 lg:p-24 shadow-2xl border-l border-white/5 flex flex-col justify-center">
+        {/* Desktop: parallax window (left) */}
+        <div className="relative z-10 hidden md:block w-[45%] lg:w-1/2 pointer-events-none"></div>
+
+        {/* Content Panel */}
+        <div className="relative z-10 w-full md:w-[55%] lg:w-1/2 bg-[#0a0a0a]/95 backdrop-blur-md text-white p-6 py-10 md:p-16 lg:p-24 shadow-2xl md:border-l border-white/5 flex flex-col justify-center">
             <div className="max-w-xl">
-                <span className="text-[10px] font-bold tracking-[0.3em] text-accent uppercase mb-4 block">Buyers & First-Timers</span>
-                <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif font-black mb-6 leading-[1.05] tracking-tight">
+                <span className="text-[10px] font-bold tracking-[0.3em] text-accent uppercase mb-3 md:mb-4 block">Buyers & First-Timers</span>
+                <h2 className="text-2xl md:text-5xl lg:text-6xl font-serif font-black mb-5 md:mb-6 leading-[1.05] tracking-tight">
                     FIND YOUR DREAM HOME
                 </h2>
-                <div className="w-12 h-1 bg-white mb-8" />
-                <p className="text-neutral-300 font-sans leading-relaxed mb-6">
+                <div className="w-12 h-1 bg-white mb-6 md:mb-8" />
+                <p className="text-[14px] md:text-base text-neutral-300 font-sans leading-relaxed mb-4 md:mb-6">
                     Looking for the perfect home for your family? Whether it's your first house or your forever home, Regina listens to exactly what you need, finds it fast, and fights to get you the best price.
                 </p>
-                <p className="text-sm text-neutral-400 font-sans leading-relaxed mb-8">
+                <p className="text-[13px] md:text-sm text-neutral-400 font-sans leading-relaxed mb-6 md:mb-8">
                     First-time buyers are always welcome. No confusing paperwork, no pressure. Just honest guidance from someone who cares. Regina speaks English and Spanish, so your family will always feel comfortable.
                 </p>
 
-                <ul className="space-y-4 mb-10">
+                <ul className="space-y-3 md:space-y-4 mb-8 md:mb-10">
                     {[
                         "Personalized home search for your needs",
                         "First-time buyer guidance & hand-holding",
                         "Access to homes before they hit the market",
                         "Clear, honest advice — no surprises"
                     ].map((item, idx) => (
-                        <li key={idx} className="flex items-center gap-4 text-sm font-bold text-white font-sans">
-                            <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" /> {item}
+                        <li key={idx} className="flex items-center gap-3 md:gap-4 text-[13px] md:text-sm font-bold text-white font-sans">
+                            <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-accent flex-shrink-0" /> {item}
                         </li>
                     ))}
                 </ul>
 
-                <Link to="/contact" className="group inline-flex items-center gap-3 bg-white text-black px-8 py-5 font-black tracking-widest uppercase text-xs hover:bg-neutral-200 transition-colors w-full md:w-auto justify-center shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                <Link to="/contact" className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 md:py-5 font-black tracking-widest uppercase text-xs hover:bg-neutral-200 transition-colors w-full md:w-auto justify-center shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                     Start Your Home Search <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
             </div>
@@ -263,54 +269,54 @@ const ServiceBuy = () => (
 
 // --- More services: White section with parallax window inside each card ---
 const MoreServices = () => (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-white py-12 md:py-24">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
             {/* Header */}
-            <div className="text-center mb-10 md:mb-14">
+            <div className="text-center mb-8 md:mb-14">
                 <span className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block mb-3">
                     Beyond Buying & Selling
                 </span>
-                <h2 className="text-3xl md:text-4xl font-serif font-black text-black tracking-tight">
+                <h2 className="text-2xl md:text-4xl font-serif font-black text-black tracking-tight">
                     MORE WAYS WE HELP
                 </h2>
             </div>
 
-            {/* Cards with parallax windows */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6">
                 {[
                     {
-                        icon: <DollarSign className="w-6 h-6" strokeWidth={1.5} />,
+                        icon: <DollarSign className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />,
                         title: "Free Home Value Report",
                         desc: "Get a detailed, accurate equity report — completely free. No strings attached, no sales pressure.",
                         cta: "Get Yours Free",
                     },
                     {
-                        icon: <TrendingUp className="w-6 h-6" strokeWidth={1.5} />,
+                        icon: <TrendingUp className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />,
                         title: "Investment Properties",
                         desc: "Access off-market properties and investment opportunities. Price range from $148K to $4.1M.",
                         cta: "See Opportunities",
                     },
                     {
-                        icon: <MapPin className="w-6 h-6" strokeWidth={1.5} />,
+                        icon: <MapPin className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />,
                         title: "Relocation Services",
                         desc: "Moving to Orange County? We handle everything so you can focus on your family. English & Spanish spoken.",
                         cta: "Get Started",
                     },
                 ].map((service, idx) => (
-                    <div key={idx} className="group relative overflow-hidden flex flex-col min-h-[280px]">
-                        {/* Parallax background filling entire card */}
+                    <div key={idx} className="group relative overflow-hidden flex flex-col min-h-[220px] md:min-h-[280px]">
+                        {/* Background — static on mobile, parallax on desktop */}
                         <div
-                            className="absolute inset-0 bg-fixed bg-center bg-cover"
+                            className="absolute inset-0 bg-center bg-cover bg-fixed"
                             style={{ backgroundImage: "url('/services/aerial.png')" }}
                         />
-                        <div className="absolute inset-0 bg-black/70 group-hover:bg-black/60 transition-colors duration-500" />
+                        <div className="absolute inset-0 bg-black/75 md:bg-black/70 group-hover:bg-black/60 transition-colors duration-500" />
                         {/* Content on top */}
-                        <div className="relative z-10 p-7 md:p-8 flex flex-col flex-1">
-                            <div className="w-10 h-10 border border-white/20 flex items-center justify-center text-accent mb-5 group-hover:border-accent/40 transition-colors duration-300">
+                        <div className="relative z-10 p-6 md:p-8 flex flex-col flex-1">
+                            <div className="w-9 h-9 md:w-10 md:h-10 border border-white/20 flex items-center justify-center text-accent mb-4 md:mb-5 group-hover:border-accent/40 transition-colors duration-300">
                                 {service.icon}
                             </div>
-                            <h3 className="text-lg font-serif font-black text-white mb-2 tracking-tight">{service.title}</h3>
-                            <p className="text-[13px] text-neutral-400 font-sans leading-relaxed mb-6 flex-1">
+                            <h3 className="text-base md:text-lg font-serif font-black text-white mb-1.5 md:mb-2 tracking-tight">{service.title}</h3>
+                            <p className="text-[12px] md:text-[13px] text-neutral-400 font-sans leading-relaxed mb-4 md:mb-6 flex-1">
                                 {service.desc}
                             </p>
                             <Link to="/contact" className="text-[10px] font-bold uppercase tracking-widest text-white flex items-center gap-2 group-hover:text-accent transition-colors">
@@ -338,10 +344,10 @@ const ServiceTestimonial = () => {
 
     return (
         <section className="relative bg-neutral-950 border-t border-white/[0.06]">
-            <div className="flex flex-col md:flex-row min-h-[70vh]">
+            <div className="flex flex-col md:flex-row md:min-h-[70vh]">
 
                 {/* Left — Dense agent profile panel */}
-                <div className="w-full md:w-[42%] lg:w-[38%] bg-black border-b md:border-b-0 md:border-r border-white/[0.06] p-6 md:p-8 lg:p-10 flex flex-col justify-center">
+                <div className="w-full md:w-[42%] lg:w-[38%] bg-black border-b md:border-b-0 md:border-r border-white/[0.06] p-5 md:p-8 lg:p-10 flex flex-col justify-center">
                     {/* Top: Headshot + Name row */}
                     <div className="flex items-center gap-4 mb-6 pb-6 border-b border-white/[0.08]">
                         <div className="w-16 h-16 md:w-[72px] md:h-[72px] rounded-full overflow-hidden ring-2 ring-white/10 ring-offset-2 ring-offset-black flex-shrink-0">
@@ -399,42 +405,42 @@ const ServiceTestimonial = () => {
                 </div>
 
                 {/* Right — Reviews */}
-                <div className="w-full md:w-[58%] lg:w-[62%] flex flex-col justify-center p-8 md:p-14 lg:p-20">
-                    <span className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block mb-8">
+                <div className="w-full md:w-[58%] lg:w-[62%] flex flex-col justify-center p-6 py-8 md:p-14 lg:p-20">
+                    <span className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block mb-5 md:mb-8">
                         Client Reviews
                     </span>
 
-                    <div className="flex gap-1 mb-6">
-                        {[1,2,3,4,5].map(i => <Star key={i} className="w-4 h-4 text-accent fill-accent" />)}
+                    <div className="flex gap-1 mb-4 md:mb-6">
+                        {[1,2,3,4,5].map(i => <Star key={i} className="w-3.5 h-3.5 md:w-4 md:h-4 text-accent fill-accent" />)}
                     </div>
 
-                    <blockquote className="text-xl md:text-2xl lg:text-[28px] font-serif font-black italic text-white leading-[1.5] mb-8 min-h-[140px] md:min-h-[160px] flex items-start">
+                    <blockquote className="text-lg md:text-2xl lg:text-[28px] font-serif font-black italic text-white leading-[1.5] mb-6 md:mb-8 min-h-[100px] md:min-h-[160px] flex items-start">
                         "{review.quote}"
                     </blockquote>
 
-                    <div className="flex items-center gap-4 pb-8 border-b border-white/[0.08]">
-                        <div className="w-10 h-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center flex-shrink-0">
-                            <span className="text-[11px] font-serif font-black text-white">{review.initials}</span>
+                    <div className="flex items-center gap-3 md:gap-4 pb-6 md:pb-8 border-b border-white/[0.08]">
+                        <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center flex-shrink-0">
+                            <span className="text-[10px] md:text-[11px] font-serif font-black text-white">{review.initials}</span>
                         </div>
                         <div>
-                            <span className="font-serif font-black text-white block text-sm">{review.name}</span>
-                            <span className="text-[10px] font-bold tracking-widest text-neutral-500 uppercase">{review.detail}</span>
+                            <span className="font-serif font-black text-white block text-[13px] md:text-sm">{review.name}</span>
+                            <span className="text-[9px] md:text-[10px] font-bold tracking-widest text-neutral-500 uppercase">{review.detail}</span>
                         </div>
                     </div>
 
                     {/* Navigation */}
-                    <div className="flex items-center justify-between mt-6">
-                        <div className="flex items-center gap-3">
-                            <button onClick={() => setIdx(i => Math.max(0, i - 1))} disabled={idx === 0} className="w-10 h-10 border border-white/15 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all disabled:opacity-20">
+                    <div className="flex items-center justify-between mt-4 md:mt-6">
+                        <div className="flex items-center gap-2 md:gap-3">
+                            <button onClick={() => setIdx(i => Math.max(0, i - 1))} disabled={idx === 0} className="w-9 h-9 md:w-10 md:h-10 border border-white/15 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all disabled:opacity-20">
                                 <ChevronLeft className="w-4 h-4" />
                             </button>
-                            <button onClick={() => setIdx(i => Math.min(reviews.length - 1, i + 1))} disabled={idx === reviews.length - 1} className="w-10 h-10 border border-white/15 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all disabled:opacity-20">
+                            <button onClick={() => setIdx(i => Math.min(reviews.length - 1, i + 1))} disabled={idx === reviews.length - 1} className="w-9 h-9 md:w-10 md:h-10 border border-white/15 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all disabled:opacity-20">
                                 <ChevronRight className="w-4 h-4" />
                             </button>
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-1.5 md:gap-2">
                             {reviews.map((_, i) => (
-                                <button key={i} onClick={() => setIdx(i)} className={`h-1 rounded-full transition-all duration-300 ${i === idx ? 'bg-accent w-8' : 'bg-white/20 w-4 hover:bg-white/40'}`} />
+                                <button key={i} onClick={() => setIdx(i)} className={`h-1 rounded-full transition-all duration-300 ${i === idx ? 'bg-accent w-6 md:w-8' : 'bg-white/20 w-3 md:w-4 hover:bg-white/40'}`} />
                             ))}
                         </div>
                     </div>
@@ -447,7 +453,7 @@ const ServiceTestimonial = () => {
 
 // --- Bottom CTA ---
 const ServicesCTA = () => (
-    <section className="relative py-32 overflow-hidden">
+    <section className="relative py-20 md:py-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
             <img
                 src="/services/cta.png"
@@ -458,16 +464,16 @@ const ServicesCTA = () => (
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-12 text-center">
-            <h2 className="text-4xl md:text-6xl font-serif font-black text-white tracking-tight mb-6">
+            <h2 className="text-3xl md:text-6xl font-serif font-black text-white tracking-tight mb-4 md:mb-6">
                 READY TO <br/> GET STARTED?
             </h2>
-            <p className="text-neutral-400 font-sans text-lg max-w-2xl mx-auto mb-10">
+            <p className="text-neutral-400 font-sans text-[14px] md:text-lg max-w-2xl mx-auto mb-8 md:mb-10">
                 Get your free home equity report or schedule a buyer consultation today. No obligation, no pressure — just honest help from Regina and the Cuervo Homes team.
             </p>
-            <Link to="/contact" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-8 py-5 text-sm font-bold tracking-widest uppercase hover:bg-neutral-200 transition-all shadow-[0_0_30px_rgba(255,255,255,0.15)]">
+            <Link to="/contact" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-8 py-4 md:py-5 text-xs md:text-sm font-bold tracking-widest uppercase hover:bg-neutral-200 transition-all shadow-[0_0_30px_rgba(255,255,255,0.15)] w-full sm:w-auto">
                 Contact Regina Now <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
-            <p className="text-[10px] text-neutral-600 uppercase tracking-widest mt-6">
+            <p className="text-[9px] md:text-[10px] text-neutral-600 uppercase tracking-widest mt-5 md:mt-6">
                 Regina Cuervo, REALTOR® · Cal DRE #02144970 · WE'RE Real Estate Inc
             </p>
         </div>

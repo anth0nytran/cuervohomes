@@ -295,16 +295,16 @@ const RecentSalesSection = () => {
                         <div className="hidden md:block w-px h-5 bg-white/20" />
                         <h2 className="text-2xl md:text-3xl font-serif font-black tracking-tight leading-none text-white">RECENT SALES</h2>
                     </div>
-                    <div className="grid grid-cols-2 sm:flex items-center gap-4 sm:gap-6 md:gap-10">
+                    <div className="grid grid-cols-4 gap-0 border border-white/10 md:border-0 md:flex md:items-center md:gap-10 mt-2 md:mt-0">
                         {[
                             { number: "198", label: "Last 12 Mo." },
-                            { number: "1,312", label: "Total Team Sales" },
+                            { number: "1,312", label: "Team Sales" },
                             { number: "$14K–$4.6M", label: "Price Range" },
                             { number: "$753K", label: "Avg. Price" },
                         ].map((stat, idx) => (
-                            <div key={idx} className="text-center">
-                                <span className="block text-lg md:text-2xl font-serif font-black text-white leading-none mb-0.5 tracking-tight">{stat.number}</span>
-                                <span className="block text-[7px] md:text-[8px] tracking-[0.2em] font-bold text-white/40 uppercase">{stat.label}</span>
+                            <div key={idx} className={`text-center py-3 md:py-0 ${idx < 3 ? "border-r border-white/10 md:border-r-0" : ""}`}>
+                                <span className="block text-base md:text-2xl font-serif font-black text-white leading-none mb-0.5 tracking-tight">{stat.number}</span>
+                                <span className="block text-[6px] md:text-[8px] tracking-[0.15em] md:tracking-[0.2em] font-bold text-white/40 uppercase">{stat.label}</span>
                             </div>
                         ))}
                     </div>
@@ -328,30 +328,41 @@ const RecentSalesSection = () => {
                     {sales.map((sale, idx) => (
                         <div
                             key={idx}
-                            className="flex flex-col md:grid md:grid-cols-12 gap-3 md:gap-4 px-6 md:px-12 py-6 border-b border-neutral-200 hover:bg-neutral-50 transition-colors md:items-center group cursor-default"
+                            className="md:grid md:grid-cols-12 md:gap-4 px-6 md:px-12 py-5 md:py-6 border-b border-neutral-200 hover:bg-neutral-50 transition-colors md:items-center group cursor-default"
                         >
-                            <div className="col-span-4 flex justify-between md:block items-center mb-1 md:mb-0">
+                            {/* Mobile: structured card layout */}
+                            <div className="md:hidden">
+                                <div className="flex items-start justify-between mb-2">
+                                    <div>
+                                        <span className="text-lg font-serif font-black text-black leading-none">{sale.price}</span>
+                                        <span className="block text-[11px] font-sans font-bold text-black mt-1">{sale.address}</span>
+                                    </div>
+                                    <span className="inline-block text-[8px] font-bold tracking-[0.2em] uppercase text-white bg-black px-2 py-1 flex-shrink-0 ml-4">{sale.role}</span>
+                                </div>
+                                <div className="flex items-center justify-between mt-2 pt-2 border-t border-neutral-100">
+                                    <span className="text-[10px] tracking-wider uppercase font-sans font-bold text-neutral-500">{sale.beds} bd · {sale.baths} ba · {sale.sqft} sqft</span>
+                                    <span className="text-[10px] tracking-wider uppercase font-sans font-bold text-neutral-400 flex items-center gap-1">
+                                        <MapPin className="w-3 h-3 text-neutral-400" /> {sale.city}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Desktop: table row */}
+                            <div className="hidden md:block col-span-4">
                                 <span className="text-sm font-sans font-bold text-black border-l-2 border-transparent group-hover:border-black pl-0 group-hover:pl-3 transition-all duration-300">{sale.address}</span>
-                                <span className="md:hidden text-lg font-serif font-black text-black">{sale.price}</span>
                             </div>
                             <div className="hidden md:block col-span-2">
                                 <span className="text-lg font-serif font-black text-black">{sale.price}</span>
                             </div>
-                            <div className="col-span-3">
+                            <div className="hidden md:block col-span-3">
                                 <span className="text-[10px] tracking-wider uppercase font-sans font-bold text-neutral-500">{sale.beds} bd · {sale.baths} ba · {sale.sqft} sqft</span>
                             </div>
-                            <div className="col-span-2 flex items-center pt-2 md:pt-0 border-t border-neutral-100 md:border-none md:justify-start justify-between">
+                            <div className="hidden md:flex col-span-2 items-center">
                                 <span className="text-[10px] tracking-wider uppercase font-sans font-bold text-neutral-500 flex items-center gap-1.5">
                                     <MapPin className="w-3 h-3 text-black" /> {sale.city}
                                 </span>
-                                <span className="md:hidden text-[9px] tracking-widest font-sans font-bold text-neutral-400 uppercase">Sold {sale.soldAgo}</span>
                             </div>
                             <div className="hidden md:block col-span-1 text-right">
-                                <span className="inline-block text-[8px] font-bold tracking-[0.2em] uppercase text-white bg-black px-2 py-1">{sale.role}</span>
-                            </div>
-
-                            {/* Mobile bottom tag */}
-                            <div className="md:hidden flex justify-end mt-1">
                                 <span className="inline-block text-[8px] font-bold tracking-[0.2em] uppercase text-white bg-black px-2 py-1">{sale.role}</span>
                             </div>
                         </div>
@@ -377,7 +388,7 @@ const ContentWhyTrustUs = () => {
     const ref = useRef(null);
 
     return (
-        <section ref={ref} className="relative py-32 md:py-48 overflow-hidden">
+        <section ref={ref} className="relative py-20 md:py-48 overflow-hidden">
             <div className="absolute inset-0 z-0">
                 <img
                     src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=100&w=3000&auto=format&fit=crop"
@@ -391,13 +402,13 @@ const ContentWhyTrustUs = () => {
                 <span className="inline-block text-accent text-xs tracking-[0.2em] font-bold uppercase mb-4">
                     What We Do Best
                 </span>
-                <h2 className="text-3xl md:text-6xl font-serif font-black tracking-tight mb-12 md:mb-20 text-white leading-tight">
+                <h2 className="text-3xl md:text-6xl font-serif font-black tracking-tight mb-10 md:mb-20 text-white leading-tight">
                     WHY FAMILIES <br /> TRUST CUERVO HOMES
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-white/20 bg-black/40 backdrop-blur-md">
                     <div className="p-6 md:p-10 hover:bg-white/10 transition-colors duration-500 group text-left border-b md:border-b-0 md:border-r border-white/10">
-                        <LineChart className="w-8 h-8 text-accent mb-12 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                        <LineChart className="w-8 h-8 text-accent mb-6 md:mb-12 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
                         <h3 className="text-xl md:text-2xl font-serif font-black text-white mb-3 tracking-tight">Sell For The Highest Price</h3>
                         <p className="text-sm text-neutral-300 leading-relaxed font-sans mb-8">
                             We don't just put a sign in your yard. We use aggressive marketing and hard negotiation to make sure you walk away with the most money possible. Our clients average $1.2M per sale.
@@ -407,7 +418,7 @@ const ContentWhyTrustUs = () => {
                         </Link>
                     </div>
                     <div className="p-6 md:p-10 hover:bg-white/10 transition-colors duration-500 group text-left border-b md:border-b-0 md:border-r border-white/10">
-                        <HomeIcon className="w-8 h-8 text-accent mb-12 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                        <HomeIcon className="w-8 h-8 text-accent mb-6 md:mb-12 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
                         <h3 className="text-xl md:text-2xl font-serif font-black text-white mb-3 tracking-tight">Find Your Dream Home</h3>
                         <p className="text-sm text-neutral-300 leading-relaxed font-sans mb-8">
                             Whether it's your very first home or a forever home, we listen to exactly what your family needs and track it down fast. First-time buyers are always welcome — we walk you through every step.
@@ -416,8 +427,8 @@ const ContentWhyTrustUs = () => {
                             Learn More <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
-                    <div className="p-6 md:p-10 hover:bg-white/10 transition-colors duration-500 group text-left">
-                        <Briefcase className="w-8 h-8 text-accent mb-12 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                    <div className="p-6 md:p-10 hover:bg-white/10 transition-colors duration-500 group text-left border-b md:border-b-0">
+                        <Briefcase className="w-8 h-8 text-accent mb-6 md:mb-12 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
                         <h3 className="text-xl md:text-2xl font-serif font-black text-white mb-3 tracking-tight">Investment & Relocation</h3>
                         <p className="text-sm text-neutral-300 leading-relaxed font-sans mb-8">
                             Looking to grow your wealth through real estate? Or moving to Orange County for the first time? We have 6+ years of experience giving families the inside edge on the best deals.
@@ -628,28 +639,28 @@ const NeighborhoodShowcase = () => {
     return (
         <section ref={ref} className="relative bg-black overflow-hidden">
             {/* Solid black header — no photo */}
-            <div className="py-24 text-center">
+            <div className="py-14 md:py-24 px-6 text-center">
                 <span className="inline-block text-accent text-xs tracking-[0.2em] font-bold uppercase mb-4">
                     Serving All Of Orange County
                 </span>
-                <h2 className="text-4xl md:text-7xl font-serif font-black tracking-tight text-white mb-6">
+                <h2 className="text-3xl md:text-7xl font-serif font-black tracking-tight text-white mb-4 md:mb-6">
                     OUR NEIGHBORHOODS
                 </h2>
-                <p className="text-neutral-500 max-w-xl mx-auto font-sans text-lg">
+                <p className="text-neutral-500 max-w-xl mx-auto font-sans text-base md:text-lg">
                     We know the streets, the schools, and the home values in every city we serve.
                 </p>
             </div>
 
-            {/* Row 1 */}
-            <div className="flex flex-wrap sm:flex-row">
-                {areas.map((area, idx) => (
+            {/* Neighborhood Grid — 2 per row mobile, 4 per row desktop */}
+            <div className="grid grid-cols-2 md:grid-cols-4">
+                {[...areas, ...areasRow2].map((area, idx) => (
                     <motion.div
                         key={idx}
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 0.8, delay: (idx % 4) * 0.1, ease: [0.16, 1, 0.3, 1] }}
                         viewport={{ once: true }}
-                        className="relative w-full sm:w-1/2 md:w-1/4 h-56 sm:h-72 md:h-96 overflow-hidden group cursor-pointer"
+                        className="relative h-48 sm:h-64 md:h-96 overflow-hidden group cursor-pointer"
                     >
                         <div className="absolute inset-0 w-full z-0">
                             <img
@@ -659,37 +670,8 @@ const NeighborhoodShowcase = () => {
                             />
                         </div>
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                            <h3 className="text-xl md:text-2xl font-serif font-black text-white mb-1">{area.name}</h3>
-                            <span className="text-[10px] font-bold tracking-widest text-accent uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center gap-1">
-                                View Area <ArrowRight className="w-3 h-3" />
-                            </span>
-                        </div>
-                    </motion.div>
-                ))}
-            </div>
-
-            {/* Row 2 */}
-            <div className="flex flex-col sm:flex-row">
-                {areasRow2.map((area, idx) => (
-                    <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                        viewport={{ once: true }}
-                        className="relative w-full sm:w-1/4 h-72 md:h-96 overflow-hidden group cursor-pointer"
-                    >
-                        <div className="absolute inset-0 w-full z-0">
-                            <img
-                                src={area.img}
-                                alt={`${area.name} homes for sale`}
-                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out brightness-[0.4] group-hover:brightness-[0.6]"
-                            />
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                            <h3 className="text-xl md:text-2xl font-serif font-black text-white mb-1">{area.name}</h3>
+                        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                            <h3 className="text-base sm:text-xl md:text-2xl font-serif font-black text-white mb-1">{area.name}</h3>
                             <span className="text-[10px] font-bold tracking-widest text-accent uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center gap-1">
                                 View Area <ArrowRight className="w-3 h-3" />
                             </span>
@@ -723,45 +705,45 @@ const CinematicTestimonials = () => {
         <section className="bg-white py-24 md:py-32">
             <div className="max-w-7xl mx-auto px-6 md:px-12">
                 {/* Section Header */}
-                <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-neutral-200 pb-10">
-                    <div>
+                <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-12 md:mb-16 border-b border-neutral-200 pb-8 md:pb-10">
+                    <div className="text-center md:text-left">
                         <span className="inline-block text-accent text-[10px] tracking-[0.3em] font-bold uppercase mb-4 px-3 py-1 bg-white border border-neutral-200 shadow-sm">
                             Verified Client Reviews
                         </span>
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-black tracking-tight text-black leading-none">
+                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif font-black tracking-tight text-black leading-none">
                             WHAT OUR <br /> CLIENTS SAY
                         </h2>
                     </div>
-                    
+
                     {/* Controls Row */}
-                    <div className="flex flex-col sm:flex-row items-end sm:items-center gap-6 mt-8 md:mt-0">
-                        <div className="flex items-center gap-3 border border-neutral-200 px-5 py-3 bg-neutral-50 shadow-sm">
+                    <div className="flex items-center justify-between md:justify-end gap-4 md:gap-6 mt-6 md:mt-0">
+                        <div className="flex items-center gap-3 border border-neutral-200 px-4 md:px-5 py-2.5 md:py-3 bg-neutral-50 shadow-sm">
                             <div className="flex">
-                                {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-5 h-5 text-accent fill-accent" />)}
+                                {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-4 h-4 md:w-5 md:h-5 text-accent fill-accent" />)}
                             </div>
                             <div className="flex flex-col">
                                 <span className="text-sm text-black font-bold leading-none">5.0</span>
-                                <span className="text-[9px] text-neutral-500 uppercase tracking-widest leading-none mt-1">from 17 reviews</span>
+                                <span className="text-[9px] text-neutral-500 uppercase tracking-widest leading-none mt-1">17 reviews</span>
                             </div>
                         </div>
-                        
+
                         <div className="flex items-center gap-2">
-                            <button 
-                                onClick={() => setPage(p => Math.max(0, p - 1))} 
-                                disabled={page === 0} 
-                                className="w-12 h-12 border border-neutral-300 flex items-center justify-center bg-white hover:bg-black hover:text-white hover:border-black transition-all disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-black disabled:hover:border-neutral-300 shadow-sm"
+                            <button
+                                onClick={() => setPage(p => Math.max(0, p - 1))}
+                                disabled={page === 0}
+                                className="w-10 h-10 md:w-12 md:h-12 border border-neutral-300 flex items-center justify-center bg-white hover:bg-black hover:text-white hover:border-black transition-all disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-black disabled:hover:border-neutral-300 shadow-sm"
                             >
-                                <ChevronLeft className="w-5 h-5" />
+                                <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
                             </button>
-                            <span className="text-[11px] font-bold tracking-[0.2em] text-neutral-400 uppercase w-16 text-center">
+                            <span className="text-[11px] font-bold tracking-[0.2em] text-neutral-400 uppercase w-12 md:w-16 text-center">
                                 {page + 1} / {totalPages}
                             </span>
-                            <button 
-                                onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))} 
-                                disabled={page === totalPages - 1} 
-                                className="w-12 h-12 border border-neutral-300 flex items-center justify-center bg-white hover:bg-black hover:text-white hover:border-black transition-all disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-black disabled:hover:border-neutral-300 shadow-sm"
+                            <button
+                                onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
+                                disabled={page === totalPages - 1}
+                                className="w-10 h-10 md:w-12 md:h-12 border border-neutral-300 flex items-center justify-center bg-white hover:bg-black hover:text-white hover:border-black transition-all disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-black disabled:hover:border-neutral-300 shadow-sm"
                             >
-                                <ChevronRight className="w-5 h-5" />
+                                <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
                             </button>
                         </div>
                     </div>
@@ -787,23 +769,23 @@ const CinematicTestimonials = () => {
                                 <div className="absolute inset-0 bg-[#0a0a0a]/90 group-hover:bg-[#0a0a0a]/75 transition-colors duration-500 z-0 backdrop-blur-[2px]" />
 
                                 {/* Card Content */}
-                                <div className="relative z-10 p-10 md:p-12 flex flex-col h-full">
-                                    <div className="flex mb-8">
-                                        {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-4 h-4 text-accent fill-accent mr-0.5" />)}
+                                <div className="relative z-10 p-6 sm:p-8 md:p-12 flex flex-col h-full">
+                                    <div className="flex mb-5 md:mb-8">
+                                        {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-3.5 h-3.5 md:w-4 md:h-4 text-accent fill-accent mr-0.5" />)}
                                     </div>
-                                    <div className="relative flex-grow mb-12">
+                                    <div className="relative flex-grow mb-6 md:mb-12">
                                         <Quote className="absolute -top-4 -left-4 w-12 h-12 text-white/5 rotate-180 pointer-events-none" />
-                                        <p className="text-[15px] text-neutral-300 font-sans leading-relaxed relative z-10">
+                                        <p className="text-[14px] md:text-[15px] text-neutral-300 font-sans leading-relaxed relative z-10">
                                             "{review.quote}"
                                         </p>
                                     </div>
-                                    <div className="flex items-center gap-4 mt-auto border-t border-white/10 pt-6">
-                                        <div className="w-12 h-12 bg-white flex items-center justify-center flex-shrink-0">
-                                            <span className="text-black font-serif font-black text-sm tracking-widest">{review.initials}</span>
+                                    <div className="flex items-center gap-3 md:gap-4 mt-auto border-t border-white/10 pt-4 md:pt-6">
+                                        <div className="w-10 h-10 md:w-12 md:h-12 bg-white flex items-center justify-center flex-shrink-0">
+                                            <span className="text-black font-serif font-black text-xs md:text-sm tracking-widest">{review.initials}</span>
                                         </div>
                                         <div>
-                                            <p className="text-sm font-bold text-white tracking-widest uppercase mb-1">{review.name}</p>
-                                            <p className="text-[10px] text-accent uppercase tracking-[0.2em] font-medium">{review.detail}</p>
+                                            <p className="text-xs md:text-sm font-bold text-white tracking-widest uppercase mb-0.5 md:mb-1">{review.name}</p>
+                                            <p className="text-[9px] md:text-[10px] text-accent uppercase tracking-[0.2em] font-medium">{review.detail}</p>
                                         </div>
                                     </div>
                                 </div>

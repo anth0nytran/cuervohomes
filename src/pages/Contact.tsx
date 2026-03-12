@@ -18,18 +18,18 @@ export default function Contact() {
             <section id="form" className="flex flex-col md:flex-row min-h-screen">
 
                 {/* Left: Value prop + headshot + promises */}
-                <div className="w-full md:w-[45%] lg:w-[42%] bg-[#0a0a0a] border-b md:border-b-0 md:border-r border-white/[0.06] flex flex-col justify-center p-8 md:p-12 lg:p-16 pt-28 md:pt-12">
+                <div className="w-full md:w-[45%] lg:w-[42%] bg-[#0a0a0a] border-b md:border-b-0 md:border-r border-white/[0.06] flex flex-col justify-center p-5 pt-24 md:p-12 lg:p-16">
 
                     <span className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block mb-4">
                         Free Home Valuation
                     </span>
-                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-[1.1] mb-6">
+                    <h2 className="text-2xl md:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-[1.1] mb-5 md:mb-6">
                         WHAT IS YOUR HOME <br className="hidden md:block" />REALLY WORTH?
                     </h2>
 
                     {/* Agent card */}
-                    <div className="flex items-center gap-4 mb-6 pb-6 border-b border-white/[0.08]">
-                        <div className="w-14 h-14 rounded-full overflow-hidden ring-2 ring-white/10 ring-offset-2 ring-offset-[#0a0a0a] flex-shrink-0">
+                    <div className="flex items-center gap-3 md:gap-4 mb-5 md:mb-6 pb-5 md:pb-6 border-b border-white/[0.08]">
+                        <div className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden ring-2 ring-white/10 ring-offset-2 ring-offset-[#0a0a0a] flex-shrink-0">
                             <img
                                 src="/c_homes/headshot_copy.png"
                                 alt="Regina Cuervo, REALTOR®"
@@ -46,7 +46,7 @@ export default function Contact() {
                     </div>
 
                     {/* Description */}
-                    <p className="text-[14px] text-neutral-400 font-sans leading-relaxed mb-8">
+                    <p className="text-[13px] md:text-[14px] text-neutral-400 font-sans leading-relaxed mb-6 md:mb-8">
                         Online estimates can miss the mark by tens of thousands of dollars. Receive a personalized home value report prepared by a local expert—factoring in your home's unique upgrades, condition, and the latest market activity.
                     </p>
 

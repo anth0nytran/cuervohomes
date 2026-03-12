@@ -2,7 +2,25 @@
   "permissions": {
     "allow": [
       "mcp__plugin_playwright_playwright__browser_navigate",
-      "mcp__plugin_playwright_playwright__browser_take_screenshot"
+      "mcp__plugin_playwright_playwright__browser_take_screenshot",
+      "Bash(cd \"C:/Users/antho/Desktop/Cuervo_Homes\" && npm install sharp 2>&1 | tail -5)",
+      "Bash(cd \"C:/Users/antho/Desktop/Cuervo_Homes\" && node scripts/fetch-neighborhood-images.mjs 2>&1)",
+      "WebSearch",
+      "WebFetch(domain:unsplash.com)",
+      "Bash(cd \"C:/Users/antho/Desktop/Cuervo_Homes\" && node scripts/convert-neighborhood-images.mjs 2>&1)",
+      "Bash(cp -r \"C:/Users/antho/Desktop/Cuervo_Homes/public/neighborhoods/hero\" \"C:/Users/antho/Desktop/Cuervo_Homes/dist/neighborhoods/hero\" && cp -r \"C:/Users/antho/Desktop/Cuervo_Homes/public/neighborhoods/tiles\" \"C:/Users/antho/Desktop/Cuervo_Homes/dist/neighborhoods/tiles\")",
+      "Bash(rm -f \"C:/Users/antho/Desktop/Cuervo_Homes/public/neighborhoods/hero/\"*-raw.jpg && rm -f \"C:/Users/antho/Desktop/Cuervo_Homes/dist/neighborhoods/hero/\"*-raw.jpg)",
+      "Bash(SRC=\"C:/Users/antho/Desktop/Cuervo_Homes/public/neighborhoods/source\")",
+      "Bash(TP=\"C:/Users/antho/Desktop/Cuervo_Homes/public/test_pics\")",
+      "Bash(__NEW_LINE_aa8c74c03e29410e__ cp:*)",
+      "Bash(cp \"$TP/costamesa.png\" \"$SRC/costa-mesa.png\")",
+      "Bash(cp \"$TP/huntingtonbeach.png\" \"$SRC/huntington-beach.png\")",
+      "Bash(cp \"$TP/santaana.png\" \"$SRC/santa-ana.png\")",
+      "Bash(cp \"$TP/irvine.png\" \"$SRC/irvine.png\")",
+      "Bash(cp \"$TP/north_tustin.png\" \"$SRC/north-tustin.png\")",
+      "Bash(cp \"$TP/orange.png\" \"$SRC/orange.png\")",
+      "Bash(__NEW_LINE_aa8c74c03e29410e__ echo:*)",
+      "Read(//c/Users/antho/Desktop/Cuervo_Homes/**)"
     ]
   }
 }
