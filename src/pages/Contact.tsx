@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { MapPin, Phone, Mail, ArrowRight, Clock, Star, ShieldCheck, CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
+import { MapPin, Phone, Mail, ArrowRight, Clock, Star, CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Contact() {
     const reviews = [
