@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle, TrendingUp, MapPin, DollarSign, Star, ChevronLeft, ChevronRight } from "lucide-react";
 
-// --- Services: Cinematic, matching homepage & contact aesthetic ---
+// --- Services Page: Same design language as homepage, distinct layout ---
 
 export default function Services() {
     return (
-        <div className="bg-black w-full overflow-x-hidden selection:bg-accent selection:text-white">
+        <div className="bg-black w-full min-h-screen text-black overflow-x-hidden selection:bg-accent selection:text-white">
             <ServicesHero />
-            <ProofStrip />
+            <SignatureProcess />
             <ServiceSell />
             <ServiceBuy />
             <MoreServices />
@@ -18,53 +18,305 @@ export default function Services() {
     );
 }
 
-// --- Full-screen cinematic hero ---
+// --- Services hero: Clean white editorial split (distinct from homepage's dark cinematic hero) ---
 const ServicesHero = () => (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-            <img 
-                src="/services/hero.png" 
-                alt="Orange County Real Estate Services" 
-                className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/90" />
+    <section className="relative">
+        {/* Dark nav backdrop */}
+        <div className="bg-black h-20 md:h-[72px]" />
+
+        <div className="flex flex-col md:flex-row min-h-[60vh] md:min-h-[85vh]">
+            {/* Left — clean white editorial panel */}
+            <div className="w-full md:w-1/2 bg-white flex items-center p-8 md:p-16 lg:p-20 xl:p-24 border-b md:border-b-0 md:border-r border-neutral-200">
+                <div className="w-full max-w-lg pt-8 md:pt-0">
+                    <span className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block mb-5">
+                        Trusted Advisor · Orange County
+                    </span>
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-black text-black leading-[1.05] tracking-tight mb-6">
+                        WE DO THE{" "}
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-black to-neutral-500">HARD WORK.</span>
+                    </h1>
+                    <div className="w-10 h-[2px] bg-black mb-6" />
+                    <p className="text-[15px] text-neutral-500 font-sans leading-relaxed mb-10 max-w-md">
+                        Whether you're selling, buying, investing, or relocating — we fight for the best deal possible and make the entire process easy for you and your family.
+                    </p>
+                    <Link to="/contact" className="group inline-flex items-center justify-center gap-3 bg-black text-white px-8 py-4 text-xs font-black tracking-widest uppercase hover:bg-neutral-800 transition-all duration-300">
+                        Get Started Today
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+
+                    {/* Stats — clean row with top border */}
+                    <div className="mt-12 pt-8 border-t border-neutral-200 grid grid-cols-4 gap-4">
+                        {[
+                            { number: "1,312", label: "Team Sales" },
+                            { number: "5.0", label: "Rating" },
+                            { number: "$753K", label: "Avg. Price" },
+                            { number: "656", label: "Reviews" },
+                        ].map((stat, idx) => (
+                            <div key={idx}>
+                                <span className="block text-xl md:text-2xl font-serif font-black text-black tracking-tight leading-none">{stat.number}</span>
+                                <span className="block text-[7px] tracking-[0.2em] font-bold text-neutral-400 uppercase mt-1.5">{stat.label}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/* Right — image */}
+            <div className="w-full md:w-1/2 relative min-h-[50vh] md:min-h-0 overflow-hidden">
+                <img
+                    src="/services/hero.png"
+                    alt="Orange County Real Estate Services"
+                    className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/10" />
+            </div>
+        </div>
+    </section>
+);
+
+// --- Signature Selling Experience: Vertical timeline layout (distinct from homepage's image cards) ---
+const SignatureProcess = () => {
+    const steps = [
+        {
+            number: "01",
+            title: "Private Strategy Consultation",
+            description: "We evaluate your home, review market data, and craft a tailored pricing and marketing plan to position your home competitively.",
+        },
+        {
+            number: "02",
+            title: "Curated Preparation & Presentation",
+            description: "Professional photography, elevated marketing materials, and expert staging guidance — every detail curated for a powerful first impression.",
+        },
+        {
+            number: "03",
+            title: "Strategic Exposure & Negotiation",
+            description: "A targeted marketing launch to generate strong buyer interest, followed by expert negotiation to secure the strongest possible terms.",
+        },
+        {
+            number: "04",
+            title: "Seamless Closing & White-Glove Service",
+            description: "From inspections to escrow coordination and final documentation — we oversee every detail for a smooth, successful closing.",
+        },
+    ];
+
+    return (
+        <section className="bg-black text-white">
+            {/* Header row */}
+            <div className="max-w-7xl mx-auto px-6 md:px-12 pt-16 md:pt-20 pb-10 md:pb-12 border-b border-white/[0.08]">
+                <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                    <div>
+                        <span className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block mb-3">Our Process</span>
+                        <h2 className="text-2xl md:text-4xl font-serif font-black tracking-tight leading-tight">
+                            THE SIGNATURE SELLING EXPERIENCE
+                        </h2>
+                    </div>
+                    <p className="text-sm text-neutral-500 font-sans max-w-sm leading-relaxed md:text-right">
+                        A strategic, four-step approach designed for maximum exposure and exceptional results.
+                    </p>
+                </div>
+            </div>
+
+            {/* Steps grid — 2x2 on desktop */}
+            <div className="max-w-7xl mx-auto px-6 md:px-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+                    {steps.map((step, idx) => (
+                        <div
+                            key={idx}
+                            className={`group p-8 md:p-10 border-b border-white/[0.08] ${
+                                idx % 2 === 0 ? "md:border-r md:border-white/[0.08]" : ""
+                            } hover:bg-white/[0.03] transition-colors duration-300`}
+                        >
+                            <div className="flex items-start gap-5">
+                                <span className="text-3xl font-serif font-black text-accent leading-none flex-shrink-0 pt-0.5">
+                                    {step.number}
+                                </span>
+                                <div className="flex-1 min-w-0">
+                                    <h3 className="text-lg font-serif font-black text-white mb-2 tracking-tight leading-tight">
+                                        {step.title}
+                                    </h3>
+                                    <p className="text-[13px] text-neutral-400 font-sans leading-relaxed">
+                                        {step.description}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Bottom CTA row */}
+            <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 md:py-12 flex flex-col sm:flex-row items-center justify-between gap-6">
+                <p className="text-[11px] font-bold tracking-[0.1em] text-neutral-500 font-sans uppercase">
+                    Every home. Every detail. Every dollar.
+                </p>
+                <Link
+                    to="/contact"
+                    className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-neutral-200 transition-all duration-300"
+                >
+                    Start Your Selling Journey
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+            </div>
+        </section>
+    );
+};
+
+// --- #1 Service: Sell — Anchored Light Panel on Parallax ---
+const ServiceSell = () => (
+    <section className="relative flex flex-col md:flex-row min-h-[80vh]">
+        {/* Full Parallax Background */}
+        <div
+            className="absolute inset-0 z-0 bg-fixed bg-center bg-cover"
+            style={{ backgroundImage: "url('/services/sell.png')" }}
+        >
+            <div className="absolute inset-0 bg-black/40 md:bg-black/20" />
         </div>
 
-        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 md:px-12 text-center mt-20">
-            <span className="inline-block py-1 px-3 border border-white/30 text-white/80 text-xs tracking-[0.2em] uppercase font-bold mb-6 bg-black/40 backdrop-blur-sm">
-                Trusted Advisor Across Orange County
-            </span>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-black text-white leading-[1.05] tracking-tight mb-8 drop-shadow-2xl">
-                WE DO THE <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-400">HARD WORK.</span>
-            </h1>
-            <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto font-sans leading-relaxed drop-shadow-lg">
-                Whether you're selling, buying, investing, or relocating — we fight for the best deal possible and make the entire process easy for you and your family.
-            </p>
-            <div className="mt-10">
-                <Link to="/contact" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-8 py-5 text-sm md:text-base font-bold tracking-widest uppercase hover:bg-neutral-200 transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                    Get Started Today
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+        {/* Anchored Content Panel (Left) */}
+        <div className="relative z-10 w-full md:w-[55%] lg:w-1/2 bg-white text-black p-10 md:p-16 lg:p-24 shadow-2xl flex flex-col justify-center">
+            <div className="max-w-xl">
+                <span className="text-[10px] font-bold tracking-[0.3em] text-accent uppercase mb-4 block">Our #1 Service</span>
+                <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif font-black mb-6 leading-[1.05] tracking-tight">
+                    SELL YOUR HOME FOR THE HIGHEST PRICE
+                </h2>
+                <div className="w-12 h-1 bg-black mb-8" />
+                <p className="text-neutral-600 font-sans leading-relaxed mb-6">
+                    Most agents stick a sign in the yard and pray. We don't do that. We use aggressive marketing, professional photography, and hard negotiation to make sure you walk away with the most money possible.
+                </p>
+                <p className="text-sm text-neutral-500 font-sans leading-relaxed mb-8">
+                    With an average sale price of $1.2M and 33+ homes closed across Newport Beach, Costa Mesa, Santa Ana, and more — Regina knows how to price it right, market it hard, and negotiate even harder.
+                </p>
+
+                <ul className="space-y-4 mb-10">
+                    {[
+                        "Custom marketing plan for your home",
+                        "Professional HD photos & video tours",
+                        "Aggressive pricing to attract top buyers",
+                        "Hard negotiation — we fight for every dollar"
+                    ].map((item, idx) => (
+                        <li key={idx} className="flex items-center gap-4 text-sm font-bold text-black font-sans">
+                            <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" /> {item}
+                        </li>
+                    ))}
+                </ul>
+
+                <Link to="/contact" className="group inline-flex items-center gap-3 bg-black text-white px-8 py-5 font-black tracking-widest uppercase text-xs hover:bg-neutral-800 transition-colors w-full md:w-auto justify-center">
+                    Get Free Equity Report <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+            </div>
+        </div>
+
+        {/* Parallax Window Area (Right) */}
+        <div className="relative z-10 w-full md:w-[45%] lg:w-1/2 min-h-[40vh] md:min-h-0 pointer-events-none"></div>
+    </section>
+);
+
+// --- #2 Service: Buy — Anchored Dark Panel on Parallax ---
+const ServiceBuy = () => (
+    <section className="relative flex flex-col md:flex-row min-h-[80vh] border-t border-white/10">
+        {/* Full Parallax Background */}
+        <div
+            className="absolute inset-0 z-0 bg-fixed bg-center bg-cover"
+            style={{ backgroundImage: "url('/services/buy.png')" }}
+        >
+            <div className="absolute inset-0 bg-black/50 md:bg-black/40" />
+        </div>
+
+        {/* Parallax Window Area (Left) */}
+        <div className="relative z-10 w-full md:w-[45%] lg:w-1/2 min-h-[40vh] md:min-h-0 pointer-events-none"></div>
+
+        {/* Anchored Content Panel (Right) */}
+        <div className="relative z-10 w-full md:w-[55%] lg:w-1/2 bg-[#0a0a0a]/95 backdrop-blur-md text-white p-10 md:p-16 lg:p-24 shadow-2xl border-l border-white/5 flex flex-col justify-center">
+            <div className="max-w-xl">
+                <span className="text-[10px] font-bold tracking-[0.3em] text-accent uppercase mb-4 block">Buyers & First-Timers</span>
+                <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif font-black mb-6 leading-[1.05] tracking-tight">
+                    FIND YOUR DREAM HOME
+                </h2>
+                <div className="w-12 h-1 bg-white mb-8" />
+                <p className="text-neutral-300 font-sans leading-relaxed mb-6">
+                    Looking for the perfect home for your family? Whether it's your first house or your forever home, Regina listens to exactly what you need, finds it fast, and fights to get you the best price.
+                </p>
+                <p className="text-sm text-neutral-400 font-sans leading-relaxed mb-8">
+                    First-time buyers are always welcome. No confusing paperwork, no pressure. Just honest guidance from someone who cares. Regina speaks English and Spanish, so your family will always feel comfortable.
+                </p>
+
+                <ul className="space-y-4 mb-10">
+                    {[
+                        "Personalized home search for your needs",
+                        "First-time buyer guidance & hand-holding",
+                        "Access to homes before they hit the market",
+                        "Clear, honest advice — no surprises"
+                    ].map((item, idx) => (
+                        <li key={idx} className="flex items-center gap-4 text-sm font-bold text-white font-sans">
+                            <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" /> {item}
+                        </li>
+                    ))}
+                </ul>
+
+                <Link to="/contact" className="group inline-flex items-center gap-3 bg-white text-black px-8 py-5 font-black tracking-widest uppercase text-xs hover:bg-neutral-200 transition-colors w-full md:w-auto justify-center shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                    Start Your Home Search <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
             </div>
         </div>
     </section>
 );
 
-// --- Proof strip matching contact page ---
-const ProofStrip = () => (
-    <section className="bg-black py-12 border-y border-white/10">
+// --- More services: White section with parallax window inside each card ---
+const MoreServices = () => (
+    <section className="bg-white py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+            {/* Header */}
+            <div className="text-center mb-10 md:mb-14">
+                <span className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block mb-3">
+                    Beyond Buying & Selling
+                </span>
+                <h2 className="text-3xl md:text-4xl font-serif font-black text-black tracking-tight">
+                    MORE WAYS WE HELP
+                </h2>
+            </div>
+
+            {/* Cards with parallax windows */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[
-                    { number: "1,312", label: "Team Sales" },
-                    { number: "5.0", label: "Team Rating" },
-                    { number: "$753K", label: "Avg. Sale Price" },
-                    { number: "656", label: "Team Reviews" },
-                ].map((stat, idx) => (
-                    <div key={idx} className="flex flex-col items-center justify-center text-center">
-                        <span className="text-3xl md:text-4xl font-serif font-black text-white mb-2">{stat.number}</span>
-                        <span className="text-xs tracking-[0.2em] font-sans text-accent uppercase font-bold">{stat.label}</span>
+                    {
+                        icon: <DollarSign className="w-6 h-6" strokeWidth={1.5} />,
+                        title: "Free Home Value Report",
+                        desc: "Get a detailed, accurate equity report — completely free. No strings attached, no sales pressure.",
+                        cta: "Get Yours Free",
+                    },
+                    {
+                        icon: <TrendingUp className="w-6 h-6" strokeWidth={1.5} />,
+                        title: "Investment Properties",
+                        desc: "Access off-market properties and investment opportunities. Price range from $148K to $4.1M.",
+                        cta: "See Opportunities",
+                    },
+                    {
+                        icon: <MapPin className="w-6 h-6" strokeWidth={1.5} />,
+                        title: "Relocation Services",
+                        desc: "Moving to Orange County? We handle everything so you can focus on your family. English & Spanish spoken.",
+                        cta: "Get Started",
+                    },
+                ].map((service, idx) => (
+                    <div key={idx} className="group relative overflow-hidden flex flex-col min-h-[280px]">
+                        {/* Parallax background filling entire card */}
+                        <div
+                            className="absolute inset-0 bg-fixed bg-center bg-cover"
+                            style={{ backgroundImage: "url('/services/aerial.png')" }}
+                        />
+                        <div className="absolute inset-0 bg-black/70 group-hover:bg-black/60 transition-colors duration-500" />
+                        {/* Content on top */}
+                        <div className="relative z-10 p-7 md:p-8 flex flex-col flex-1">
+                            <div className="w-10 h-10 border border-white/20 flex items-center justify-center text-accent mb-5 group-hover:border-accent/40 transition-colors duration-300">
+                                {service.icon}
+                            </div>
+                            <h3 className="text-lg font-serif font-black text-white mb-2 tracking-tight">{service.title}</h3>
+                            <p className="text-[13px] text-neutral-400 font-sans leading-relaxed mb-6 flex-1">
+                                {service.desc}
+                            </p>
+                            <Link to="/contact" className="text-[10px] font-bold uppercase tracking-widest text-white flex items-center gap-2 group-hover:text-accent transition-colors">
+                                {service.cta} <ArrowRight className="w-3.5 h-3.5" />
+                            </Link>
+                        </div>
                     </div>
                 ))}
             </div>
@@ -72,173 +324,7 @@ const ProofStrip = () => (
     </section>
 );
 
-// --- #1 Service: Sell — split layout, photo right ---
-const ServiceSell = () => (
-    <section className="bg-white text-black">
-        <div className="flex flex-col md:flex-row min-h-[80vh]">
-            {/* Content */}
-            <div className="w-full md:w-1/2 flex items-center p-8 md:p-16 lg:p-24">
-                <div className="max-w-lg">
-                    <span className="text-xs font-bold tracking-[0.2em] text-accent uppercase mb-4 block">Our #1 Service</span>
-                    <h2 className="text-4xl md:text-5xl font-serif font-black mb-4 leading-tight">
-                        SELL YOUR HOME FOR THE HIGHEST PRICE
-                    </h2>
-                    <div className="w-12 h-1 bg-black mb-8" />
-                    <p className="text-neutral-600 font-sans leading-relaxed mb-6">
-                        Most agents stick a sign in the yard and pray. We don't do that. We use aggressive marketing, professional photography, and hard negotiation to make sure you walk away with the most money possible.
-                    </p>
-                    <p className="text-sm text-neutral-500 font-sans leading-relaxed mb-8">
-                        With an average sale price of $1.2M and 33+ homes closed across Newport Beach, Costa Mesa, Santa Ana, and more — Regina knows how to price it right, market it hard, and negotiate even harder.
-                    </p>
-                    
-                    <ul className="space-y-3 mb-10">
-                        {[
-                            "Custom marketing plan for your home",
-                            "Professional HD photos & video tours",
-                            "Aggressive pricing to attract top buyers",
-                            "Hard negotiation — we fight for every dollar"
-                        ].map((item, idx) => (
-                            <li key={idx} className="flex items-center gap-3 text-sm font-bold text-black">
-                                <CheckCircle className="w-4 h-4 text-accent flex-shrink-0" /> {item}
-                            </li>
-                        ))}
-                    </ul>
-
-                    <Link to="/contact" className="group inline-flex items-center gap-3 bg-black text-white px-8 py-4 font-bold tracking-widest uppercase text-sm hover:bg-neutral-800 transition-colors">
-                        Get Free Equity Report <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                </div>
-            </div>
-
-            {/* Photo */}
-            <div className="w-full md:w-1/2 relative min-h-[50vh] md:min-h-0 overflow-hidden">
-                <img 
-                    src="/services/sell.png" 
-                    alt="Selling homes in Orange County" 
-                    className="absolute inset-0 w-full h-full object-cover"
-                />
-            </div>
-        </div>
-    </section>
-);
-
-// --- #2 Service: Buy — split layout reversed, photo left ---
-const ServiceBuy = () => (
-    <section className="bg-black text-white">
-        <div className="flex flex-col-reverse md:flex-row min-h-[80vh]">
-            {/* Photo */}
-            <div className="w-full md:w-1/2 relative min-h-[50vh] md:min-h-0 overflow-hidden">
-                <img 
-                    src="/services/buy.png" 
-                    alt="Find your dream home in Orange County" 
-                    className="absolute inset-0 w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black/20" />
-                <div className="absolute inset-6 border border-white/20 hidden md:block pointer-events-none" />
-            </div>
-
-            {/* Content */}
-            <div className="w-full md:w-1/2 flex items-center p-8 md:p-16 lg:p-24">
-                <div className="max-w-lg">
-                    <span className="text-xs font-bold tracking-[0.2em] text-accent uppercase mb-4 block">Buyers & First-Timers</span>
-                    <h2 className="text-4xl md:text-5xl font-serif font-black mb-4 leading-tight">
-                        FIND YOUR DREAM HOME
-                    </h2>
-                    <div className="w-12 h-1 bg-white mb-8" />
-                    <p className="text-neutral-300 font-sans leading-relaxed mb-6">
-                        Looking for the perfect home for your family? Whether it's your first house or your forever home, Regina listens to exactly what you need, finds it fast, and fights to get you the best price.
-                    </p>
-                    <p className="text-sm text-neutral-400 font-sans leading-relaxed mb-8">
-                        First-time buyers are always welcome. No confusing paperwork, no pressure. Just honest guidance from someone who cares. Regina speaks English and Spanish, so your family will always feel comfortable.
-                    </p>
-                    
-                    <ul className="space-y-3 mb-10">
-                        {[
-                            "Personalized home search for your needs",
-                            "First-time buyer guidance & hand-holding",
-                            "Access to homes before they hit the market",
-                            "Clear, honest advice — no surprises"
-                        ].map((item, idx) => (
-                            <li key={idx} className="flex items-center gap-3 text-sm font-bold text-white">
-                                <CheckCircle className="w-4 h-4 text-accent flex-shrink-0" /> {item}
-                            </li>
-                        ))}
-                    </ul>
-
-                    <Link to="/contact" className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 font-bold tracking-widest uppercase text-sm hover:bg-neutral-200 transition-colors">
-                        Start Your Home Search <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                </div>
-            </div>
-        </div>
-    </section>
-);
-
-// --- Cinematic break header + service cards as one section ---
-const MoreServices = () => (
-    <section className="overflow-hidden">
-        {/* Aerial photo header */}
-        <div className="relative h-[40vh]">
-            <img 
-                src="/services/aerial.png" 
-                alt="Orange County aerial" 
-                className="absolute inset-0 w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/60" />
-            <div className="relative z-10 h-full flex items-center justify-center text-center px-6">
-                <div>
-                    <span className="text-accent text-xs tracking-[0.2em] font-bold uppercase block mb-4">Beyond Buying & Selling</span>
-                    <h2 className="text-4xl md:text-6xl font-serif font-black text-white tracking-tight">
-                        MORE WAYS WE HELP
-                    </h2>
-                </div>
-            </div>
-        </div>
-
-        {/* Service cards directly below */}
-        <div className="bg-white py-24 md:py-32 text-black">
-            <div className="max-w-7xl mx-auto px-6 md:px-12">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-neutral-200">
-                    {[
-                        {
-                            icon: <DollarSign className="w-8 h-8" strokeWidth={1.5} />,
-                            title: "Free Home Value Report",
-                            desc: "Want to know what your home is really worth right now? We'll send you a detailed, accurate equity report — completely free. No strings attached. No sales pressure.",
-                            cta: "Get Yours Free",
-                        },
-                        {
-                            icon: <TrendingUp className="w-8 h-8" strokeWidth={1.5} />,
-                            title: "Investment Properties",
-                            desc: "Looking to grow your wealth through real estate? Regina has access to off-market properties and investment opportunities. Price range from $148K to $4.1M — built for smart investors.",
-                            cta: "See Opportunities",
-                        },
-                        {
-                            icon: <MapPin className="w-8 h-8" strokeWidth={1.5} />,
-                            title: "Relocation Services",
-                            desc: "Moving to Orange County? We make it easy. From finding the right neighborhood to getting settled — Regina handles everything so you can focus on your family. English & Spanish spoken.",
-                            cta: "Get Started",
-                        },
-                    ].map((service, idx) => (
-                        <div key={idx} className="p-10 md:p-12 border-r last:border-r-0 border-neutral-200 group hover:bg-neutral-50 transition-colors">
-                            <div className="text-black mb-6 group-hover:text-accent transition-colors">
-                                {service.icon}
-                            </div>
-                            <h3 className="text-xl font-serif font-black mb-4">{service.title}</h3>
-                            <p className="text-sm text-neutral-600 font-sans leading-relaxed mb-8">
-                                {service.desc}
-                            </p>
-                            <Link to="/contact" className="text-xs font-bold uppercase tracking-widest text-black flex items-center gap-2 group-hover:text-accent transition-colors">
-                                {service.cta} <ArrowRight className="w-3 h-3" />
-                            </Link>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    </section>
-);
-
-// --- Testimonial carousel (dark, creates visual break before CTA) ---
+// --- Testimonial: Editorial two-column — headshot + reviews ---
 const ServiceTestimonial = () => {
     const reviews = [
         { quote: "From the first day until it was sold Regina was on top of every aspect of the process. Always responded to my requests in a prompt and professional manner. She accomplished everything and went beyond expectations.", name: "Tom S.", detail: "Buyer & Seller · Lakewood, CA", initials: "TS" },
@@ -251,50 +337,121 @@ const ServiceTestimonial = () => {
     const review = reviews[idx];
 
     return (
-        <section className="bg-black py-24 overflow-hidden">
-            <div className="max-w-4xl mx-auto px-6 md:px-12">
-                <div className="flex items-center justify-center gap-8 md:gap-12">
-                    <button onClick={() => setIdx(i => Math.max(0, i - 1))} disabled={idx === 0} className="w-12 h-12 border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all disabled:opacity-20 flex-shrink-0">
-                        <ChevronLeft className="w-5 h-5" />
-                    </button>
-                    <div className="text-center flex-1 min-w-0">
-                        <div className="flex justify-center gap-1 mb-8">
-                            {[1,2,3,4,5].map(i => <Star key={i} className="w-5 h-5 text-accent fill-accent" />)}
+        <section className="relative bg-neutral-950 border-t border-white/[0.06]">
+            <div className="flex flex-col md:flex-row min-h-[70vh]">
+
+                {/* Left — Dense agent profile panel */}
+                <div className="w-full md:w-[42%] lg:w-[38%] bg-black border-b md:border-b-0 md:border-r border-white/[0.06] p-6 md:p-8 lg:p-10 flex flex-col justify-center">
+                    {/* Top: Headshot + Name row */}
+                    <div className="flex items-center gap-4 mb-6 pb-6 border-b border-white/[0.08]">
+                        <div className="w-16 h-16 md:w-[72px] md:h-[72px] rounded-full overflow-hidden ring-2 ring-white/10 ring-offset-2 ring-offset-black flex-shrink-0">
+                            <img
+                                src="/c_homes/headshot_copy.png"
+                                alt="Regina Cuervo, REALTOR®"
+                                className="w-full h-full object-cover"
+                            />
                         </div>
-                        <p className="text-2xl md:text-3xl font-serif font-black italic text-white max-w-3xl mx-auto mb-8 leading-relaxed min-h-[180px] flex items-center justify-center">
-                            "{review.quote}"
-                        </p>
-                        <div className="flex items-center justify-center gap-4">
-                            <div className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
-                                <span className="text-sm font-serif font-black text-white">{review.initials}</span>
-                            </div>
-                            <div className="text-left">
-                                <span className="font-serif font-black text-white block text-sm">{review.name}</span>
-                                <span className="text-[10px] font-bold tracking-widest text-neutral-500 uppercase">{review.detail}</span>
+                        <div>
+                            <h3 className="text-lg font-serif font-black text-white tracking-tight leading-tight">Regina Cuervo</h3>
+                            <p className="text-[10px] text-neutral-400 font-sans mt-0.5 tracking-wide">REALTOR® · Orange County Specialist</p>
+                            <div className="flex items-center gap-1 mt-1.5">
+                                {[1,2,3,4,5].map(i => <Star key={i} className="w-3 h-3 text-accent fill-accent" />)}
+                                <span className="text-[10px] font-bold text-white ml-1">5.0</span>
                             </div>
                         </div>
-                        <div className="flex justify-center gap-2 mt-8">
+                    </div>
+
+                    {/* Stats 2x2 grid */}
+                    <div className="grid grid-cols-2 gap-0 border border-white/[0.08] mb-6">
+                        {[
+                            { val: "1,312", label: "Team Sales" },
+                            { val: "656+", label: "Team Reviews" },
+                            { val: "$753K", label: "Avg. Sale Price" },
+                            { val: "33+", label: "Homes Closed" },
+                        ].map((s, i) => (
+                            <div key={i} className={`p-4 ${i % 2 === 0 ? "border-r border-white/[0.08]" : ""} ${i < 2 ? "border-b border-white/[0.08]" : ""}`}>
+                                <span className="block text-xl font-serif font-black text-white leading-none">{s.val}</span>
+                                <span className="block text-[8px] tracking-[0.2em] font-bold text-neutral-500 uppercase mt-1.5">{s.label}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Detail rows */}
+                    <div className="space-y-3 mb-6">
+                        {[
+                            { label: "Brokerage", value: "WE'RE Real Estate Inc" },
+                            { label: "License", value: "Cal DRE #02144970" },
+                            { label: "Specialties", value: "Buying · Selling · Investment" },
+                            { label: "Areas", value: "All of Orange County" },
+                            { label: "Languages", value: "English & Spanish" },
+                        ].map((row, i) => (
+                            <div key={i} className="flex items-center justify-between text-[11px] py-1.5 border-b border-white/[0.04]">
+                                <span className="text-neutral-500 font-bold uppercase tracking-widest text-[9px]">{row.label}</span>
+                                <span className="text-white/80 font-medium text-right">{row.value}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* CTA */}
+                    <Link to="/contact" className="group flex items-center justify-center gap-2 w-full py-3.5 border border-white/15 text-[10px] font-bold uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all duration-300">
+                        Schedule a Consultation <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                    </Link>
+                </div>
+
+                {/* Right — Reviews */}
+                <div className="w-full md:w-[58%] lg:w-[62%] flex flex-col justify-center p-8 md:p-14 lg:p-20">
+                    <span className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block mb-8">
+                        Client Reviews
+                    </span>
+
+                    <div className="flex gap-1 mb-6">
+                        {[1,2,3,4,5].map(i => <Star key={i} className="w-4 h-4 text-accent fill-accent" />)}
+                    </div>
+
+                    <blockquote className="text-xl md:text-2xl lg:text-[28px] font-serif font-black italic text-white leading-[1.5] mb-8 min-h-[140px] md:min-h-[160px] flex items-start">
+                        "{review.quote}"
+                    </blockquote>
+
+                    <div className="flex items-center gap-4 pb-8 border-b border-white/[0.08]">
+                        <div className="w-10 h-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center flex-shrink-0">
+                            <span className="text-[11px] font-serif font-black text-white">{review.initials}</span>
+                        </div>
+                        <div>
+                            <span className="font-serif font-black text-white block text-sm">{review.name}</span>
+                            <span className="text-[10px] font-bold tracking-widest text-neutral-500 uppercase">{review.detail}</span>
+                        </div>
+                    </div>
+
+                    {/* Navigation */}
+                    <div className="flex items-center justify-between mt-6">
+                        <div className="flex items-center gap-3">
+                            <button onClick={() => setIdx(i => Math.max(0, i - 1))} disabled={idx === 0} className="w-10 h-10 border border-white/15 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all disabled:opacity-20">
+                                <ChevronLeft className="w-4 h-4" />
+                            </button>
+                            <button onClick={() => setIdx(i => Math.min(reviews.length - 1, i + 1))} disabled={idx === reviews.length - 1} className="w-10 h-10 border border-white/15 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all disabled:opacity-20">
+                                <ChevronRight className="w-4 h-4" />
+                            </button>
+                        </div>
+                        <div className="flex gap-2">
                             {reviews.map((_, i) => (
-                                <button key={i} onClick={() => setIdx(i)} className={`w-2 h-2 rounded-full transition-all ${i === idx ? 'bg-white w-6' : 'bg-white/30 hover:bg-white/50'}`} />
+                                <button key={i} onClick={() => setIdx(i)} className={`h-1 rounded-full transition-all duration-300 ${i === idx ? 'bg-accent w-8' : 'bg-white/20 w-4 hover:bg-white/40'}`} />
                             ))}
                         </div>
                     </div>
-                    <button onClick={() => setIdx(i => Math.min(reviews.length - 1, i + 1))} disabled={idx === reviews.length - 1} className="w-12 h-12 border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all disabled:opacity-20 flex-shrink-0">
-                        <ChevronRight className="w-5 h-5" />
-                    </button>
                 </div>
+
             </div>
         </section>
     );
 };
 
-// --- Bottom CTA with photo background (matching homepage & contact) ---
+// --- Bottom CTA ---
 const ServicesCTA = () => (
     <section className="relative py-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
-            <img 
-                src="/services/cta.png" 
-                alt="Luxury home Orange County" 
+            <img
+                src="/services/cta.png"
+                alt="Luxury home Orange County"
                 className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-black/80" />

@@ -1,26 +1,153 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ChevronLeft, ChevronRight, Star, ShieldCheck, HomeIcon, Briefcase, MapPin, Quote, LineChart, CheckCircle } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 // --- Phase 9: Magazine-Quality, Photogenic, Trust-First Homepage ---
 
+const neighborhoodHeroImage = (slug: string, size: "1600" | "2560" = "1600") => `/neighborhoods/hero/${slug}-${size}.webp`;
+const neighborhoodTileImage = (slug: string) => `/neighborhoods/tiles/${slug}.webp`;
+const heroSlideEase = [0.22, 1, 0.36, 1] as const;
+
+const heroSlides = [
+    {
+        src: neighborhoodHeroImage("newport-beach", "2560"),
+        srcSet: `${neighborhoodHeroImage("newport-beach", "1600")} 1600w, ${neighborhoodHeroImage("newport-beach", "2560")} 2560w`,
+        label: "Newport Beach",
+    },
+    {
+        src: neighborhoodHeroImage("costa-mesa", "2560"),
+        srcSet: `${neighborhoodHeroImage("costa-mesa", "1600")} 1600w, ${neighborhoodHeroImage("costa-mesa", "2560")} 2560w`,
+        label: "Costa Mesa",
+    },
+    {
+        src: neighborhoodHeroImage("huntington-beach", "2560"),
+        srcSet: `${neighborhoodHeroImage("huntington-beach", "1600")} 1600w, ${neighborhoodHeroImage("huntington-beach", "2560")} 2560w`,
+        label: "Huntington Beach",
+    },
+    {
+        src: neighborhoodHeroImage("santa-ana", "2560"),
+        srcSet: `${neighborhoodHeroImage("santa-ana", "1600")} 1600w, ${neighborhoodHeroImage("santa-ana", "2560")} 2560w`,
+        label: "Santa Ana",
+    },
+    {
+        src: neighborhoodHeroImage("irvine", "2560"),
+        srcSet: `${neighborhoodHeroImage("irvine", "1600")} 1600w, ${neighborhoodHeroImage("irvine", "2560")} 2560w`,
+        label: "Irvine",
+    },
+    {
+        src: neighborhoodHeroImage("north-tustin", "2560"),
+        srcSet: `${neighborhoodHeroImage("north-tustin", "1600")} 1600w, ${neighborhoodHeroImage("north-tustin", "2560")} 2560w`,
+        label: "North Tustin",
+    },
+    {
+        src: neighborhoodHeroImage("orange", "2560"),
+        srcSet: `${neighborhoodHeroImage("orange", "1600")} 1600w, ${neighborhoodHeroImage("orange", "2560")} 2560w`,
+        label: "Orange",
+    },
+    {
+        src: neighborhoodHeroImage("anaheim", "2560"),
+        srcSet: `${neighborhoodHeroImage("anaheim", "1600")} 1600w, ${neighborhoodHeroImage("anaheim", "2560")} 2560w`,
+        label: "Anaheim",
+    },
+];
+
 const HeroHQ = () => {
-    const ref = useRef(null);
+    const [current, setCurrent] = useState(0);
+    const [direction, setDirection] = useState(1);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    const goTo = useCallback((next: number, dir: number) => {
+        setDirection(dir);
+        setCurrent(next);
+    }, []);
+
+    // Auto-rotate every 5s
+    useEffect(() => {
+        timeoutRef.current = setTimeout(() => {
+            goTo((current + 1) % heroSlides.length, 1);
+        }, 5000);
+        return () => { if (timeoutRef.current) clearTimeout(timeoutRef.current); };
+    }, [current, goTo]);
+
+    const slideVariants = {
+        enter: (dir: number) => ({
+            opacity: 0,
+            scale: 1.08,
+            x: dir > 0 ? "4%" : "-4%",
+            rotateY: dir > 0 ? 3 : -3,
+        }),
+        center: {
+            opacity: 1,
+            scale: 1,
+            x: 0,
+            rotateY: 0,
+            transition: { duration: 1.2, ease: heroSlideEase },
+        },
+        exit: (dir: number) => ({
+            opacity: 0,
+            scale: 1.04,
+            x: dir > 0 ? "-4%" : "4%",
+            rotateY: dir > 0 ? -2 : 2,
+            transition: { duration: 0.8, ease: heroSlideEase },
+        }),
+    };
+
+    const cityWordmarkVariants = {
+        enter: {
+            opacity: 0,
+            x: 0,
+            y: "110%",
+            filter: "blur(8px)",
+        },
+        center: {
+            opacity: 1,
+            y: 0,
+            x: 0,
+            filter: "blur(0px)",
+            transition: { duration: 0.92, ease: heroSlideEase },
+        },
+        exit: {
+            opacity: 0,
+            x: 28,
+            y: 0,
+            filter: "blur(6px)",
+            transition: { duration: 0.68, ease: heroSlideEase },
+        },
+    };
+
+    const currentCity = heroSlides[current].label;
 
     return (
-        <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden">
-            <div className="absolute inset-0 z-0">
-                <img
-                    src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=100&w=3000&auto=format&fit=crop"
-                    alt="Orange County Real Estate Agent Regina Cuervo"
-                    className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/70" />
-            </div>
+        <section className="relative min-h-screen flex items-center overflow-hidden" style={{ perspective: "1200px" }}>
+            {/* Rotating background images */}
+            <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                <motion.div
+                    key={current}
+                    custom={direction}
+                    variants={slideVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    className="absolute inset-0 z-0 will-change-transform"
+                    style={{ transformStyle: "preserve-3d" }}
+                >
+                    <img
+                        src={heroSlides[current].src}
+                        srcSet={heroSlides[current].srcSet}
+                        sizes="100vw"
+                        alt={heroSlides[current].label}
+                        className="w-full h-full object-cover"
+                    />
+                </motion.div>
+            </AnimatePresence>
 
-            <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12 pt-32 pb-40 flex flex-col items-center justify-center text-center">
+            {/* Persistent overlays */}
+            <div className="absolute inset-0 z-[1] bg-gradient-to-r from-black/60 via-black/35 to-black/20 pointer-events-none" />
+            <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/30 via-transparent to-black/80 pointer-events-none" />
+
+            {/* Content */}
+            <div className="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-12 pt-32 pb-44 flex flex-col items-center justify-center text-center">
                 <motion.span
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -71,10 +198,34 @@ const HeroHQ = () => {
                 </motion.div>
             </div>
 
-            {/* Trust logos embedded at very bottom of hero */}
-            <div className="absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-black via-black/90 to-transparent pt-12 pb-5 overflow-hidden">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute left-6 right-6 bottom-24 z-20 flex justify-end md:left-auto md:right-12 md:bottom-28 md:w-auto"
+            >
+                <div className="relative w-[calc(100vw-3rem)] max-w-[26rem] text-right">
+                    <div className="relative h-[0.95rem] overflow-hidden sm:h-[1.05rem] md:h-[1.15rem] lg:h-[1.28rem]">
+                        <AnimatePresence initial={false} mode="sync">
+                            <motion.span
+                                key={currentCity}
+                                variants={cityWordmarkVariants}
+                                initial="enter"
+                                animate="center"
+                                exit="exit"
+                                className="absolute inset-0 flex items-end justify-end whitespace-nowrap font-serif text-[0.76rem] font-bold uppercase leading-none tracking-[0.16em] text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.42)] sm:text-[0.84rem] md:text-[0.92rem] lg:text-[1.02rem]"
+                            >
+                                {currentCity}
+                            </motion.span>
+                        </AnimatePresence>
+                    </div>
+                </div>
+            </motion.div>
+
+            {/* Bottom bar: marquee only */}
+            <div className="absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-black via-black/90 to-transparent pt-6 pb-5 overflow-hidden">
                 <div className="w-full flex items-center pr-6">
-                    <div className="pl-4 md:pl-12 lg:pl-24 hidden sm:flex items-center z-20 pr-6 mr-4 bg-transparent outline-none ring-0 drop-shadow-2xl">
+                    <div className="pl-4 md:pl-12 lg:pl-24 hidden sm:flex items-center z-20 pr-6 mr-4">
                         <div className="flex items-center gap-4">
                             <div className="w-1.5 h-10 bg-accent shadow-[0_0_15px_rgba(250,204,21,0.5)]"></div>
                             <div className="flex flex-col justify-center">
@@ -87,16 +238,12 @@ const HeroHQ = () => {
                             </div>
                         </div>
                     </div>
-                    
-                    {/* Scrolling Marquee Container */}
-                    <div className="flex-1 overflow-hidden relative w-full group/marquee">
-                        {/* Gradient Fades for Smooth Entry/Exit */}
+
+                    <div className="flex-1 overflow-hidden relative w-full">
                         <div className="absolute top-0 bottom-0 left-0 w-12 md:w-48 bg-gradient-to-r from-black via-black/90 to-transparent z-10 pointer-events-none" />
                         <div className="absolute top-0 bottom-0 right-0 w-12 md:w-48 bg-gradient-to-l from-black via-black/90 to-transparent z-10 pointer-events-none" />
-                        
-                        {/* The Scrolling Tracker (Must contain exactly two identical halves for the 50% translation constraint) */}
-                        <div className="flex animate-marquee pb-1 w-max transition-all duration-300">
-                            {/* HALF 1 */}
+
+                        <div className="flex animate-marquee pb-1 w-max">
                             <div className="flex flex-none items-center">
                                 {[...Array(2)].map((_, i) => (
                                     <div key={`half1-${i}`} className="flex flex-none items-center gap-8 md:gap-16 px-4 md:px-8">
@@ -107,8 +254,6 @@ const HeroHQ = () => {
                                     </div>
                                 ))}
                             </div>
-                            
-                            {/* HALF 2 (Exact Duplicate) */}
                             <div className="flex flex-none items-center" aria-hidden="true">
                                 {[...Array(2)].map((_, i) => (
                                     <div key={`half2-${i}`} className="flex flex-none items-center gap-8 md:gap-16 px-4 md:px-8">
@@ -467,17 +612,17 @@ const SignatureSellingExperience = () => {
 const NeighborhoodShowcase = () => {
     const ref = useRef(null);
     const areas = [
-        { name: "Newport Beach", img: "/neighborhoods/newport-beach.png" },
-        { name: "Costa Mesa", img: "/neighborhoods/costa-mesa.png" },
-        { name: "Santa Ana", img: "/neighborhoods/santa-ana.png" },
-        { name: "Huntington Beach", img: "/neighborhoods/huntington-beach.png" },
+        { name: "Newport Beach", img: neighborhoodTileImage("newport-beach") },
+        { name: "Costa Mesa", img: neighborhoodTileImage("costa-mesa") },
+        { name: "Santa Ana", img: neighborhoodTileImage("santa-ana") },
+        { name: "Huntington Beach", img: neighborhoodTileImage("huntington-beach") },
     ];
 
     const areasRow2 = [
-        { name: "North Tustin", img: "/neighborhoods/north-tustin.png" },
-        { name: "Orange", img: "/neighborhoods/orange.png" },
-        { name: "Irvine", img: "/neighborhoods/irvine.png" },
-        { name: "Anaheim", img: "/neighborhoods/anaheim.png" },
+        { name: "North Tustin", img: neighborhoodTileImage("north-tustin") },
+        { name: "Orange", img: neighborhoodTileImage("orange") },
+        { name: "Irvine", img: neighborhoodTileImage("irvine") },
+        { name: "Anaheim", img: neighborhoodTileImage("anaheim") },
     ];
 
     return (

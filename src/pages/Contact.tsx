@@ -15,260 +15,239 @@ export default function Contact() {
     return (
         <div className="bg-black w-full min-h-screen text-white overflow-x-hidden selection:bg-accent selection:text-white">
 
-            {/* Full-screen Hero — matches homepage style */}
-            <section className="relative h-screen flex items-center justify-center overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                    <img 
-                        src="/contact/hero.png" 
-                        alt="Contact Cuervo Homes Orange County" 
-                        className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/90" />
+            {/* Split Layout: Info panel + Form */}
+            <section id="form" className="flex flex-col md:flex-row min-h-screen">
+
+                {/* Left: Value prop + headshot + promises */}
+                <div className="w-full md:w-[45%] lg:w-[42%] bg-[#0a0a0a] border-b md:border-b-0 md:border-r border-white/[0.06] flex flex-col justify-center p-8 md:p-12 lg:p-16 pt-28 md:pt-12">
+
+                    <span className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block mb-4">
+                        Free Home Valuation
+                    </span>
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-[1.1] mb-6">
+                        WHAT IS YOUR HOME <br className="hidden md:block" />REALLY WORTH?
+                    </h2>
+
+                    {/* Agent card */}
+                    <div className="flex items-center gap-4 mb-6 pb-6 border-b border-white/[0.08]">
+                        <div className="w-14 h-14 rounded-full overflow-hidden ring-2 ring-white/10 ring-offset-2 ring-offset-[#0a0a0a] flex-shrink-0">
+                            <img
+                                src="/c_homes/headshot_copy.png"
+                                alt="Regina Cuervo, REALTOR®"
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                        <div>
+                            <h3 className="text-sm font-serif font-black text-white leading-tight">Regina Cuervo</h3>
+                            <p className="text-[10px] text-neutral-400 font-sans mt-0.5">Your Local Expert · Orange County Specialist</p>
+                            <p className="text-[10px] text-neutral-500 font-sans mt-0.5 flex items-center gap-1.5">
+                                WE'RE Real Estate <span className="text-white/30">|</span> 5.0<Star className="w-2.5 h-2.5 text-accent fill-accent inline" /> · 656 team reviews
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-[14px] text-neutral-400 font-sans leading-relaxed mb-8">
+                        Online estimates can miss the mark by tens of thousands of dollars. Receive a personalized home value report prepared by a local expert—factoring in your home's unique upgrades, condition, and the latest market activity.
+                    </p>
+
+                    {/* Promises */}
+                    <div className="space-y-4 mb-8">
+                        {[
+                            "100% Complimentary — No Obligation",
+                            "Confidential Home Value & Strategy Review",
+                            "Delivered Within 24 Hours",
+                        ].map((item, i) => (
+                            <div key={i} className="flex items-center gap-3">
+                                <CheckCircle className="w-4 h-4 text-accent flex-shrink-0" />
+                                <span className="text-sm text-white font-bold font-sans">{item}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Contact details — compact */}
+                    <div className="border-t border-white/[0.06] pt-6 space-y-4">
+                        <div className="flex items-center gap-3">
+                            <Phone className="w-4 h-4 text-accent flex-shrink-0" />
+                            <a href="tel:7143195966" className="text-sm font-sans font-medium text-white hover:text-accent transition-colors">(714) 319-5966</a>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <Mail className="w-4 h-4 text-accent flex-shrink-0" />
+                            <a href="mailto:info@cuervohomes.com" className="text-sm font-sans font-medium text-white hover:text-accent transition-colors">info@cuervohomes.com</a>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <Clock className="w-4 h-4 text-accent flex-shrink-0" />
+                            <span className="text-sm font-sans text-neutral-400">8 AM – 8 PM · After hours available</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <MapPin className="w-4 h-4 text-accent flex-shrink-0" />
+                            <span className="text-sm font-sans text-neutral-400">Serving all of Orange County</span>
+                        </div>
+                    </div>
+
+                    <p className="text-[9px] text-neutral-600 uppercase tracking-[0.15em] mt-6">
+                        Cal DRE #02144970 · English & Spanish
+                    </p>
                 </div>
 
-                <div className="relative z-10 w-full max-w-5xl mx-auto px-6 md:px-12 text-center mt-20">
-                    <span className="inline-block py-1 px-3 border border-white/30 text-white/80 text-xs tracking-[0.2em] uppercase font-bold mb-6 bg-black/40 backdrop-blur-sm">
-                        100% Free · Zero Obligation
-                    </span>
-                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-black text-white leading-[1.05] tracking-tight mb-8 drop-shadow-2xl">
-                        GET YOUR FREE <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-400">HOME EQUITY REPORT.</span>
-                    </h1>
-                    <p className="text-lg md:text-xl text-neutral-200 max-w-2xl mx-auto font-sans leading-relaxed drop-shadow-lg">
-                        Find out exactly what your home is worth right now. Fill out the form below and Regina will send your personalized report fast.
-                    </p>
-                    <div className="mt-10">
-                        <a href="#form" className="group inline-flex items-center justify-center gap-3 bg-white text-black px-8 py-5 text-sm md:text-base font-bold tracking-widest uppercase hover:bg-neutral-200 transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                            Fill Out The Form Below
-                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </a>
+                {/* Right: Form over background image */}
+                <div className="w-full md:w-[55%] lg:w-[58%] relative min-h-[80vh] md:min-h-0">
+                    {/* Background image */}
+                    <img
+                        src="/contact/panel.png"
+                        alt="Luxury Home in Orange County"
+                        className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/80 backdrop-blur-[2px]" />
+
+                    <div className="relative z-10 flex items-center justify-center h-full p-8 md:p-14 lg:p-20 pt-28 md:pt-14">
+                        <div className="w-full max-w-xl">
+                            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-400 block mb-2">Get Started</span>
+                            <h3 className="text-2xl md:text-3xl font-serif font-black text-white tracking-tight mb-8">
+                                REQUEST YOUR FREE REPORT
+                            </h3>
+
+                            <form className="space-y-5" autoComplete="off">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-300">Full Name *</label>
+                                        <input
+                                            type="text"
+                                            className="w-full bg-black/60 border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-600"
+                                            placeholder="John Doe"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-300">Phone Number *</label>
+                                        <input
+                                            type="tel"
+                                            className="w-full bg-black/60 border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-600"
+                                            placeholder="(714) 555-0198"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-300">Email Address *</label>
+                                    <input
+                                        type="email"
+                                        className="w-full bg-black/60 border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-600"
+                                        placeholder="john@email.com"
+                                        required
+                                    />
+                                </div>
+
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-300">Property Address</label>
+                                    <input
+                                        type="text"
+                                        className="w-full bg-black/60 border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-600"
+                                        placeholder="123 Main St, Newport Beach, CA"
+                                    />
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-300">I'm Interested In... *</label>
+                                        <select className="w-full bg-black/60 border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all appearance-none cursor-pointer" required>
+                                            <option value="" disabled selected>Choose one...</option>
+                                            <option value="selling">Selling My Home</option>
+                                            <option value="buying">Buying A Home</option>
+                                            <option value="equity">Free Home Equity Report</option>
+                                            <option value="investing">Investment Properties</option>
+                                            <option value="relocating">Relocating to Orange County</option>
+                                            <option value="first-time">First-Time Home Buyer</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-300">Timeline</label>
+                                        <select className="w-full bg-black/60 border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all appearance-none cursor-pointer">
+                                            <option value="" disabled selected>When are you looking?</option>
+                                            <option value="asap">As Soon As Possible</option>
+                                            <option value="1-3">1 - 3 Months</option>
+                                            <option value="3-6">3 - 6 Months</option>
+                                            <option value="6-12">6 - 12 Months</option>
+                                            <option value="exploring">Just Exploring</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    className="group w-full flex items-center justify-center gap-3 bg-white text-black px-8 py-5 text-sm font-black tracking-[0.2em] uppercase hover:bg-neutral-200 transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.1)] mt-2"
+                                >
+                                    Get My Free Report
+                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                </button>
+                            </form>
+
+                            {/* SMS/TCPA Compliance Disclaimer */}
+                            <p className="text-[9px] text-neutral-500 font-sans leading-relaxed mt-5">
+                                By submitting this form, you consent to receive calls, text messages (including via automated technology), and emails from Cuervo Homes / WE'RE Real Estate Inc at the phone number and email provided, including for marketing purposes. You understand that consent is not a condition of purchase. Message and data rates may apply. Message frequency varies. You may opt out at any time by replying STOP. View our{" "}
+                                <span className="underline cursor-pointer hover:text-white transition-colors">Privacy Policy</span> and{" "}
+                                <span className="underline cursor-pointer hover:text-white transition-colors">Terms of Service</span>.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* Proof Strip — matches homepage */}
-            <section className="bg-black py-12 border-y border-white/10">
-                <div className="max-w-7xl mx-auto px-6 md:px-12">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+            {/* Stats strip */}
+            <section className="bg-[#0a0a0a] py-10 border-y border-white/[0.06]">
+                <div className="max-w-5xl mx-auto px-6 md:px-12">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         {[
                             { number: "1,312", label: "Team Sales" },
                             { number: "5.0", label: "Team Rating" },
                             { number: "$753K", label: "Avg. Sale Price" },
                             { number: "656", label: "Team Reviews" },
-                        ].map((stat, idx) => (
-                            <div key={idx} className="flex flex-col items-center justify-center text-center">
-                                <span className="text-3xl md:text-4xl font-serif font-black text-white mb-2">{stat.number}</span>
-                                <span className="text-xs tracking-[0.2em] font-sans text-accent uppercase font-bold">{stat.label}</span>
+                        ].map((stat, i) => (
+                            <div key={i} className="text-center">
+                                <span className="block text-2xl md:text-3xl font-serif font-black text-white leading-none">{stat.number}</span>
+                                <span className="block text-[8px] tracking-[0.2em] font-bold text-accent uppercase mt-1.5">{stat.label}</span>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* Split Layout: Form + Contact Info — cinematic style */}
-            <section id="form" className="py-0 flex flex-col md:flex-row min-h-screen">
-                
-                {/* Left: Form on dark background */}
-                <div className="w-full md:w-3/5 flex items-center justify-center p-8 md:p-16 lg:p-24 bg-[#0a0a0a] relative">
-                    <div className="absolute -top-32 -right-32 w-96 h-96 bg-accent/5 blur-[150px] rounded-full pointer-events-none" />
-                    
-                    <div className="w-full max-w-xl relative z-10">
-                        <span className="inline-block text-accent text-xs tracking-[0.2em] font-bold uppercase mb-4">
-                            Free Home Equity Report
-                        </span>
-                        <h2 className="text-3xl md:text-5xl font-serif font-black tracking-tight mb-4 text-white leading-tight">
-                            GET YOUR <br/> FREE REPORT
-                        </h2>
-                        <div className="w-12 h-1 bg-white mb-8" />
-                        <p className="text-sm text-neutral-500 font-sans mb-10">
-                            Fill out the form below. Regina will reach out within 24 hours with your custom equity report.
-                        </p>
+            {/* Testimonials */}
+            <section className="bg-black py-16 md:py-20">
+                <div className="max-w-4xl mx-auto px-6 md:px-12">
+                    <span className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block text-center mb-8">Client Reviews</span>
 
-                        <form className="space-y-6" autoComplete="off">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="space-y-2">
-                                    <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-400">Full Name *</label>
-                                    <input 
-                                        type="text" 
-                                        className="w-full bg-black border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-700" 
-                                        placeholder="John Doe"
-                                        required
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-400">Phone Number *</label>
-                                    <input 
-                                        type="tel" 
-                                        className="w-full bg-black border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-700" 
-                                        placeholder="(714) 555-0198"
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-400">Email Address *</label>
-                                <input 
-                                    type="email" 
-                                    className="w-full bg-black border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-700" 
-                                    placeholder="john@email.com"
-                                    required
-                                />
-                            </div>
-
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-400">Property Address</label>
-                                <input 
-                                    type="text" 
-                                    className="w-full bg-black border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-700" 
-                                    placeholder="123 Main St, Newport Beach, CA"
-                                />
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="space-y-2">
-                                    <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-400">I'm Interested In... *</label>
-                                    <select className="w-full bg-black border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all appearance-none cursor-pointer" required>
-                                        <option value="" disabled selected>Choose one...</option>
-                                        <option value="selling">Selling My Home</option>
-                                        <option value="buying">Buying A Home</option>
-                                        <option value="equity">Free Home Equity Report</option>
-                                        <option value="investing">Investment Properties</option>
-                                        <option value="relocating">Relocating to Orange County</option>
-                                        <option value="first-time">First-Time Home Buyer</option>
-                                    </select>
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-400">Timeline</label>
-                                    <select className="w-full bg-black border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all appearance-none cursor-pointer">
-                                        <option value="" disabled selected>When are you looking?</option>
-                                        <option value="asap">As Soon As Possible</option>
-                                        <option value="1-3">1 - 3 Months</option>
-                                        <option value="3-6">3 - 6 Months</option>
-                                        <option value="6-12">6 - 12 Months</option>
-                                        <option value="exploring">Just Exploring</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <button 
-                                type="submit" 
-                                className="group w-full flex items-center justify-center gap-3 bg-white text-black px-8 py-5 text-sm font-black tracking-[0.2em] uppercase hover:bg-neutral-200 transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.1)] mt-2"
-                            >
-                                Get My Free Report
-                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </button>
-                            <p className="text-center text-[10px] text-neutral-600 uppercase tracking-widest mt-4">
-                                100% Free. Zero Obligation. Your info stays private.
-                            </p>
-                        </form>
+                    <div className="flex justify-center gap-1 mb-6">
+                        {[1,2,3,4,5].map(i => <Star key={i} className="w-4 h-4 text-accent fill-accent" />)}
                     </div>
-                </div>
 
-                {/* Right: Contact info over cinematic photo */}
-                <div className="w-full md:w-2/5 relative overflow-hidden min-h-[60vh] md:min-h-0">
-                    <img 
-                        src="/contact/panel.png" 
-                        alt="Luxury Home in Orange County"
-                        className="absolute inset-0 w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/75" />
-                    <div className="absolute inset-6 border border-white/20 hidden md:block pointer-events-none" />
+                    <p className="text-xl md:text-2xl font-serif font-black italic text-white text-center max-w-3xl mx-auto mb-8 leading-relaxed min-h-[120px] flex items-center justify-center">
+                        "{review.quote}"
+                    </p>
 
-                    <div className="relative z-10 flex flex-col justify-center h-full p-8 md:p-12 lg:p-16">
-                        <div className="mb-12">
-                            <ShieldCheck className="w-12 h-12 text-accent mb-6" strokeWidth={1} />
-                            <h3 className="text-2xl md:text-3xl font-serif font-black text-white mb-4">Why Clients Choose Our Team</h3>
-                            <ul className="space-y-3">
-                                {[
-                                    "Perfect 5.0★ rating — 656 team reviews",
-                                    "1,312+ team sales across Southern California",
-                                    "$753K average sale price",
-                                    "Speaks English & Spanish",
-                                ].map((item, idx) => (
-                                    <li key={idx} className="flex items-center gap-3 text-sm text-neutral-300 font-sans">
-                                        <CheckCircle className="w-4 h-4 text-accent flex-shrink-0" /> {item}
-                                    </li>
-                                ))}
-                            </ul>
+                    <div className="flex items-center justify-center gap-3 mb-8">
+                        <div className="w-10 h-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center">
+                            <span className="text-[11px] font-serif font-black text-white">{review.initials}</span>
                         </div>
-                        
-                        <div className="space-y-6 border-t border-white/10 pt-8">
-                            <div className="flex items-center gap-4">
-                                <Phone className="w-5 h-5 text-accent" />
-                                <div>
-                                    <span className="block text-[10px] font-bold tracking-widest text-neutral-500 uppercase">Call Direct</span>
-                                    <a href="tel:7143195966" className="text-lg font-sans font-medium text-white hover:text-accent transition-colors">(714) 319-5966</a>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-4">
-                                <Mail className="w-5 h-5 text-accent" />
-                                <div>
-                                    <span className="block text-[10px] font-bold tracking-widest text-neutral-500 uppercase">Email</span>
-                                    <a href="mailto:info@cuervohomes.com" className="text-lg font-sans font-medium text-white hover:text-accent transition-colors">info@cuervohomes.com</a>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-4">
-                                <Clock className="w-5 h-5 text-accent" />
-                                <div>
-                                    <span className="block text-[10px] font-bold tracking-widest text-neutral-500 uppercase">Hours</span>
-                                    <span className="text-sm font-sans text-neutral-300">8:00 AM - 8:00 PM · After hours available</span>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-4">
-                                <MapPin className="w-5 h-5 text-accent" />
-                                <div>
-                                    <span className="block text-[10px] font-bold tracking-widest text-neutral-500 uppercase">Serving</span>
-                                    <span className="text-sm font-sans text-neutral-300">Newport Beach · Costa Mesa · Huntington Beach · Santa Ana · Irvine · Orange · North Tustin · Anaheim</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="mt-8 pt-6 border-t border-white/10">
-                            <p className="text-[10px] text-neutral-500 uppercase tracking-widest">
-                                Regina Cuervo, REALTOR® · Cal DRE #02144970 · WE'RE Real Estate Inc
-                            </p>
+                        <div className="text-left">
+                            <span className="font-serif font-black text-white block text-sm">{review.name}</span>
+                            <span className="text-[10px] font-bold tracking-widest text-neutral-500 uppercase">{review.detail}</span>
                         </div>
                     </div>
-                </div>
-            </section>
 
-            {/* Testimonial Carousel — 1 at a time with arrows */}
-            <section className="bg-white py-24 text-black">
-                <div className="max-w-5xl mx-auto px-6 md:px-12">
-                    <div className="flex items-center justify-center gap-8 md:gap-12">
-                        <button onClick={() => setIdx(i => Math.max(0, i - 1))} disabled={idx === 0} className="w-12 h-12 border border-neutral-300 flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all disabled:opacity-20 flex-shrink-0">
-                            <ChevronLeft className="w-5 h-5" />
+                    <div className="flex items-center justify-center gap-4">
+                        <button onClick={() => setIdx(i => Math.max(0, i - 1))} disabled={idx === 0} className="w-10 h-10 border border-white/15 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all disabled:opacity-20">
+                            <ChevronLeft className="w-4 h-4" />
                         </button>
-                        <div className="text-center flex-1 min-w-0">
-                            <div className="flex justify-center gap-1 mb-6">
-                                {[1,2,3,4,5].map(i => <Star key={i} className="w-5 h-5 text-accent fill-accent" />)}
-                            </div>
-                            <p className="text-xl md:text-2xl font-serif font-black italic max-w-3xl mx-auto mb-6 leading-relaxed min-h-[140px] flex items-center justify-center">
-                                "{review.quote}"
-                            </p>
-                            <div className="flex items-center justify-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center">
-                                    <span className="text-xs font-serif font-black text-white">{review.initials}</span>
-                                </div>
-                                <span className="text-sm font-bold text-neutral-500 uppercase tracking-widest">
-                                    {review.name} · {review.detail}
-                                </span>
-                            </div>
-                            <div className="flex justify-center gap-2 mt-8">
-                                {reviews.map((_, i) => (
-                                    <button key={i} onClick={() => setIdx(i)} className={`w-2 h-2 rounded-full transition-all ${i === idx ? 'bg-black w-6' : 'bg-neutral-300 hover:bg-neutral-400'}`} />
-                                ))}
-                            </div>
+                        <div className="flex gap-2">
+                            {reviews.map((_, i) => (
+                                <button key={i} onClick={() => setIdx(i)} className={`h-1 rounded-full transition-all duration-300 ${i === idx ? 'bg-accent w-8' : 'bg-white/20 w-4 hover:bg-white/40'}`} />
+                            ))}
                         </div>
-                        <button onClick={() => setIdx(i => Math.min(reviews.length - 1, i + 1))} disabled={idx === reviews.length - 1} className="w-12 h-12 border border-neutral-300 flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all disabled:opacity-20 flex-shrink-0">
-                            <ChevronRight className="w-5 h-5" />
+                        <button onClick={() => setIdx(i => Math.min(reviews.length - 1, i + 1))} disabled={idx === reviews.length - 1} className="w-10 h-10 border border-white/15 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all disabled:opacity-20">
+                            <ChevronRight className="w-4 h-4" />
                         </button>
-                    </div>
-                    <div className="mt-10 text-center">
-                        <Link to="/" className="group inline-flex items-center gap-3 bg-black text-white px-8 py-4 font-bold tracking-widest uppercase text-sm hover:bg-neutral-800 transition-colors">
-                            See Our Work <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </Link>
                     </div>
                 </div>
             </section>

@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "dev:vercel": "npx vercel dev",
+    "images:download-neighborhood-sources": "powershell.exe -NoLogo -NoProfile -File scripts/download-neighborhood-sources.ps1",
+    "images:upscale-neighborhoods": "node scripts/upscale-neighborhoods.mjs",
     "seo:generate": "node scripts/generate-seo-files.mjs",
     "prebuild": "npm run seo:generate",
     "build": "tsc -b && vite build",
