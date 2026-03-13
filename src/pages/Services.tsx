@@ -29,7 +29,7 @@ const ServicesHero = () => (
             <div className="w-full md:w-1/2 bg-white flex items-center p-6 py-10 md:p-16 lg:p-20 xl:p-24 border-t md:border-t-0 md:border-r border-neutral-200">
                 <div className="w-full max-w-lg">
                     <span className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block mb-4 md:mb-5">
-                        Trusted Advisor · Orange County
+                        Trusted Real Estate Advisor · Orange County
                     </span>
                     <h1 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-serif font-black text-black leading-[1.05] tracking-tight mb-5 md:mb-6">
                         WE DO THE{" "}
@@ -286,21 +286,21 @@ const MoreServices = () => (
                 {[
                     {
                         icon: <DollarSign className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />,
-                        title: "Free Home Value Report",
-                        desc: "Get a detailed, accurate equity report — completely free. No strings attached, no sales pressure.",
-                        cta: "Get Yours Free",
+                        title: "Home Equity & Value Reports",
+                        desc: "Stay informed about your home's current market value and the equity you've built. We provide personalized reports so you can make smarter financial decisions.",
+                        cta: "Get Your Report",
                     },
                     {
                         icon: <TrendingUp className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />,
-                        title: "Investment Properties",
-                        desc: "Access off-market properties and investment opportunities. Price range from $148K to $4.1M.",
+                        title: "Investment Opportunities",
+                        desc: "Looking to grow your wealth through real estate? We help clients identify strong investment properties and opportunities across Southern California.",
                         cta: "See Opportunities",
                     },
                     {
                         icon: <MapPin className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />,
-                        title: "Relocation Services",
-                        desc: "Moving to Orange County? We handle everything so you can focus on your family. English & Spanish spoken.",
-                        cta: "Get Started",
+                        title: "Market Insights & Local Expertise",
+                        desc: "From neighborhood trends to pricing strategies, we provide the insights you need to make confident real estate decisions.",
+                        cta: "Learn More",
                     },
                 ].map((service, idx) => (
                     <div key={idx} className="group relative overflow-hidden flex flex-col min-h-[220px] md:min-h-[280px]">

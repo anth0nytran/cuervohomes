@@ -210,7 +210,7 @@ export default function Layout({ children }: LayoutProps) {
                                     className="h-16 md:h-20 object-contain mb-6"
                                 />
                                 <p className="text-neutral-400 text-[13px] leading-[1.8] font-medium mb-10 max-w-sm">
-                                    Helping families buy and sell homes across all of Orange County. 33+ homes sold. 5.0★ rating. Your trust is everything to us.
+                                    Selling Homes with Strategy. Buying Homes with Confidence. Your trusted real estate advisor across Orange County.
                                 </p>
                             </div>
                             

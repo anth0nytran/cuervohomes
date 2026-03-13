@@ -20,7 +20,9 @@
       "Bash(cp \"$TP/north_tustin.png\" \"$SRC/north-tustin.png\")",
       "Bash(cp \"$TP/orange.png\" \"$SRC/orange.png\")",
       "Bash(__NEW_LINE_aa8c74c03e29410e__ echo:*)",
-      "Read(//c/Users/antho/Desktop/Cuervo_Homes/**)"
+      "Read(//c/Users/antho/Desktop/Cuervo_Homes/**)",
+      "Bash(find /c/Users/antho/Desktop/Cuervo_Homes -type f \\\\\\( -name \"*.html\" -o -name \"*.jsx\" -o -name \"*.tsx\" \\\\\\) ! -path \"*/node_modules/*\" 2>/dev/null | head -20)",
+      "mcp__plugin_playwright_playwright__browser_evaluate"
     ]
   }
 }

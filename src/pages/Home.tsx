@@ -154,7 +154,7 @@ const HeroHQ = () => {
                     transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                     className="inline-block py-1.5 px-4 border border-white/30 text-white/90 text-xs tracking-[0.25em] uppercase font-bold mb-8 bg-black/40 backdrop-blur-sm shadow-xl"
                 >
-                    Trusted Advisor Across Orange County
+                    Trusted Real Estate Advisor Across Orange County
                 </motion.span>
 
                 <motion.h1
@@ -163,8 +163,8 @@ const HeroHQ = () => {
                     transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
                     className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-black text-white leading-[1.05] tracking-tight mb-8 drop-shadow-2xl uppercase"
                 >
-                    SELL YOUR HOME <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-400">FOR THE HIGHEST PRICE.</span>
+                    WHERE YOUR NEXT <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-neutral-400">CHAPTER BEGINS.</span>
                 </motion.h1>
 
                 <motion.p
@@ -173,7 +173,7 @@ const HeroHQ = () => {
                     transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     className="text-lg md:text-xl text-neutral-300 max-w-2xl font-sans mb-12 leading-relaxed drop-shadow-lg mx-auto"
                 >
-                    We fight for your money like it's our own. Get the highest price for your home, or let us find the exact dream home your family deserves.
+                    Helping you buy, sell, and invest with confidence through expert guidance and personalized service.
                 </motion.p>
 
                 <motion.div
@@ -248,7 +248,7 @@ const HeroHQ = () => {
                                 {[...Array(2)].map((_, i) => (
                                     <div key={`half1-${i}`} className="flex flex-none items-center gap-8 md:gap-16 px-4 md:px-8">
                                         <img src="/c_homes/broker_logo_copy.png" alt="Brokerage" className="h-5 md:h-7 object-contain brightness-0 invert opacity-40 hover:opacity-100 transition-opacity duration-300 cursor-default" />
-                                        {["Zillow", "Redfin", "Realtor.com", "MLS", "Homes.com"].map((name) => (
+                                        {["Zillow Preferred Agent", "Redfin Partner Agent", "WE'RE Real Estate Orange County", "Realtor.com", "MLS", "Homes.com"].map((name) => (
                                             <span key={`${i}-${name}`} className="text-[10px] md:text-xs font-bold tracking-[0.2em] text-white/40 hover:text-white transition-colors duration-300 cursor-default uppercase whitespace-nowrap">{name}</span>
                                         ))}
                                     </div>
@@ -258,7 +258,7 @@ const HeroHQ = () => {
                                 {[...Array(2)].map((_, i) => (
                                     <div key={`half2-${i}`} className="flex flex-none items-center gap-8 md:gap-16 px-4 md:px-8">
                                         <img src="/c_homes/broker_logo_copy.png" alt="Brokerage" className="h-5 md:h-7 object-contain brightness-0 invert opacity-40 hover:opacity-100 transition-opacity duration-300 cursor-default" />
-                                        {["Zillow", "Redfin", "Realtor.com", "MLS", "Homes.com"].map((name) => (
+                                        {["Zillow Preferred Agent", "Redfin Partner Agent", "WE'RE Real Estate Orange County", "Realtor.com", "MLS", "Homes.com"].map((name) => (
                                             <span key={`${i}-${name}`} className="text-[10px] md:text-xs font-bold tracking-[0.2em] text-white/40 hover:text-white transition-colors duration-300 cursor-default uppercase whitespace-nowrap">{name}</span>
                                         ))}
                                     </div>
@@ -285,98 +285,208 @@ const RecentSalesSection = () => {
         { price: "$820,000", beds: 3, baths: 3, sqft: "1,380", city: "La Puente, CA", address: "16410 Francisquito Ave", soldAgo: "23 days ago", role: "Seller" },
     ];
 
+    const teamSales = [
+        { price: "$1,250,000", city: "Newport Beach", type: "Single Family", soldAgo: "3 days ago" },
+        { price: "$875,000", city: "Costa Mesa", type: "Condo", soldAgo: "5 days ago" },
+        { price: "$2,100,000", city: "Corona Del Mar", type: "Single Family", soldAgo: "8 days ago" },
+        { price: "$690,000", city: "Santa Ana", type: "Townhouse", soldAgo: "12 days ago" },
+        { price: "$1,475,000", city: "Huntington Beach", type: "Single Family", soldAgo: "15 days ago" },
+    ];
+
     return (
-        <section ref={sectionRef} className="bg-black text-white relative z-20 overflow-hidden">
-            {/* Compact strip header — minimal interruption */}
-            <div className="w-full px-6 md:px-12 lg:px-24 py-6 md:py-8 border-b border-white/10">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                    <div className="flex items-center gap-4">
-                        <span className="text-accent text-[10px] md:text-xs tracking-[0.3em] font-bold uppercase">Team Results</span>
-                        <div className="hidden md:block w-px h-5 bg-white/20" />
-                        <h2 className="text-2xl md:text-3xl font-serif font-black tracking-tight leading-none text-white">RECENT SALES</h2>
-                    </div>
-                    <div className="grid grid-cols-4 gap-0 border border-white/10 md:border-0 md:flex md:items-center md:gap-10 mt-2 md:mt-0">
-                        {[
-                            { number: "198", label: "Last 12 Mo." },
-                            { number: "1,312", label: "Team Sales" },
-                            { number: "$14K–$4.6M", label: "Price Range" },
-                            { number: "$753K", label: "Avg. Price" },
-                        ].map((stat, idx) => (
-                            <div key={idx} className={`text-center py-3 md:py-0 ${idx < 3 ? "border-r border-white/10 md:border-r-0" : ""}`}>
-                                <span className="block text-base md:text-2xl font-serif font-black text-white leading-none mb-0.5 tracking-tight">{stat.number}</span>
-                                <span className="block text-[6px] md:text-[8px] tracking-[0.15em] md:tracking-[0.2em] font-bold text-white/40 uppercase">{stat.label}</span>
-                            </div>
-                        ))}
+        <section ref={sectionRef} className="relative z-20">
+            <div className="bg-white">
+                {/* Section header */}
+                <div className="border-b border-black/[0.08]">
+                    <div className="max-w-[1800px] mx-auto px-6 md:px-12 lg:px-16 py-6 md:py-8 flex items-end justify-between">
+                        <motion.div
+                            initial={{ opacity: 0, y: 12 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                            viewport={{ once: true }}
+                        >
+                            <span className="text-accent text-[9px] tracking-[0.3em] font-bold uppercase block mb-2">Proven Results</span>
+                            <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif font-black tracking-tight text-black leading-none uppercase">
+                                Our Track Record
+                            </h2>
+                        </motion.div>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            transition={{ duration: 0.7, delay: 0.2 }}
+                            viewport={{ once: true }}
+                            className="hidden md:flex items-center gap-6"
+                        >
+                            <p className="text-[11px] text-neutral-400 font-sans leading-relaxed text-right">
+                                Selling homes with strategy.<br />Buying homes with confidence.
+                            </p>
+                            <Link to="/contact" className="group inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase text-black hover:text-accent transition-colors">
+                                <span>Work With Us</span>
+                                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                            </Link>
+                        </motion.div>
                     </div>
                 </div>
-            </div>
 
-            {/* Compact sales table */}
-            <div className="w-full bg-white">
-                {/* Sales table — all transactions */}
-                <div className="bg-white">
-                    {/* Table header — desktop only */}
-                    <div className="hidden md:grid grid-cols-12 gap-4 px-8 md:px-12 py-5 border-b-2 border-black text-[8px] font-bold tracking-[0.2em] text-black uppercase bg-neutral-50">
-                        <div className="col-span-4">Property</div>
-                        <div className="col-span-2">Price</div>
-                        <div className="col-span-3">Details</div>
-                        <div className="col-span-2">Location</div>
-                        <div className="col-span-1 text-right">Side</div>
-                    </div>
+                {/* Two-column layout: Personal (left) | Team (right) */}
+                <div className="max-w-[1800px] mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-2">
 
-                    {/* Table rows */}
-                    {sales.map((sale, idx) => (
-                        <div
-                            key={idx}
-                            className="md:grid md:grid-cols-12 md:gap-4 px-6 md:px-12 py-5 md:py-6 border-b border-neutral-200 hover:bg-neutral-50 transition-colors md:items-center group cursor-default"
-                        >
-                            {/* Mobile: structured card layout */}
-                            <div className="md:hidden">
-                                <div className="flex items-start justify-between mb-2">
-                                    <div>
-                                        <span className="text-lg font-serif font-black text-black leading-none">{sale.price}</span>
-                                        <span className="block text-[11px] font-sans font-bold text-black mt-1">{sale.address}</span>
-                                    </div>
-                                    <span className="inline-block text-[8px] font-bold tracking-[0.2em] uppercase text-white bg-black px-2 py-1 flex-shrink-0 ml-4">{sale.role}</span>
+                        {/* ====== LEFT COLUMN: Personal Stats + Personal Sales ====== */}
+                        <div className="lg:border-r border-black/[0.08]">
+                            {/* Personal Stats */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                                viewport={{ once: true }}
+                                className="px-6 md:px-12 lg:px-16 pt-10 md:pt-14 pb-8 md:pb-10"
+                            >
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="w-6 h-[2px] bg-black" />
+                                    <span className="text-[9px] tracking-[0.3em] font-bold text-black uppercase">Regina Cuervo · Personal</span>
                                 </div>
-                                <div className="flex items-center justify-between mt-2 pt-2 border-t border-neutral-100">
-                                    <span className="text-[10px] tracking-wider uppercase font-sans font-bold text-neutral-500">{sale.beds} bd · {sale.baths} ba · {sale.sqft} sqft</span>
-                                    <span className="text-[10px] tracking-wider uppercase font-sans font-bold text-neutral-400 flex items-center gap-1">
-                                        <MapPin className="w-3 h-3 text-neutral-400" /> {sale.city}
+
+                                <div className="flex items-end gap-4 mb-8">
+                                    <span className="text-[5.5rem] md:text-[7rem] lg:text-[8rem] font-serif font-black text-black leading-[0.8] tracking-tighter">
+                                        198
+                                    </span>
+                                    <span className="text-[10px] tracking-[0.3em] font-bold text-neutral-400 uppercase pb-2">
+                                        Homes Sold
                                     </span>
                                 </div>
-                            </div>
 
-                            {/* Desktop: table row */}
-                            <div className="hidden md:block col-span-4">
-                                <span className="text-sm font-sans font-bold text-black border-l-2 border-transparent group-hover:border-black pl-0 group-hover:pl-3 transition-all duration-300">{sale.address}</span>
-                            </div>
-                            <div className="hidden md:block col-span-2">
-                                <span className="text-lg font-serif font-black text-black">{sale.price}</span>
-                            </div>
-                            <div className="hidden md:block col-span-3">
-                                <span className="text-[10px] tracking-wider uppercase font-sans font-bold text-neutral-500">{sale.beds} bd · {sale.baths} ba · {sale.sqft} sqft</span>
-                            </div>
-                            <div className="hidden md:flex col-span-2 items-center">
-                                <span className="text-[10px] tracking-wider uppercase font-sans font-bold text-neutral-500 flex items-center gap-1.5">
-                                    <MapPin className="w-3 h-3 text-black" /> {sale.city}
-                                </span>
-                            </div>
-                            <div className="hidden md:block col-span-1 text-right">
-                                <span className="inline-block text-[8px] font-bold tracking-[0.2em] uppercase text-white bg-black px-2 py-1">{sale.role}</span>
+                                <div className="grid grid-cols-3 gap-0 border-t border-black/[0.08] pt-5">
+                                    {[
+                                        { number: "$753K", label: "Avg. Sale Price" },
+                                        { number: "$14K–$4.6M", label: "Price Range" },
+                                        { number: "5.0", label: "Client Rating" },
+                                    ].map((stat, idx) => (
+                                        <div key={idx} className={idx > 0 ? "pl-5 md:pl-6 border-l border-black/[0.08]" : ""}>
+                                            <span className="block text-xl md:text-2xl font-serif font-black text-black leading-none tracking-tight">{stat.number}</span>
+                                            <span className="block text-[7px] md:text-[8px] tracking-[0.2em] font-bold text-neutral-400 uppercase mt-1.5">{stat.label}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.div>
+
+                            {/* Personal Recent Sales */}
+                            <div className="border-t border-black/[0.08]">
+                                <div className="px-6 md:px-12 lg:px-16 py-3 flex items-center justify-between bg-neutral-50/50">
+                                    <span className="text-[9px] tracking-[0.25em] font-bold text-black uppercase">Regina's Recent Sales</span>
+                                    <span className="text-[8px] tracking-[0.2em] font-bold text-neutral-400 uppercase">Last 30 Days</span>
+                                </div>
+                                {sales.map((sale, idx) => (
+                                    <motion.div
+                                        key={idx}
+                                        initial={{ opacity: 0 }}
+                                        whileInView={{ opacity: 1 }}
+                                        transition={{ duration: 0.4, delay: idx * 0.05 }}
+                                        viewport={{ once: true }}
+                                        className="px-6 md:px-12 lg:px-16 py-4 border-t border-black/[0.04] hover:bg-neutral-50/60 transition-colors group cursor-default"
+                                    >
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-baseline gap-3 mb-1">
+                                                    <span className="text-[15px] md:text-[17px] font-serif font-black text-black tracking-tight">{sale.price}</span>
+                                                    <span className="inline-block text-[7px] font-bold tracking-[0.2em] uppercase text-white bg-black px-2 py-0.5">{sale.role}</span>
+                                                </div>
+                                                <div className="flex items-center gap-2 text-[10px] tracking-wider uppercase font-sans font-bold text-neutral-400">
+                                                    <span className="text-neutral-600">{sale.address}</span>
+                                                    <span className="text-neutral-300">·</span>
+                                                    <span>{sale.beds}bd {sale.baths}ba {sale.sqft}sf</span>
+                                                </div>
+                                            </div>
+                                            <div className="hidden md:flex flex-col items-end ml-4 flex-shrink-0">
+                                                <span className="text-[10px] tracking-wider uppercase font-sans font-bold text-neutral-500 flex items-center gap-1">
+                                                    <MapPin className="w-3 h-3 text-neutral-400" /> {sale.city}
+                                                </span>
+                                                <span className="text-[9px] tracking-wider uppercase font-sans text-neutral-400 mt-0.5">{sale.soldAgo}</span>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                ))}
                             </div>
                         </div>
-                    ))}
+
+                        {/* ====== RIGHT COLUMN: Team Stats + Team Sales ====== */}
+                        <div className="border-t lg:border-t-0 border-black/[0.08]">
+                            {/* Team Stats */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                                viewport={{ once: true }}
+                                className="px-6 md:px-12 lg:px-16 pt-10 md:pt-14 pb-8 md:pb-10 bg-neutral-50/50"
+                            >
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="w-6 h-[2px] bg-accent" />
+                                    <span className="text-[9px] tracking-[0.3em] font-bold text-neutral-500 uppercase">WE'RE Real Estate · Team</span>
+                                </div>
+
+                                <div className="flex items-end gap-4 mb-8">
+                                    <span className="text-[5.5rem] md:text-[7rem] lg:text-[8rem] font-serif font-black text-black leading-[0.8] tracking-tighter">
+                                        1,312
+                                    </span>
+                                    <span className="text-[10px] tracking-[0.3em] font-bold text-neutral-400 uppercase pb-2">
+                                        Team Sales
+                                    </span>
+                                </div>
+
+                                <div className="grid grid-cols-3 gap-0 border-t border-black/[0.08] pt-5">
+                                    {[
+                                        { number: "$753K", label: "Avg. Sale Price" },
+                                        { number: "656", label: "Verified Reviews" },
+                                        { number: "5.0", label: "Team Rating" },
+                                    ].map((stat, idx) => (
+                                        <div key={idx} className={idx > 0 ? "pl-5 md:pl-6 border-l border-black/[0.08]" : ""}>
+                                            <span className="block text-xl md:text-2xl font-serif font-black text-black leading-none tracking-tight">{stat.number}</span>
+                                            <span className="block text-[7px] md:text-[8px] tracking-[0.2em] font-bold text-neutral-400 uppercase mt-1.5">{stat.label}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.div>
+
+                            {/* Team Recent Sales */}
+                            <div className="border-t border-black/[0.08]">
+                                <div className="px-6 md:px-12 lg:px-16 py-3 flex items-center justify-between bg-neutral-50/50">
+                                    <span className="text-[9px] tracking-[0.25em] font-bold text-black uppercase">Team Recent Sales</span>
+                                    <span className="text-[8px] tracking-[0.2em] font-bold text-neutral-400 uppercase">Orange County</span>
+                                </div>
+                                {teamSales.map((sale, idx) => (
+                                    <motion.div
+                                        key={idx}
+                                        initial={{ opacity: 0 }}
+                                        whileInView={{ opacity: 1 }}
+                                        transition={{ duration: 0.4, delay: idx * 0.05 }}
+                                        viewport={{ once: true }}
+                                        className="px-6 md:px-12 lg:px-16 py-4 border-t border-black/[0.04] hover:bg-neutral-50/60 transition-colors group cursor-default"
+                                    >
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-baseline gap-3 mb-1">
+                                                    <span className="text-[15px] md:text-[17px] font-serif font-black text-black tracking-tight">{sale.price}</span>
+                                                    <span className="inline-block text-[7px] font-bold tracking-[0.15em] uppercase text-accent">{sale.type}</span>
+                                                </div>
+                                                <span className="text-[10px] tracking-wider uppercase font-sans font-bold text-neutral-400 flex items-center gap-1">
+                                                    <MapPin className="w-3 h-3 text-neutral-400" /> {sale.city}
+                                                </span>
+                                            </div>
+                                            <span className="text-[9px] tracking-wider uppercase font-sans text-neutral-400 flex-shrink-0 ml-4">{sale.soldAgo}</span>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
-                {/* Bottom CTA row */}
-                <div className="py-12 px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6 bg-white border-b border-black">
-                    <p className="text-[11px] font-bold tracking-[0.1em] text-neutral-400 font-sans uppercase">
-                        5.0★ team rating &nbsp;·&nbsp; 656 team reviews &nbsp;·&nbsp; English & Spanish
-                    </p>
-                    <Link to="/contact" className="group inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase text-black border-b border-black pb-1 hover:text-accent hover:border-accent transition-colors">
-                        Want Results Like These?
-                        <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                {/* Bottom CTA bar — mobile */}
+                <div className="md:hidden border-t border-black/[0.08] px-6 py-5">
+                    <Link to="/contact" className="group flex items-center justify-between">
+                        <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-black group-hover:text-accent transition-colors">Want Results Like These?</span>
+                        <ArrowRight className="w-4 h-4 text-black group-hover:text-accent group-hover:translate-x-1 transition-all" />
                     </Link>
                 </div>
             </div>
@@ -407,33 +517,37 @@ const ContentWhyTrustUs = () => {
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-white/20 bg-black/40 backdrop-blur-md">
-                    <div className="p-6 md:p-10 hover:bg-white/10 transition-colors duration-500 group text-left border-b md:border-b-0 md:border-r border-white/10">
-                        <LineChart className="w-8 h-8 text-accent mb-6 md:mb-12 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-                        <h3 className="text-xl md:text-2xl font-serif font-black text-white mb-3 tracking-tight">Sell For The Highest Price</h3>
-                        <p className="text-sm text-neutral-300 leading-relaxed font-sans mb-8">
-                            We don't just put a sign in your yard. We use aggressive marketing and hard negotiation to make sure you walk away with the most money possible. Our clients average $1.2M per sale.
-                        </p>
-                        <Link to="/services" className="inline-flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white border-b border-white/30 pb-1 group-hover:text-accent group-hover:border-accent transition-colors">
+                    <div className="p-6 md:p-10 hover:bg-white/10 transition-colors duration-500 group text-left border-b md:border-b-0 md:border-r border-white/10 flex flex-col">
+                        <LineChart className="w-7 h-7 text-accent mb-5 md:mb-8 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                        <h3 className="text-lg md:text-xl font-serif font-black text-white mb-4 tracking-tight leading-snug min-h-[2lh]">Sell Your Home<br className="hidden md:block" /> with Strategy</h3>
+                        <div className="text-[13px] text-neutral-300 leading-[1.85] font-sans mb-8 flex-1 space-y-3">
+                            <p>Selling a home takes more than simply listing it—it requires a <span className="text-white font-medium">thoughtful strategy</span>.</p>
+                            <p>We combine expert pricing, high-impact marketing, and skilled negotiation to position your home for <span className="text-white font-medium">maximum exposure</span> and the strongest possible offers.</p>
+                            <p>Our goal is simple: help you achieve the highest possible return on your investment.</p>
+                        </div>
+                        <Link to="/services" className="inline-flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white border-b border-white/30 pb-1 group-hover:text-accent group-hover:border-accent transition-colors mt-auto">
                             Learn More <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
-                    <div className="p-6 md:p-10 hover:bg-white/10 transition-colors duration-500 group text-left border-b md:border-b-0 md:border-r border-white/10">
-                        <HomeIcon className="w-8 h-8 text-accent mb-6 md:mb-12 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-                        <h3 className="text-xl md:text-2xl font-serif font-black text-white mb-3 tracking-tight">Find Your Dream Home</h3>
-                        <p className="text-sm text-neutral-300 leading-relaxed font-sans mb-8">
-                            Whether it's your very first home or a forever home, we listen to exactly what your family needs and track it down fast. First-time buyers are always welcome — we walk you through every step.
-                        </p>
-                        <Link to="/services" className="inline-flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white border-b border-white/30 pb-1 group-hover:text-accent group-hover:border-accent transition-colors">
+                    <div className="p-6 md:p-10 hover:bg-white/10 transition-colors duration-500 group text-left border-b md:border-b-0 md:border-r border-white/10 flex flex-col">
+                        <HomeIcon className="w-7 h-7 text-accent mb-5 md:mb-8 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                        <h3 className="text-lg md:text-xl font-serif font-black text-white mb-4 tracking-tight leading-snug min-h-[2lh]">Find the Right Home<br className="hidden md:block" /> for Your Next Chapter</h3>
+                        <div className="text-[13px] text-neutral-300 leading-[1.85] font-sans mb-8 flex-1 space-y-3">
+                            <p>Whether you're purchasing your first home or searching for the perfect place to grow your family, we take the time to understand <span className="text-white font-medium">what matters most to you</span>.</p>
+                            <p>With deep local market knowledge and a personalized approach, we guide you through <span className="text-white font-medium">every step</span> so you can make confident decisions.</p>
+                        </div>
+                        <Link to="/services" className="inline-flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white border-b border-white/30 pb-1 group-hover:text-accent group-hover:border-accent transition-colors mt-auto">
                             Learn More <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
-                    <div className="p-6 md:p-10 hover:bg-white/10 transition-colors duration-500 group text-left border-b md:border-b-0">
-                        <Briefcase className="w-8 h-8 text-accent mb-6 md:mb-12 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-                        <h3 className="text-xl md:text-2xl font-serif font-black text-white mb-3 tracking-tight">Investment & Relocation</h3>
-                        <p className="text-sm text-neutral-300 leading-relaxed font-sans mb-8">
-                            Looking to grow your wealth through real estate? Or moving to Orange County for the first time? We have 6+ years of experience giving families the inside edge on the best deals.
-                        </p>
-                        <Link to="/services" className="inline-flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white border-b border-white/30 pb-1 group-hover:text-accent group-hover:border-accent transition-colors">
+                    <div className="p-6 md:p-10 hover:bg-white/10 transition-colors duration-500 group text-left border-b md:border-b-0 flex flex-col">
+                        <Briefcase className="w-7 h-7 text-accent mb-5 md:mb-8 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                        <h3 className="text-lg md:text-xl font-serif font-black text-white mb-4 tracking-tight leading-snug min-h-[2lh]">Proven Experience<br className="hidden md:block" /> You Can Count On</h3>
+                        <div className="text-[13px] text-neutral-300 leading-[1.85] font-sans mb-8 flex-1 space-y-3">
+                            <p>Real estate decisions require <span className="text-white font-medium">expertise you can trust</span>.</p>
+                            <p>With a strong track record of successful transactions and satisfied clients across Southern California, Cuervo Homes brings the experience, market insight, and negotiation skills needed to deliver <span className="text-white font-medium">exceptional results</span>.</p>
+                        </div>
+                        <Link to="/services" className="inline-flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white border-b border-white/30 pb-1 group-hover:text-accent group-hover:border-accent transition-colors mt-auto">
                             Learn More <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
@@ -486,27 +600,33 @@ const DirectorProfile = () => {
                     <div className="w-8 h-[2px] bg-black mb-8" />
 
                     <p className="text-lg md:text-xl text-black font-serif leading-relaxed mb-6 italic tracking-tight">
-                        "I know that buying or selling a home is one of the biggest decisions you'll ever make. I work hard to make it as stress-free and easy as possible."
+                        "Real estate is not just about properties — it's about people, goals, and life's next chapter."
                     </p>
-                    <p className="text-[13px] text-neutral-500 font-sans leading-relaxed mb-6 font-medium">
-                        As lead of the WE'RE Real Estate team, our team has earned a perfect 5.0-star rating from 656 verified reviews. With over 1,312 team sales and an average sale price of $753K, we bring unmatched experience to every transaction.
+                    <p className="text-[13px] text-neutral-500 font-sans leading-[1.85] mb-5 font-medium">
+                        With years of experience helping clients buy and sell homes, I've developed a reputation for delivering unmatched service, expert negotiation, and results that consistently exceed expectations. My passion for real estate and deep knowledge of the local market allow me to guide clients through every step of the process with clarity and confidence.
                     </p>
-                    <p className="text-[13px] text-neutral-500 font-sans leading-relaxed mb-12 font-medium">
-                        Our team speaks both English and Spanish and is committed to giving every family the personal attention they deserve.
+                    <p className="text-[13px] text-neutral-500 font-sans leading-[1.85] mb-5 font-medium">
+                        I understand that buying or selling a home can feel overwhelming, which is why I prioritize communication, transparency, and personalized attention. My clients know they can rely on me to advocate for their best interests while making the experience as smooth and stress-free as possible.
+                    </p>
+                    <p className="text-[13px] text-neutral-500 font-sans leading-[1.85] mb-5 font-medium">
+                        Whether you're a first-time buyer, a growing family searching for your next home, a homeowner preparing to sell for top dollar, or a seasoned investor — I am committed to helping you achieve your real estate goals.
+                    </p>
+                    <p className="text-[13px] text-black font-sans leading-[1.85] mb-10 font-bold">
+                        Let's start the conversation. Reach out today for a personalized consultation and discover what your next move could look like.
                     </p>
 
                     <div className="grid grid-cols-3 gap-0 border-y border-neutral-200">
                         <div className="py-6 border-r border-neutral-200">
+                            <span className="block text-3xl font-serif font-black text-black mb-1 tracking-tight">198</span>
+                            <span className="block text-[8px] font-bold tracking-[0.2em] text-neutral-400 uppercase">Personal Sales</span>
+                        </div>
+                        <div className="py-6 px-6 border-r border-neutral-200">
                             <span className="block text-3xl font-serif font-black text-black mb-1 tracking-tight">1,312</span>
                             <span className="block text-[8px] font-bold tracking-[0.2em] text-neutral-400 uppercase">Team Sales</span>
                         </div>
-                        <div className="py-6 px-6 border-r border-neutral-200">
-                            <span className="block text-3xl font-serif font-black text-black mb-1 tracking-tight">5.0</span>
-                            <span className="block text-[8px] font-bold tracking-[0.2em] text-neutral-400 uppercase">Team Rating</span>
-                        </div>
                         <div className="py-6 pl-6">
-                            <span className="block text-3xl font-serif font-black text-black mb-1 tracking-tight">656</span>
-                            <span className="block text-[8px] font-bold tracking-[0.2em] text-neutral-400 uppercase">Team Reviews</span>
+                            <span className="block text-3xl font-serif font-black text-black mb-1 tracking-tight">5.0★</span>
+                            <span className="block text-[8px] font-bold tracking-[0.2em] text-neutral-400 uppercase">Team Rating</span>
                         </div>
                     </div>
                 </div>
@@ -516,89 +636,260 @@ const DirectorProfile = () => {
 };
 
 // --- The Cuervo Homes Signature Selling Experience ---
-const SignatureSellingExperience = () => {
-    const ref = useRef(null);
+const SELLING_STEPS = [
+    {
+        number: "01",
+        title: "Private Strategy Consultation",
+        description: "Every successful sale begins with a thoughtful strategy. During our private consultation, we evaluate your home, review market data, and discuss your goals and timeline. From there, we craft a tailored pricing and marketing plan designed to position your home competitively and attract the right buyers.",
+        image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=100&w=1200&auto=format&fit=crop"
+    },
+    {
+        number: "02",
+        title: "Curated Preparation & Presentation",
+        description: "Presentation is everything in today's market. I coordinate professional photography, elevated marketing materials, and expert staging guidance to ensure your home is showcased at its absolute best. Every detail is carefully curated to create a powerful first impression.",
+        image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=100&w=1200&auto=format&fit=crop"
+    },
+    {
+        number: "03",
+        title: "Strategic Exposure & Negotiation",
+        description: "Your home is introduced to the market with a targeted marketing launch designed to generate strong buyer interest. As offers come in, I leverage experience and negotiation expertise to secure the strongest possible terms and maximize your return.",
+        image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=100&w=1200&auto=format&fit=crop"
+    },
+    {
+        number: "04",
+        title: "Seamless Closing & White-Glove Service",
+        description: "From inspections to escrow coordination and final documentation, I oversee every detail to ensure a smooth and successful closing. My goal is to make the process seamless, so you can move forward with confidence knowing your investment was handled with care and precision.",
+        image: "https://images.unsplash.com/photo-1622015663319-e97e697503ee?q=100&w=1200&auto=format&fit=crop"
+    }
+];
 
-    const steps = [
-        {
-            number: "01",
-            title: "Private Strategy Consultation",
-            description: "Every successful sale begins with a thoughtful strategy. During our private consultation, we evaluate your home, review market data, and discuss your goals and timeline. From there, we craft a tailored pricing and marketing plan designed to position your home competitively and attract the right buyers.",
-            image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=100&w=800&auto=format&fit=crop"
-        },
-        {
-            number: "02",
-            title: "Curated Preparation & Presentation",
-            description: "Presentation is everything in today's market. I coordinate professional photography, elevated marketing materials, and expert staging guidance to ensure your home is showcased at its absolute best. Every detail is carefully curated to create a powerful first impression.",
-            image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=100&w=800&auto=format&fit=crop"
-        },
-        {
-            number: "03",
-            title: "Strategic Exposure & Negotiation",
-            description: "Your home is introduced to the market with a targeted marketing launch designed to generate strong buyer interest. As offers come in, I leverage experience and negotiation expertise to secure the strongest possible terms and maximize your return.",
-            image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=100&w=800&auto=format&fit=crop"
-        },
-        {
-            number: "04",
-            title: "Seamless Closing & White-Glove Service",
-            description: "From inspections to escrow coordination and final documentation, I oversee every detail to ensure a smooth and successful closing. My goal is to make the process seamless, so you can move forward with confidence knowing your investment was handled with care and precision.",
-            image: "https://images.unsplash.com/photo-1622015663319-e97e697503ee?q=100&w=800&auto=format&fit=crop"
-        }
-    ];
+const AUTO_ADVANCE_MS = 6000;
+
+const SignatureSellingExperience = () => {
+    const [activeStep, setActiveStep] = useState(0);
+    const [paused, setPaused] = useState(false);
+    const [progress, setProgress] = useState(0);
+    const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+    const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+    const startTimer = useCallback(() => {
+        if (timerRef.current) clearInterval(timerRef.current);
+        if (progressRef.current) clearInterval(progressRef.current);
+        setProgress(0);
+
+        const tick = 30;
+        let elapsed = 0;
+        progressRef.current = setInterval(() => {
+            elapsed += tick;
+            setProgress(Math.min((elapsed / AUTO_ADVANCE_MS) * 100, 100));
+        }, tick);
+
+        timerRef.current = setInterval(() => {
+            setActiveStep(prev => (prev + 1) % SELLING_STEPS.length);
+            elapsed = 0;
+            setProgress(0);
+        }, AUTO_ADVANCE_MS);
+    }, []);
+
+    const stopTimer = useCallback(() => {
+        if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
+        if (progressRef.current) { clearInterval(progressRef.current); progressRef.current = null; }
+    }, []);
+
+    useEffect(() => {
+        if (!paused) startTimer();
+        else stopTimer();
+        return stopTimer;
+    }, [paused, activeStep, startTimer, stopTimer]);
+
+    const handleStepClick = (idx: number) => {
+        setActiveStep(idx);
+        setProgress(0);
+        setPaused(false);
+    };
+
+    const activeData = SELLING_STEPS[activeStep];
 
     return (
-        <section ref={ref} className="py-16 md:py-24 bg-[#fafafa]">
-            <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <section className="py-16 md:py-32 bg-white relative overflow-hidden">
+            {/* Subtle black structural line at top */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 bg-black/10" />
+
+            <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
                 {/* Header */}
-                <div className="text-center mb-12 md:mb-16">
-                    <span className="inline-block text-accent text-xs tracking-[0.2em] font-bold uppercase mb-4 border border-neutral-200 px-3 py-1 bg-white shadow-sm">
+                <div className="text-center mb-12 md:mb-20">
+                    <span className="inline-block text-accent text-[10px] tracking-[0.3em] font-bold uppercase mb-4">
                         Our Process
                     </span>
                     <h2 className="text-3xl md:text-5xl font-serif font-black tracking-tight text-black leading-tight mb-5 uppercase">
                         The Cuervo Homes <br className="hidden md:block" /> Signature Selling Experience
                     </h2>
+                    <div className="w-12 h-[2px] bg-black mx-auto mb-5" />
                     <p className="text-neutral-500 max-w-2xl mx-auto font-sans text-[15px] leading-relaxed">
                         A refined, strategic approach designed to position your home for maximum exposure, elite buyers, and exceptional results.
                     </p>
                 </div>
 
-                {/* Grid of Image Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                    {steps.map((step, idx) => (
-                        <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                            viewport={{ once: true }}
-                            className="group relative overflow-hidden bg-black"
-                        >
-                            {/* Background Image */}
-                            <img 
-                                src={step.image} 
-                                alt={step.title}
-                                className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-700 ease-in-out group-hover:scale-105"
-                            />
-                            {/* Dark Overlay */}
-                            <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors duration-700" />
+                {/* Desktop: Split layout — accordion left, image right */}
+                <div
+                    className="hidden md:grid md:grid-cols-[1fr_1.2fr] gap-0"
+                    onMouseEnter={() => setPaused(true)}
+                    onMouseLeave={() => setPaused(false)}
+                >
+                    {/* Left: Accordion steps — black panel */}
+                    <div className="flex flex-col bg-black">
+                        {SELLING_STEPS.map((step, idx) => {
+                            const isActive = idx === activeStep;
+                            return (
+                                <div
+                                    key={idx}
+                                    onClick={() => handleStepClick(idx)}
+                                    className={`relative cursor-pointer border-b border-white/[0.06] last:border-b-0 transition-colors duration-500 ${isActive ? "bg-white/[0.05]" : "hover:bg-white/[0.03]"}`}
+                                >
+                                    {/* Accent progress bar on left edge */}
+                                    <div className="absolute left-0 top-0 bottom-0 w-[3px] overflow-hidden">
+                                        <motion.div
+                                            className="w-full bg-accent"
+                                            initial={{ height: "0%" }}
+                                            animate={{ height: isActive ? `${progress}%` : "0%" }}
+                                            transition={{ duration: 0.05, ease: "linear" }}
+                                        />
+                                    </div>
 
-                            {/* Content */}
-                            <div className="relative p-8 md:p-10 flex flex-col z-10 h-full">
-                                <div className="flex items-center gap-4 mb-5">
-                                    <span className="text-3xl md:text-4xl font-serif font-black text-accent drop-shadow-md">
-                                        {step.number}
-                                    </span>
-                                    <div className="h-[1px] flex-1 bg-white/20" />
+                                    <div className="pl-7 pr-6 py-5">
+                                        {/* Step header row */}
+                                        <div className="flex items-center gap-4">
+                                            <span className={`text-2xl font-serif font-black transition-colors duration-500 ${isActive ? "text-accent" : "text-white/15"}`}>
+                                                {step.number}
+                                            </span>
+                                            <div className={`h-[1px] w-8 transition-colors duration-500 ${isActive ? "bg-accent/30" : "bg-white/10"}`} />
+                                            <h3 className={`text-[15px] font-serif font-black tracking-tight transition-colors duration-500 ${isActive ? "text-white" : "text-white/35"}`}>
+                                                {step.title}
+                                            </h3>
+                                        </div>
+
+                                        {/* Expanded content */}
+                                        <AnimatePresence initial={false}>
+                                            {isActive && (
+                                                <motion.div
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: "auto", opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                                                    className="overflow-hidden"
+                                                >
+                                                    <p className="text-[13px] text-neutral-400 font-sans leading-[1.85] mt-4 ml-[calc(2ch+2.5rem)] pr-4">
+                                                        {step.description}
+                                                    </p>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
                                 </div>
-                                
-                                <h3 className="text-xl md:text-2xl font-serif font-black text-white mb-3 tracking-tight leading-[1.2] drop-shadow-lg">
-                                    {step.title}
-                                </h3>
-                                <p className="text-[13px] md:text-sm text-neutral-300 font-sans leading-relaxed drop-shadow-md">
-                                    {step.description}
-                                </p>
+                            );
+                        })}
+                    </div>
+
+                    {/* Right: All images stacked, crossfade via opacity */}
+                    <div className="relative overflow-hidden bg-black">
+                        {SELLING_STEPS.map((step, idx) => (
+                            <motion.img
+                                key={idx}
+                                src={step.image}
+                                alt={step.title}
+                                animate={{
+                                    opacity: idx === activeStep ? 1 : 0,
+                                    scale: idx === activeStep ? 1 : 1.05,
+                                }}
+                                transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+                                className="absolute inset-0 w-full h-full object-cover"
+                            />
+                        ))}
+                        {/* Large watermark number */}
+                        <motion.span
+                            key={activeStep}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 0.08, y: 0 }}
+                            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                            className="absolute bottom-4 right-6 text-[12rem] font-serif font-black text-white leading-none select-none pointer-events-none z-10 drop-shadow-lg"
+                        >
+                            {activeData.number}
+                        </motion.span>
+                    </div>
+                </div>
+
+                {/* Mobile: Stacked accordion with inline images */}
+                <div
+                    className="md:hidden flex flex-col bg-black"
+                    onTouchStart={() => setPaused(true)}
+                    onTouchEnd={() => { setTimeout(() => setPaused(false), 3000); }}
+                >
+                    {SELLING_STEPS.map((step, idx) => {
+                        const isActive = idx === activeStep;
+                        return (
+                            <div
+                                key={idx}
+                                onClick={() => handleStepClick(idx)}
+                                className={`relative cursor-pointer border-b border-white/[0.06] last:border-b-0 transition-colors duration-300 ${isActive ? "bg-white/[0.05]" : ""}`}
+                            >
+                                {/* Progress bar */}
+                                <div className="absolute left-0 top-0 bottom-0 w-[3px] overflow-hidden">
+                                    <motion.div
+                                        className="w-full bg-accent"
+                                        initial={{ height: "0%" }}
+                                        animate={{ height: isActive ? `${progress}%` : "0%" }}
+                                        transition={{ duration: 0.05, ease: "linear" }}
+                                    />
+                                </div>
+
+                                <div className="pl-5 pr-4 py-4">
+                                    <div className="flex items-center gap-3">
+                                        <span className={`text-xl font-serif font-black transition-colors duration-300 ${isActive ? "text-accent" : "text-white/15"}`}>
+                                            {step.number}
+                                        </span>
+                                        <div className={`h-[1px] w-5 transition-colors duration-300 ${isActive ? "bg-accent/30" : "bg-white/10"}`} />
+                                        <h3 className={`text-[13px] font-serif font-black tracking-tight transition-colors duration-300 ${isActive ? "text-white" : "text-white/35"}`}>
+                                            {step.title}
+                                        </h3>
+                                    </div>
+
+                                    <AnimatePresence initial={false}>
+                                        {isActive && (
+                                            <motion.div
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: "auto", opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                                                className="overflow-hidden"
+                                            >
+                                                {/* Inline image */}
+                                                <div className="relative mt-4 aspect-[16/10] overflow-hidden">
+                                                    <img
+                                                        src={step.image}
+                                                        alt={step.title}
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                </div>
+                                                <p className="text-[12px] text-neutral-400 font-sans leading-[1.8] mt-3 pb-1">
+                                                    {step.description}
+                                                </p>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
                             </div>
-                        </motion.div>
+                        );
+                    })}
+                </div>
+
+                {/* Step indicators — dot navigation */}
+                <div className="flex justify-center gap-2 mt-8">
+                    {SELLING_STEPS.map((_, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => handleStepClick(idx)}
+                            className={`h-[3px] rounded-full transition-all duration-500 ${idx === activeStep ? "w-8 bg-black" : "w-3 bg-black/15 hover:bg-black/30"}`}
+                        />
                     ))}
                 </div>
 
