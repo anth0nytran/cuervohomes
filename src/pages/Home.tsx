@@ -494,8 +494,48 @@ const RecentSalesSection = () => {
     );
 };
 
+// --- Animated icon containers for WhyTrustUs panels ---
+const AnimatedIcon = ({ children, pulseColor = "accent" }: { children: React.ReactNode; pulseColor?: string }) => (
+    <div className="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-6 md:mb-8">
+        {/* Outer breathing ring */}
+        <motion.div
+            className={`absolute inset-0 rounded-full border border-accent/20`}
+            animate={{ scale: [1, 1.15, 1], opacity: [0.3, 0.15, 0.3] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+        {/* Soft glow pulse */}
+        <motion.div
+            className="absolute inset-1 rounded-full bg-accent/[0.06] blur-sm"
+            animate={{ opacity: [0.4, 0.8, 0.4], scale: [0.95, 1.05, 0.95] }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+        />
+        {/* Inner circle bg */}
+        <div className="relative z-10 w-12 h-12 md:w-14 md:h-14 rounded-full border border-white/10 bg-white/[0.04] flex items-center justify-center">
+            <motion.div
+                animate={{ scale: [1, 1.08, 1] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            >
+                {children}
+            </motion.div>
+        </div>
+    </div>
+);
+
 const ContentWhyTrustUs = () => {
     const ref = useRef(null);
+
+    const panelVariants = {
+        hidden: { opacity: 0, y: 40 },
+        visible: (i: number) => ({
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.8,
+                ease: [0.16, 1, 0.3, 1],
+                delay: i * 0.15,
+            },
+        }),
+    };
 
     return (
         <section ref={ref} className="relative py-20 md:py-48 overflow-hidden">
@@ -509,16 +549,36 @@ const ContentWhyTrustUs = () => {
             </div>
 
             <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 text-center">
-                <span className="inline-block text-accent text-xs tracking-[0.2em] font-bold uppercase mb-4">
+                <motion.span
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    viewport={{ once: true }}
+                    className="inline-block text-accent text-xs tracking-[0.2em] font-bold uppercase mb-4"
+                >
                     What We Do Best
-                </span>
-                <h2 className="text-3xl md:text-6xl font-serif font-black tracking-tight mb-10 md:mb-20 text-white leading-tight">
+                </motion.span>
+                <motion.h2
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                    viewport={{ once: true }}
+                    className="text-3xl md:text-6xl font-serif font-black tracking-tight mb-10 md:mb-20 text-white leading-tight"
+                >
                     WHY FAMILIES <br /> TRUST CUERVO HOMES
-                </h2>
+                </motion.h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-0 border border-white/20 bg-black/40 backdrop-blur-md">
-                    <div className="p-6 md:p-10 hover:bg-white/10 transition-colors duration-500 group text-left border-b md:border-b-0 md:border-r border-white/10 flex flex-col">
-                        <LineChart className="w-7 h-7 text-accent mb-5 md:mb-8 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                    {/* Panel 1: Sell Your Home */}
+                    <motion.div
+                        custom={0}
+                        variants={panelVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        className="relative p-6 md:p-10 hover:bg-white/[0.06] transition-colors duration-500 group text-left border-b md:border-b-0 md:border-r border-white/10 flex flex-col overflow-hidden"
+                    >
+                        <AnimatedIcon><LineChart className="w-6 h-6 md:w-7 md:h-7 text-accent" strokeWidth={1.5} /></AnimatedIcon>
                         <h3 className="text-lg md:text-xl font-serif font-black text-white mb-4 tracking-tight leading-snug min-h-[2lh]">Sell Your Home<br className="hidden md:block" /> with Strategy</h3>
                         <div className="text-[13px] text-neutral-300 leading-[1.85] font-sans mb-8 flex-1 space-y-3">
                             <p>Selling a home takes more than simply listing it—it requires a <span className="text-white font-medium">thoughtful strategy</span>.</p>
@@ -528,9 +588,18 @@ const ContentWhyTrustUs = () => {
                         <Link to="/services" className="inline-flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white border-b border-white/30 pb-1 group-hover:text-accent group-hover:border-accent transition-colors mt-auto">
                             Learn More <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                         </Link>
-                    </div>
-                    <div className="p-6 md:p-10 hover:bg-white/10 transition-colors duration-500 group text-left border-b md:border-b-0 md:border-r border-white/10 flex flex-col">
-                        <HomeIcon className="w-7 h-7 text-accent mb-5 md:mb-8 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                    </motion.div>
+
+                    {/* Panel 2: Find the Right Home */}
+                    <motion.div
+                        custom={1}
+                        variants={panelVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        className="relative p-6 md:p-10 hover:bg-white/[0.06] transition-colors duration-500 group text-left border-b md:border-b-0 md:border-r border-white/10 flex flex-col overflow-hidden"
+                    >
+                        <AnimatedIcon><HomeIcon className="w-6 h-6 md:w-7 md:h-7 text-accent" strokeWidth={1.5} /></AnimatedIcon>
                         <h3 className="text-lg md:text-xl font-serif font-black text-white mb-4 tracking-tight leading-snug min-h-[2lh]">Find the Right Home<br className="hidden md:block" /> for Your Next Chapter</h3>
                         <div className="text-[13px] text-neutral-300 leading-[1.85] font-sans mb-8 flex-1 space-y-3">
                             <p>Whether you're purchasing your first home or searching for the perfect place to grow your family, we take the time to understand <span className="text-white font-medium">what matters most to you</span>.</p>
@@ -539,9 +608,18 @@ const ContentWhyTrustUs = () => {
                         <Link to="/services" className="inline-flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white border-b border-white/30 pb-1 group-hover:text-accent group-hover:border-accent transition-colors mt-auto">
                             Learn More <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                         </Link>
-                    </div>
-                    <div className="p-6 md:p-10 hover:bg-white/10 transition-colors duration-500 group text-left border-b md:border-b-0 flex flex-col">
-                        <Briefcase className="w-7 h-7 text-accent mb-5 md:mb-8 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                    </motion.div>
+
+                    {/* Panel 3: Proven Experience */}
+                    <motion.div
+                        custom={2}
+                        variants={panelVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        className="relative p-6 md:p-10 hover:bg-white/[0.06] transition-colors duration-500 group text-left border-b md:border-b-0 flex flex-col overflow-hidden"
+                    >
+                        <AnimatedIcon><Briefcase className="w-6 h-6 md:w-7 md:h-7 text-accent" strokeWidth={1.5} /></AnimatedIcon>
                         <h3 className="text-lg md:text-xl font-serif font-black text-white mb-4 tracking-tight leading-snug min-h-[2lh]">Proven Experience<br className="hidden md:block" /> You Can Count On</h3>
                         <div className="text-[13px] text-neutral-300 leading-[1.85] font-sans mb-8 flex-1 space-y-3">
                             <p>Real estate decisions require <span className="text-white font-medium">expertise you can trust</span>.</p>
@@ -550,7 +628,7 @@ const ContentWhyTrustUs = () => {
                         <Link to="/services" className="inline-flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white border-b border-white/30 pb-1 group-hover:text-accent group-hover:border-accent transition-colors mt-auto">
                             Learn More <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                         </Link>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>
@@ -572,7 +650,7 @@ const DirectorProfile = () => {
                 <div className="absolute inset-0 w-full z-0">
                     <img
                         src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=100&w=2000&auto=format&fit=crop"
-                        alt="Regina Cuervo - Orange County Realtor"
+                        alt="Luxury home exterior"
                         className="w-full h-full object-cover"
                     />
                 </div>
@@ -590,43 +668,56 @@ const DirectorProfile = () => {
                 <Quote className="absolute top-12 left-12 w-24 h-24 text-neutral-200/40 -z-0 rotate-180" />
 
                 <div className="relative z-10 w-full max-w-xl">
-                    <span className="inline-block text-accent text-[9px] tracking-[0.2em] font-bold uppercase mb-4 border border-accent/20 bg-accent/5 px-2 py-1">
-                        REALTOR® · Cal DRE #02144970
+                    <span className="inline-block text-accent text-[9px] tracking-[0.3em] font-bold uppercase mb-4">
+                        The Person Behind the Results
                     </span>
-                    <h2 className="text-4xl md:text-7xl font-serif font-black tracking-tight mb-6 md:mb-8 text-black leading-none">
-                        REGINA <br /> CUERVO
-                    </h2>
 
-                    <div className="w-8 h-[2px] bg-black mb-8" />
+                    <div className="flex items-center gap-5 mb-6">
+                        <img
+                            src="/c_homes/Regina Headshot.jpg"
+                            alt="Regina Cuervo"
+                            className="w-20 h-20 md:w-24 md:h-24 object-cover object-top border border-neutral-200 shadow-md flex-shrink-0"
+                        />
+                        <div>
+                            <h2 className="text-3xl md:text-4xl font-serif font-black tracking-tight text-black leading-none mb-1.5">
+                                REGINA CUERVO
+                            </h2>
+                            <span className="inline-block text-[9px] tracking-[0.2em] font-bold uppercase text-neutral-400">
+                                REALTOR® · Cal DRE #02144970
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="w-8 h-[2px] bg-black mb-6" />
 
                     <p className="text-lg md:text-xl text-black font-serif leading-relaxed mb-6 italic tracking-tight">
                         "Real estate is not just about properties — it's about people, goals, and life's next chapter."
                     </p>
                     <p className="text-[13px] text-neutral-500 font-sans leading-[1.85] mb-5 font-medium">
-                        With years of experience helping clients buy and sell homes, I've developed a reputation for delivering unmatched service, expert negotiation, and results that consistently exceed expectations. My passion for real estate and deep knowledge of the local market allow me to guide clients through every step of the process with clarity and confidence.
+                        With years of experience helping clients buy and sell homes across Southern California, I've built my career on one principle: treat every client's home like it's my own. My deep knowledge of the local market means I can spot opportunity and risk that others miss.
                     </p>
                     <p className="text-[13px] text-neutral-500 font-sans leading-[1.85] mb-5 font-medium">
-                        I understand that buying or selling a home can feel overwhelming, which is why I prioritize communication, transparency, and personalized attention. My clients know they can rely on me to advocate for their best interests while making the experience as smooth and stress-free as possible.
-                    </p>
-                    <p className="text-[13px] text-neutral-500 font-sans leading-[1.85] mb-5 font-medium">
-                        Whether you're a first-time buyer, a growing family searching for your next home, a homeowner preparing to sell for top dollar, or a seasoned investor — I am committed to helping you achieve your real estate goals.
+                        I prioritize communication, transparency, and personalized attention. My clients know they can rely on me to advocate fiercely for their best interests while making the experience as smooth and stress-free as possible.
                     </p>
                     <p className="text-[13px] text-black font-sans leading-[1.85] mb-10 font-bold">
-                        Let's start the conversation. Reach out today for a personalized consultation and discover what your next move could look like.
+                        Whether you're a first-time buyer, a growing family, or a seasoned investor — let's start the conversation.
                     </p>
 
                     <div className="grid grid-cols-3 gap-0 border-y border-neutral-200">
-                        <div className="py-6 border-r border-neutral-200">
-                            <span className="block text-3xl font-serif font-black text-black mb-1 tracking-tight">198</span>
-                            <span className="block text-[8px] font-bold tracking-[0.2em] text-neutral-400 uppercase">Personal Sales</span>
+                        <div className="py-6 pr-4 border-r border-neutral-200 group">
+                            <ShieldCheck className="w-5 h-5 text-accent mb-2 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                            <span className="block text-[10px] font-bold tracking-tight text-black uppercase mb-1">Honest Guidance</span>
+                            <span className="block text-[10px] text-neutral-400 leading-snug font-medium">Data-driven advice, always in your interest.</span>
                         </div>
-                        <div className="py-6 px-6 border-r border-neutral-200">
-                            <span className="block text-3xl font-serif font-black text-black mb-1 tracking-tight">1,312</span>
-                            <span className="block text-[8px] font-bold tracking-[0.2em] text-neutral-400 uppercase">Team Sales</span>
+                        <div className="py-6 px-4 border-r border-neutral-200 group">
+                            <CheckCircle className="w-5 h-5 text-accent mb-2 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                            <span className="block text-[10px] font-bold tracking-tight text-black uppercase mb-1">Always Available</span>
+                            <span className="block text-[10px] text-neutral-400 leading-snug font-medium">9 PM questions? Weekend showings? I'm here.</span>
                         </div>
-                        <div className="py-6 pl-6">
-                            <span className="block text-3xl font-serif font-black text-black mb-1 tracking-tight">5.0★</span>
-                            <span className="block text-[8px] font-bold tracking-[0.2em] text-neutral-400 uppercase">Team Rating</span>
+                        <div className="py-6 pl-4 group">
+                            <Star className="w-5 h-5 text-accent mb-2 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
+                            <span className="block text-[10px] font-bold tracking-tight text-black uppercase mb-1">Detail-Obsessed</span>
+                            <span className="block text-[10px] text-neutral-400 leading-snug font-medium">I sweat the small stuff so you don't have to.</span>
                         </div>
                     </div>
                 </div>
