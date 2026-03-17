@@ -37,8 +37,16 @@ export default function Contact() {
     const formRef = useRef<HTMLFormElement>(null);
     const tsRef = useRef(Date.now());
 
+    const formatPhone = (raw: string) => {
+        const d = raw.replace(/\D/g, "").slice(0, 10);
+        if (d.length <= 3) return d;
+        if (d.length <= 6) return `(${d.slice(0, 3)}) ${d.slice(3)}`;
+        return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`;
+    };
+
     const set = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        setForm(f => ({ ...f, [field]: e.target.value }));
+        const val = field === "phone" ? formatPhone(e.target.value) : e.target.value;
+        setForm(f => ({ ...f, [field]: val }));
         if (errors[field]) setErrors(er => { const n = { ...er }; delete n[field]; return n; });
     };
 
@@ -341,7 +349,13 @@ export default function Contact() {
                                             className={`w-full bg-black/60 border ${errors.phone ? 'border-red-500/60' : 'border-white/15'} p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-600`}
                                             placeholder="(714) 555-0198"
                                         />
-                                        {errors.phone && <p className="text-red-400 text-[11px] font-sans">{errors.phone}</p>}
+                                        {errors.phone ? (
+                                            <p className="text-red-400 text-[11px] font-sans">{errors.phone}</p>
+                                        ) : form.phone && form.phone.replace(/\D/g, "").length < 10 ? (
+                                            <p className="text-neutral-500 text-[11px] font-sans">{form.phone.replace(/\D/g, "").length}/10 digits</p>
+                                        ) : form.phone && form.phone.replace(/\D/g, "").length === 10 ? (
+                                            <p className="text-green-400/70 text-[11px] font-sans flex items-center gap-1"><CheckCircle className="w-3 h-3" /> Valid number</p>
+                                        ) : null}
                                     </motion.div>
                                 </div>
 
