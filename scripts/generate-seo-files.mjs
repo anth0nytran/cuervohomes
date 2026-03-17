@@ -1,11 +1,13 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-const SITE_URL = (process.env.SITE_URL || "https://www.soldbytoro.com").replace(/\/+$/, "");
+const SITE_URL = (process.env.SITE_URL || "https://www.cuervohomes.com").replace(/\/+$/, "");
 const TODAY = new Date().toISOString().slice(0, 10);
 
 const routes = [
-  { path: "/", changefreq: "weekly", priority: "1.0" }
+  { path: "/", changefreq: "weekly", priority: "1.0" },
+  { path: "/services", changefreq: "monthly", priority: "0.8" },
+  { path: "/contact", changefreq: "monthly", priority: "0.8" },
 ];
 
 const publicDir = path.resolve(process.cwd(), "public");

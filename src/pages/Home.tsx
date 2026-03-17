@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ChevronLeft, ChevronRight, Star, ShieldCheck, HomeIcon, Briefcase, MapPin, Quote, LineChart, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import SEO from "../hooks/useSEO";
 
 // --- Phase 9: Magazine-Quality, Photogenic, Trust-First Homepage ---
 
@@ -278,11 +279,11 @@ const RecentSalesSection = () => {
     const sectionRef = useRef(null);
 
     const sales = [
-        { price: "$660,000", beds: 3, baths: 2, sqft: "1,133", city: "Pomona, CA", address: "251 San Juan St", soldAgo: "7 days ago", role: "Buyer" },
-        { price: "$589,000", beds: 3, baths: 3, sqft: "1,521", city: "Azusa, CA", address: "750 E 5th St Unit 51", soldAgo: "10 days ago", role: "Buyer" },
-        { price: "$1,051,000", beds: 2, baths: 1, sqft: "1,184", city: "Long Beach, CA", address: "28 Hermosa Ave", soldAgo: "16 days ago", role: "Buyer" },
-        { price: "$1,300,000", beds: 3, baths: 3, sqft: "2,587", city: "Monrovia, CA", address: "926 Sierra Blanca Dr", soldAgo: "16 days ago", role: "Buyer" },
-        { price: "$820,000", beds: 3, baths: 3, sqft: "1,380", city: "La Puente, CA", address: "16410 Francisquito Ave", soldAgo: "23 days ago", role: "Seller" },
+        { price: "$1,860,000", beds: 4, baths: 3, sqft: "2,728", city: "Santa Ana, CA", address: "13241 Orange Knoll Dr", soldAgo: "1 month ago", role: "Buyer" },
+        { price: "$904,000", beds: 2, baths: 2, sqft: "1,089", city: "Anaheim, CA", address: "203 S Kroeger St", soldAgo: "1 month ago", role: "Seller" },
+        { price: "$488,000", beds: 3, baths: 1, sqft: "840", city: "Los Angeles, CA", address: "1257 S McBride Ave", soldAgo: "1 month ago", role: "Seller" },
+        { price: "$1,375,000", beds: 4, baths: 2, sqft: "2,160", city: "Orange, CA", address: "822 E Lomita Ave", soldAgo: "2 months ago", role: "Buyer" },
+        { price: "$1,200,000", beds: 2, baths: 2, sqft: "1,394", city: "Santa Ana, CA", address: "12931 Prospect Ave", soldAgo: "3 months ago", role: "Seller" },
     ];
 
     const teamSales = [
@@ -349,7 +350,7 @@ const RecentSalesSection = () => {
 
                                 <div className="flex items-end gap-4 mb-8">
                                     <span className="text-[5.5rem] md:text-[7rem] lg:text-[8rem] font-serif font-black text-black leading-[0.8] tracking-tighter">
-                                        198
+                                        33
                                     </span>
                                     <span className="text-[10px] tracking-[0.3em] font-bold text-neutral-400 uppercase pb-2">
                                         Homes Sold
@@ -358,8 +359,8 @@ const RecentSalesSection = () => {
 
                                 <div className="grid grid-cols-3 gap-0 border-t border-black/[0.08] pt-5">
                                     {[
-                                        { number: "$753K", label: "Avg. Sale Price" },
-                                        { number: "$14K–$4.6M", label: "Price Range" },
+                                        { number: "$1.2M", label: "Avg. Sale Price" },
+                                        { number: "$148K–$4.1M", label: "Price Range" },
                                         { number: "5.0", label: "Client Rating" },
                                     ].map((stat, idx) => (
                                         <div key={idx} className={idx > 0 ? "pl-5 md:pl-6 border-l border-black/[0.08]" : ""}>
@@ -374,7 +375,7 @@ const RecentSalesSection = () => {
                             <div className="border-t border-black/[0.08]">
                                 <div className="px-6 md:px-12 lg:px-16 py-3 flex items-center justify-between bg-neutral-50/50">
                                     <span className="text-[9px] tracking-[0.25em] font-bold text-black uppercase">Regina's Recent Sales</span>
-                                    <span className="text-[8px] tracking-[0.2em] font-bold text-neutral-400 uppercase">Last 30 Days</span>
+                                    <span className="text-[8px] tracking-[0.2em] font-bold text-neutral-400 uppercase">Recent</span>
                                 </div>
                                 {sales.map((sale, idx) => (
                                     <motion.div
@@ -531,7 +532,7 @@ const ContentWhyTrustUs = () => {
             y: 0,
             transition: {
                 duration: 0.8,
-                ease: [0.16, 1, 0.3, 1],
+                ease: [0.16, 1, 0.3, 1] as const,
                 delay: i * 0.15,
             },
         }),
@@ -541,8 +542,9 @@ const ContentWhyTrustUs = () => {
         <section ref={ref} className="relative py-20 md:py-48 overflow-hidden">
             <div className="absolute inset-0 z-0">
                 <img
-                    src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=100&w=3000&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop"
                     alt="Luxury living room"
+                    loading="lazy"
                     className="w-full h-full object-cover grayscale"
                 />
                 <div className="absolute inset-0 bg-black/85" />
@@ -649,8 +651,9 @@ const DirectorProfile = () => {
             >
                 <div className="absolute inset-0 w-full z-0">
                     <img
-                        src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=100&w=2000&auto=format&fit=crop"
+                        src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=80&w=1200&auto=format&fit=crop"
                         alt="Luxury home exterior"
+                        loading="lazy"
                         className="w-full h-full object-cover"
                     />
                 </div>
@@ -676,6 +679,7 @@ const DirectorProfile = () => {
                         <img
                             src="/c_homes/Regina Headshot.jpg"
                             alt="Regina Cuervo"
+                            loading="lazy"
                             className="w-20 h-20 md:w-24 md:h-24 object-cover object-top border border-neutral-200 shadow-md flex-shrink-0"
                         />
                         <div>
@@ -732,25 +736,25 @@ const SELLING_STEPS = [
         number: "01",
         title: "Private Strategy Consultation",
         description: "Every successful sale begins with a thoughtful strategy. During our private consultation, we evaluate your home, review market data, and discuss your goals and timeline. From there, we craft a tailored pricing and marketing plan designed to position your home competitively and attract the right buyers.",
-        image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=100&w=1200&auto=format&fit=crop"
+        image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800&auto=format&fit=crop"
     },
     {
         number: "02",
         title: "Curated Preparation & Presentation",
         description: "Presentation is everything in today's market. I coordinate professional photography, elevated marketing materials, and expert staging guidance to ensure your home is showcased at its absolute best. Every detail is carefully curated to create a powerful first impression.",
-        image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=100&w=1200&auto=format&fit=crop"
+        image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop"
     },
     {
         number: "03",
         title: "Strategic Exposure & Negotiation",
         description: "Your home is introduced to the market with a targeted marketing launch designed to generate strong buyer interest. As offers come in, I leverage experience and negotiation expertise to secure the strongest possible terms and maximize your return.",
-        image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=100&w=1200&auto=format&fit=crop"
+        image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=800&auto=format&fit=crop"
     },
     {
         number: "04",
         title: "Seamless Closing & White-Glove Service",
         description: "From inspections to escrow coordination and final documentation, I oversee every detail to ensure a smooth and successful closing. My goal is to make the process seamless, so you can move forward with confidence knowing your investment was handled with care and precision.",
-        image: "https://images.unsplash.com/photo-1622015663319-e97e697503ee?q=100&w=1200&auto=format&fit=crop"
+        image: "https://images.unsplash.com/photo-1622015663319-e97e697503ee?q=80&w=800&auto=format&fit=crop"
     }
 ];
 
@@ -1048,6 +1052,7 @@ const NeighborhoodShowcase = () => {
                             <img
                                 src={area.img}
                                 alt={`${area.name} homes for sale`}
+                                loading="lazy"
                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2000ms] ease-out brightness-[0.4] group-hover:brightness-[0.6]"
                             />
                         </div>
@@ -1141,12 +1146,14 @@ const CinematicTestimonials = () => {
                             transition={{ duration: 0.8, delay: idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
                             className="relative group h-full flex"
                         >
-                            <div 
-                                className="relative flex flex-col w-full h-full overflow-hidden border border-neutral-800 shadow-2xl hover:border-neutral-500 transition-colors duration-500 bg-fixed bg-center bg-cover"
-                                style={{ 
-                                    backgroundImage: "url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=100&w=3000&auto=format&fit=crop')",
-                                }}
+                            <div
+                                className="relative flex flex-col w-full h-full overflow-hidden border border-neutral-800 shadow-2xl hover:border-neutral-500 transition-colors duration-500 [clip-path:inset(0)]"
                             >
+                                {/* Parallax background */}
+                                <div
+                                    className="fixed inset-0 bg-center bg-cover"
+                                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1600&auto=format&fit=crop')" }}
+                                />
                                 {/* Glass Black Overlay */}
                                 <div className="absolute inset-0 bg-[#0a0a0a]/90 group-hover:bg-[#0a0a0a]/75 transition-colors duration-500 z-0 backdrop-blur-[2px]" />
 
@@ -1200,8 +1207,9 @@ const BookingFunnelCTA = () => {
         <section ref={ref} className="relative py-32 overflow-hidden">
             <div className="absolute inset-0 w-full z-0">
                 <img
-                    src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?q=100&w=3000&auto=format&fit=crop"
+                    src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?q=80&w=1600&auto=format&fit=crop"
                     alt="Luxury home exterior"
+                    loading="lazy"
                     className="w-full h-full object-cover"
                 />
             </div>
@@ -1250,6 +1258,11 @@ const BookingFunnelCTA = () => {
 export default function Home() {
     return (
         <div className="bg-black w-full overflow-x-hidden selection:bg-accent selection:text-white">
+            <SEO
+                title="Orange County Luxury Real Estate Agents | Cuervo Homes"
+                description="Cuervo Homes represents the finest luxury real estate in Orange County. Expert buyer, seller, and investor advisory across Newport Beach, Costa Mesa, Santa Ana, and more. 5.0 rating · 33+ homes sold."
+                path="/"
+            />
             <HeroHQ />
             <RecentSalesSection />
             <ContentWhyTrustUs />

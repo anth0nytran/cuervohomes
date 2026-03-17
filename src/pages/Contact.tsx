@@ -1,5 +1,24 @@
-import { useState } from "react";
-import { MapPin, Phone, Mail, ArrowRight, Clock, Star, CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { MapPin, Phone, Mail, ArrowRight, Clock, Star, CheckCircle, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import SEO from "../hooks/useSEO";
+
+// --- Shared animation helpers (same vocabulary as Home.tsx) ---
+const ease = [0.16, 1, 0.3, 1] as const;
+
+const fadeUp = (delay = 0) => ({
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+    transition: { duration: 0.7, ease, delay },
+});
+
+const fadeIn = (delay = 0) => ({
+    initial: { opacity: 0 },
+    whileInView: { opacity: 1 },
+    viewport: { once: true },
+    transition: { duration: 0.6, delay },
+});
 
 export default function Contact() {
     const reviews = [
@@ -11,8 +30,77 @@ export default function Contact() {
     ];
     const [idx, setIdx] = useState(0);
     const review = reviews[idx];
+
+    // ---- Form state ----
+    const [form, setForm] = useState({
+        fullName: "", phone: "", email: "", address: "", service: "", timeline: "",
+        website: "", fax: "", company_url: "", _ts: "",
+    });
+    const [errors, setErrors] = useState<Record<string, string>>({});
+    const [submitting, setSubmitting] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+    const [apiError, setApiError] = useState("");
+    const formRef = useRef<HTMLFormElement>(null);
+    const tsRef = useRef(Date.now());
+
+    const set = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        setForm(f => ({ ...f, [field]: e.target.value }));
+        if (errors[field]) setErrors(er => { const n = { ...er }; delete n[field]; return n; });
+    };
+
+    const validate = () => {
+        const e: Record<string, string> = {};
+        if (!form.fullName.trim() || form.fullName.trim().length < 2) e.fullName = "Please enter your full name.";
+        const digits = form.phone.replace(/\D/g, "");
+        if (digits.length < 10) e.phone = "Please enter a valid phone number.";
+        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(form.email.trim())) e.email = "Please enter a valid email.";
+        if (!form.service) e.service = "Please select a service.";
+        setErrors(e);
+        return Object.keys(e).length === 0;
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setApiError("");
+        if (!validate()) return;
+        setSubmitting(true);
+        try {
+            const res = await fetch("/api/send", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    fullName: form.fullName.trim(),
+                    phone: form.phone.trim(),
+                    email: form.email.trim(),
+                    address: form.address.trim(),
+                    service: form.service,
+                    timeline: form.timeline,
+                    website: form.website,
+                    fax: form.fax,
+                    company_url: form.company_url,
+                    _ts: String(tsRef.current),
+                }),
+            });
+            const data = await res.json();
+            if (!res.ok && data?.error) {
+                setApiError(data.error);
+            } else {
+                setSubmitted(true);
+            }
+        } catch {
+            setApiError("Something went wrong. Please try again.");
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
     return (
         <div className="bg-black w-full min-h-screen text-white overflow-x-hidden selection:bg-accent selection:text-white">
+            <SEO
+                title="Contact Us — Free Home Valuation"
+                description="Get your free home valuation from Regina Cuervo, Orange County REALTOR®. Call (714) 319-5966 or request your complimentary home equity report online. No obligation."
+                path="/contact"
+            />
 
             {/* Split Layout: Info panel + Form */}
             <section id="form" className="flex flex-col md:flex-row min-h-screen">
@@ -20,15 +108,30 @@ export default function Contact() {
                 {/* Left: Value prop + headshot + promises */}
                 <div className="w-full md:w-[45%] lg:w-[42%] bg-[#0a0a0a] border-b md:border-b-0 md:border-r border-white/[0.06] flex flex-col justify-center p-5 pt-24 md:p-12 lg:p-16">
 
-                    <span className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block mb-4">
+                    <motion.span
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, ease, delay: 0.2 }}
+                        className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block mb-4"
+                    >
                         Free Home Valuation
-                    </span>
-                    <h2 className="text-2xl md:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-[1.1] mb-5 md:mb-6">
+                    </motion.span>
+                    <motion.h2
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, ease, delay: 0.3 }}
+                        className="text-2xl md:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-[1.1] mb-5 md:mb-6"
+                    >
                         WHAT IS YOUR HOME <br className="hidden md:block" />REALLY WORTH?
-                    </h2>
+                    </motion.h2>
 
                     {/* Agent card */}
-                    <div className="flex items-center gap-3 md:gap-4 mb-5 md:mb-6 pb-5 md:pb-6 border-b border-white/[0.08]">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, ease, delay: 0.4 }}
+                        className="flex items-center gap-3 md:gap-4 mb-5 md:mb-6 pb-5 md:pb-6 border-b border-white/[0.08]"
+                    >
                         <div className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden ring-2 ring-white/10 ring-offset-2 ring-offset-[#0a0a0a] flex-shrink-0">
                             <img
                                 src="/c_homes/headshot_copy.png"
@@ -43,12 +146,17 @@ export default function Contact() {
                                 WE'RE Real Estate <span className="text-white/30">|</span> 5.0<Star className="w-2.5 h-2.5 text-accent fill-accent inline" /> · 656 team reviews
                             </p>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Description */}
-                    <p className="text-[13px] md:text-[14px] text-neutral-400 font-sans leading-relaxed mb-6 md:mb-8">
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, ease, delay: 0.5 }}
+                        className="text-[13px] md:text-[14px] text-neutral-400 font-sans leading-relaxed mb-6 md:mb-8"
+                    >
                         Online estimates can miss the mark by tens of thousands of dollars. Receive a personalized home value report prepared by a local expert—factoring in your home's unique upgrades, condition, and the latest market activity.
-                    </p>
+                    </motion.p>
 
                     {/* Promises */}
                     <div className="space-y-4 mb-8">
@@ -57,15 +165,26 @@ export default function Contact() {
                             "Confidential Home Value & Strategy Review",
                             "Delivered Within 24 Hours",
                         ].map((item, i) => (
-                            <div key={i} className="flex items-center gap-3">
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, x: -15 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5, ease, delay: 0.6 + i * 0.1 }}
+                                className="flex items-center gap-3"
+                            >
                                 <CheckCircle className="w-4 h-4 text-accent flex-shrink-0" />
                                 <span className="text-sm text-white font-bold font-sans">{item}</span>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
 
-                    {/* Contact details — compact */}
-                    <div className="border-t border-white/[0.06] pt-6 space-y-4">
+                    {/* Contact details */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.9 }}
+                        className="border-t border-white/[0.06] pt-6 space-y-4"
+                    >
                         <div className="flex items-center gap-3">
                             <Phone className="w-4 h-4 text-accent flex-shrink-0" />
                             <a href="tel:7143195966" className="text-sm font-sans font-medium text-white hover:text-accent transition-colors">(714) 319-5966</a>
@@ -82,11 +201,16 @@ export default function Contact() {
                             <MapPin className="w-4 h-4 text-accent flex-shrink-0" />
                             <span className="text-sm font-sans text-neutral-400">Serving all of Orange County</span>
                         </div>
-                    </div>
+                    </motion.div>
 
-                    <p className="text-[9px] text-neutral-600 uppercase tracking-[0.15em] mt-6">
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5, delay: 1 }}
+                        className="text-[9px] text-neutral-600 uppercase tracking-[0.15em] mt-6"
+                    >
                         Cal DRE #02144970 · English & Spanish
-                    </p>
+                    </motion.p>
                 </div>
 
                 {/* Right: Form over background image */}
@@ -100,58 +224,180 @@ export default function Contact() {
                     <div className="absolute inset-0 bg-black/80 backdrop-blur-[2px]" />
 
                     <div className="relative z-10 flex items-center justify-center h-full p-8 md:p-14 lg:p-20 pt-28 md:pt-14">
-                        <div className="w-full max-w-xl">
+                        <AnimatePresence mode="wait">
+                        {submitted ? (
+                            <motion.div
+                                key="success"
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.6, ease }}
+                                className="w-full max-w-xl text-center py-12"
+                            >
+                                <motion.div
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{ duration: 0.5, ease, delay: 0.2 }}
+                                    className="w-16 h-16 mx-auto mb-6 rounded-full bg-white/10 border border-white/20 flex items-center justify-center"
+                                >
+                                    <CheckCircle className="w-8 h-8 text-white" />
+                                </motion.div>
+                                <motion.h3
+                                    initial={{ opacity: 0, y: 15 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, ease, delay: 0.3 }}
+                                    className="text-2xl md:text-3xl font-serif font-black text-white tracking-tight mb-4"
+                                >
+                                    YOU'RE ALL SET!
+                                </motion.h3>
+                                <motion.p
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, ease, delay: 0.4 }}
+                                    className="text-sm md:text-base text-neutral-300 font-sans leading-relaxed mb-2 max-w-md mx-auto"
+                                >
+                                    Thank you, <strong className="text-white">{form.fullName.split(" ")[0]}</strong>! Regina will personally review your request and reach out within <strong className="text-white">24 hours</strong>.
+                                </motion.p>
+                                <motion.p
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, ease, delay: 0.5 }}
+                                    className="text-sm text-neutral-400 font-sans mb-8"
+                                >
+                                    A confirmation email has been sent to <strong className="text-neutral-200">{form.email}</strong>.
+                                </motion.p>
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, ease, delay: 0.6 }}
+                                    className="flex flex-col sm:flex-row gap-3 justify-center"
+                                >
+                                    <a
+                                        href="tel:7143195966"
+                                        className="inline-flex items-center justify-center gap-2 bg-white text-black px-6 py-3.5 text-xs font-black tracking-[0.15em] uppercase hover:bg-neutral-200 transition-all"
+                                    >
+                                        <Phone className="w-3.5 h-3.5" /> Call Regina Now
+                                    </a>
+                                    <button
+                                        onClick={() => { setSubmitted(false); setForm({ fullName: "", phone: "", email: "", address: "", service: "", timeline: "", website: "", fax: "", company_url: "", _ts: "" }); tsRef.current = Date.now(); }}
+                                        className="inline-flex items-center justify-center gap-2 border border-white/20 text-white px-6 py-3.5 text-xs font-bold tracking-[0.15em] uppercase hover:bg-white/10 transition-all"
+                                    >
+                                        Submit Another Request
+                                    </button>
+                                </motion.div>
+                            </motion.div>
+                        ) : (
+                        <motion.div
+                            key="form"
+                            initial={{ opacity: 0, y: 25 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, ease, delay: 0.3 }}
+                            className="w-full max-w-xl"
+                        >
                             <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-400 block mb-2">Get Started</span>
                             <h3 className="text-2xl md:text-3xl font-serif font-black text-white tracking-tight mb-8">
                                 REQUEST YOUR FREE REPORT
                             </h3>
 
-                            <form className="space-y-5" autoComplete="off">
+                            {apiError && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: -8 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="bg-red-500/10 border border-red-500/30 text-red-300 text-sm font-sans px-4 py-3 mb-6"
+                                >
+                                    {apiError}
+                                </motion.div>
+                            )}
+
+                            <form ref={formRef} className="space-y-5" autoComplete="off" onSubmit={handleSubmit} noValidate>
+                                {/* Honeypot fields */}
+                                <div className="absolute -left-[9999px]" aria-hidden="true">
+                                    <input type="text" name="website" tabIndex={-1} value={form.website} onChange={set("website")} />
+                                    <input type="text" name="fax" tabIndex={-1} value={form.fax} onChange={set("fax")} />
+                                    <input type="text" name="company_url" tabIndex={-1} value={form.company_url} onChange={set("company_url")} />
+                                </div>
+
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                    <div className="space-y-2">
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 15 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.5, ease, delay: 0.5 }}
+                                        className="space-y-2"
+                                    >
                                         <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-300">Full Name *</label>
                                         <input
                                             type="text"
-                                            className="w-full bg-black/60 border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-600"
+                                            value={form.fullName}
+                                            onChange={set("fullName")}
+                                            className={`w-full bg-black/60 border ${errors.fullName ? 'border-red-500/60' : 'border-white/15'} p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-600`}
                                             placeholder="John Doe"
-                                            required
                                         />
-                                    </div>
-                                    <div className="space-y-2">
+                                        {errors.fullName && <p className="text-red-400 text-[11px] font-sans">{errors.fullName}</p>}
+                                    </motion.div>
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 15 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.5, ease, delay: 0.55 }}
+                                        className="space-y-2"
+                                    >
                                         <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-300">Phone Number *</label>
                                         <input
                                             type="tel"
-                                            className="w-full bg-black/60 border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-600"
+                                            value={form.phone}
+                                            onChange={set("phone")}
+                                            className={`w-full bg-black/60 border ${errors.phone ? 'border-red-500/60' : 'border-white/15'} p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-600`}
                                             placeholder="(714) 555-0198"
-                                            required
                                         />
-                                    </div>
+                                        {errors.phone && <p className="text-red-400 text-[11px] font-sans">{errors.phone}</p>}
+                                    </motion.div>
                                 </div>
 
-                                <div className="space-y-2">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 15 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, ease, delay: 0.6 }}
+                                    className="space-y-2"
+                                >
                                     <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-300">Email Address *</label>
                                     <input
                                         type="email"
-                                        className="w-full bg-black/60 border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-600"
+                                        value={form.email}
+                                        onChange={set("email")}
+                                        className={`w-full bg-black/60 border ${errors.email ? 'border-red-500/60' : 'border-white/15'} p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-600`}
                                         placeholder="john@email.com"
-                                        required
                                     />
-                                </div>
+                                    {errors.email && <p className="text-red-400 text-[11px] font-sans">{errors.email}</p>}
+                                </motion.div>
 
-                                <div className="space-y-2">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 15 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, ease, delay: 0.65 }}
+                                    className="space-y-2"
+                                >
                                     <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-300">Property Address</label>
                                     <input
                                         type="text"
+                                        value={form.address}
+                                        onChange={set("address")}
                                         className="w-full bg-black/60 border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all placeholder:text-neutral-600"
                                         placeholder="123 Main St, Newport Beach, CA"
                                     />
-                                </div>
+                                </motion.div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                    <div className="space-y-2">
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 15 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.5, ease, delay: 0.7 }}
+                                        className="space-y-2"
+                                    >
                                         <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-300">I'm Interested In... *</label>
-                                        <select className="w-full bg-black/60 border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all appearance-none cursor-pointer" required>
-                                            <option value="" disabled selected>Choose one...</option>
+                                        <select
+                                            value={form.service}
+                                            onChange={set("service")}
+                                            className={`w-full bg-black/60 border ${errors.service ? 'border-red-500/60' : 'border-white/15'} p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all appearance-none cursor-pointer`}
+                                        >
+                                            <option value="" disabled>Choose one...</option>
                                             <option value="selling">Selling My Home</option>
                                             <option value="buying">Buying A Home</option>
                                             <option value="equity">Free Home Equity Report</option>
@@ -159,36 +405,66 @@ export default function Contact() {
                                             <option value="relocating">Relocating to Orange County</option>
                                             <option value="first-time">First-Time Home Buyer</option>
                                         </select>
-                                    </div>
-                                    <div className="space-y-2">
+                                        {errors.service && <p className="text-red-400 text-[11px] font-sans">{errors.service}</p>}
+                                    </motion.div>
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 15 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.5, ease, delay: 0.75 }}
+                                        className="space-y-2"
+                                    >
                                         <label className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-300">Timeline</label>
-                                        <select className="w-full bg-black/60 border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all appearance-none cursor-pointer">
-                                            <option value="" disabled selected>When are you looking?</option>
+                                        <select
+                                            value={form.timeline}
+                                            onChange={set("timeline")}
+                                            className="w-full bg-black/60 border border-white/15 p-4 text-white font-sans text-sm focus:outline-none focus:border-accent transition-all appearance-none cursor-pointer"
+                                        >
+                                            <option value="" disabled>When are you looking?</option>
                                             <option value="asap">As Soon As Possible</option>
                                             <option value="1-3">1 - 3 Months</option>
                                             <option value="3-6">3 - 6 Months</option>
                                             <option value="6-12">6 - 12 Months</option>
                                             <option value="exploring">Just Exploring</option>
                                         </select>
-                                    </div>
+                                    </motion.div>
                                 </div>
 
-                                <button
+                                <motion.button
+                                    initial={{ opacity: 0, y: 15 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, ease, delay: 0.85 }}
                                     type="submit"
-                                    className="group w-full flex items-center justify-center gap-3 bg-white text-black px-8 py-5 text-sm font-black tracking-[0.2em] uppercase hover:bg-neutral-200 transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.1)] mt-2"
+                                    disabled={submitting}
+                                    className="group w-full flex items-center justify-center gap-3 bg-white text-black px-8 py-5 text-sm font-black tracking-[0.2em] uppercase hover:bg-neutral-200 transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.1)] mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
                                 >
-                                    Get My Free Report
-                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                </button>
+                                    {submitting ? (
+                                        <>
+                                            <Loader2 className="w-5 h-5 animate-spin" />
+                                            Sending...
+                                        </>
+                                    ) : (
+                                        <>
+                                            Get My Free Report
+                                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                        </>
+                                    )}
+                                </motion.button>
                             </form>
 
                             {/* SMS/TCPA Compliance Disclaimer */}
-                            <p className="text-[9px] text-neutral-500 font-sans leading-relaxed mt-5">
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.5, delay: 1 }}
+                                className="text-[9px] text-neutral-500 font-sans leading-relaxed mt-5"
+                            >
                                 By submitting this form, you consent to receive calls, text messages (including via automated technology), and emails from Cuervo Homes / WE'RE Real Estate Inc at the phone number and email provided, including for marketing purposes. You understand that consent is not a condition of purchase. Message and data rates may apply. Message frequency varies. You may opt out at any time by replying STOP. View our{" "}
                                 <span className="underline cursor-pointer hover:text-white transition-colors">Privacy Policy</span> and{" "}
                                 <span className="underline cursor-pointer hover:text-white transition-colors">Terms of Service</span>.
-                            </p>
-                        </div>
+                            </motion.p>
+                        </motion.div>
+                        )}
+                        </AnimatePresence>
                     </div>
                 </div>
             </section>
@@ -203,10 +479,14 @@ export default function Contact() {
                             { number: "$753K", label: "Avg. Sale Price" },
                             { number: "656", label: "Team Reviews" },
                         ].map((stat, i) => (
-                            <div key={i} className="text-center">
+                            <motion.div
+                                key={i}
+                                {...fadeUp(i * 0.1)}
+                                className="text-center"
+                            >
                                 <span className="block text-2xl md:text-3xl font-serif font-black text-white leading-none">{stat.number}</span>
                                 <span className="block text-[8px] tracking-[0.2em] font-bold text-accent uppercase mt-1.5">{stat.label}</span>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
                 </div>
@@ -215,25 +495,43 @@ export default function Contact() {
             {/* Testimonials */}
             <section className="bg-black py-16 md:py-20">
                 <div className="max-w-4xl mx-auto px-6 md:px-12">
-                    <span className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block text-center mb-8">Client Reviews</span>
+                    <motion.span {...fadeUp()} className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block text-center mb-8">Client Reviews</motion.span>
 
-                    <div className="flex justify-center gap-1 mb-6">
+                    <motion.div {...fadeUp(0.1)} className="flex justify-center gap-1 mb-6">
                         {[1,2,3,4,5].map(i => <Star key={i} className="w-4 h-4 text-accent fill-accent" />)}
-                    </div>
+                    </motion.div>
 
-                    <p className="text-xl md:text-2xl font-serif font-black italic text-white text-center max-w-3xl mx-auto mb-8 leading-relaxed min-h-[120px] flex items-center justify-center">
-                        "{review.quote}"
-                    </p>
+                    <AnimatePresence mode="wait">
+                        <motion.p
+                            key={idx}
+                            initial={{ opacity: 0, y: 12 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -12 }}
+                            transition={{ duration: 0.4, ease }}
+                            className="text-xl md:text-2xl font-serif font-black italic text-white text-center max-w-3xl mx-auto mb-8 leading-relaxed min-h-[120px] flex items-center justify-center"
+                        >
+                            "{review.quote}"
+                        </motion.p>
+                    </AnimatePresence>
 
-                    <div className="flex items-center justify-center gap-3 mb-8">
-                        <div className="w-10 h-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center">
-                            <span className="text-[11px] font-serif font-black text-white">{review.initials}</span>
-                        </div>
-                        <div className="text-left">
-                            <span className="font-serif font-black text-white block text-sm">{review.name}</span>
-                            <span className="text-[10px] font-bold tracking-widest text-neutral-500 uppercase">{review.detail}</span>
-                        </div>
-                    </div>
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={idx}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="flex items-center justify-center gap-3 mb-8"
+                        >
+                            <div className="w-10 h-10 rounded-full bg-white/10 border border-white/15 flex items-center justify-center">
+                                <span className="text-[11px] font-serif font-black text-white">{review.initials}</span>
+                            </div>
+                            <div className="text-left">
+                                <span className="font-serif font-black text-white block text-sm">{review.name}</span>
+                                <span className="text-[10px] font-bold tracking-widest text-neutral-500 uppercase">{review.detail}</span>
+                            </div>
+                        </motion.div>
+                    </AnimatePresence>
 
                     <div className="flex items-center justify-center gap-4">
                         <button onClick={() => setIdx(i => Math.max(0, i - 1))} disabled={idx === 0} className="w-10 h-10 border border-white/15 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all disabled:opacity-20">

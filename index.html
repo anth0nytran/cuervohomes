@@ -25,6 +25,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet" />
   <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+  <link rel="preload" as="image" type="image/webp" href="/neighborhoods/hero/newport-beach-1600.webp" />
 
   <meta property="og:site_name" content="Cuervo Homes" />
   <meta property="og:type" content="website" />
@@ -48,7 +49,7 @@
   />
   <meta name="twitter:image" content="https://www.cuervohomes.com/og/cuervo-og.jpg" />
 
-  <!-- Aggressive SEO Schema -->
+  <!-- Structured Data -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -64,11 +65,26 @@
           "@type": "RealEstateAgent",
           "@id": "https://www.cuervohomes.com/#real-estate-agent",
           "name": "Cuervo Homes",
-          "description": "Orange County luxury real estate advisory team specializing in high-end acquisitions and divestitures.",
+          "description": "Orange County real estate advisory team specializing in residential buying, selling, and investment across Newport Beach, Costa Mesa, Santa Ana, and surrounding areas.",
           "url": "https://www.cuervohomes.com/",
-          "priceRange": "$$$$",
+          "priceRange": "$148K–$4.1M",
           "telephone": "+1-714-319-5966",
           "email": "info@cuervohomes.com",
+          "image": "https://www.cuervohomes.com/og/cuervo-og.jpg",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Orange County",
+            "addressRegion": "CA",
+            "addressCountry": "US"
+          },
+          "openingHours": "Mo-Su 08:00-20:00",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "bestRating": "5",
+            "ratingCount": "17",
+            "reviewCount": "17"
+          },
           "areaServed": [
             "Orange County",
             "Newport Beach",
@@ -76,7 +92,48 @@
             "Corona Del Mar",
             "Irvine",
             "Huntington Beach",
-            "Costa Mesa"
+            "Costa Mesa",
+            "Santa Ana",
+            "Anaheim",
+            "Orange"
+          ],
+          "knowsLanguage": ["en", "es"],
+          "employee": {
+            "@type": "Person",
+            "@id": "https://www.cuervohomes.com/#regina-cuervo",
+            "name": "Regina Cuervo",
+            "jobTitle": "REALTOR®",
+            "image": "https://www.cuervohomes.com/c_homes/headshot_copy.png",
+            "telephone": "+1-714-319-5966",
+            "email": "info@cuervohomes.com",
+            "worksFor": {
+              "@type": "Organization",
+              "name": "WE'RE Real Estate Inc"
+            }
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://www.cuervohomes.com/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://www.cuervohomes.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Services",
+              "item": "https://www.cuervohomes.com/services"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Contact",
+              "item": "https://www.cuervohomes.com/contact"
+            }
           ]
         }
       ]
