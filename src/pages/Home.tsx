@@ -496,7 +496,7 @@ const RecentSalesSection = () => {
 };
 
 // --- Animated icon containers for WhyTrustUs panels ---
-const AnimatedIcon = ({ children, pulseColor = "accent" }: { children: React.ReactNode; pulseColor?: string }) => (
+const AnimatedIcon = ({ children, _pulseColor = "accent" }: { children: React.ReactNode; _pulseColor?: string }) => (
     <div className="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-6 md:mb-8">
         {/* Outer breathing ring */}
         <motion.div

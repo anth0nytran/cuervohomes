@@ -13,12 +13,6 @@ const fadeUp = (delay = 0) => ({
     transition: { duration: 0.7, ease, delay },
 });
 
-const fadeIn = (delay = 0) => ({
-    initial: { opacity: 0 },
-    whileInView: { opacity: 1 },
-    viewport: { once: true },
-    transition: { duration: 0.6, delay },
-});
 
 export default function Contact() {
     const reviews = [
