@@ -296,7 +296,7 @@ const RecentSalesSection = () => {
 
     return (
         <section ref={sectionRef} className="relative z-20">
-            <div className="bg-white">
+            <div className="bg-white pb-10 md:pb-16 lg:pb-20">
                 {/* Section header */}
                 <div className="border-b border-black/[0.08]">
                     <div className="max-w-[1800px] mx-auto px-6 md:px-12 lg:px-16 py-6 md:py-8 flex items-end justify-between">
@@ -637,95 +637,205 @@ const ContentWhyTrustUs = () => {
     );
 };
 
+const DualCTATransition = () => {
+    return (
+        <section className="bg-white border-b border-black/[0.08]">
+            <div className="max-w-[1800px] mx-auto">
+                {/* Section header bar */}
+                <div className="border-b border-black/[0.08]">
+                    <div className="px-6 md:px-12 lg:px-16 py-6 md:py-8 flex items-end justify-between">
+                        <motion.div
+                            initial={{ opacity: 0, y: 12 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                            viewport={{ once: true }}
+                        >
+                            <span className="text-accent text-[9px] tracking-[0.3em] font-bold uppercase block mb-2">How Can We Help</span>
+                            <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif font-black tracking-tight text-black leading-none uppercase">
+                                Your Next Move
+                            </h2>
+                        </motion.div>
+                    </div>
+                </div>
+
+                {/* Two-column split */}
+                <div className="grid grid-cols-1 md:grid-cols-2">
+                    {/* Left: Find Your Next Home */}
+                    <Link to="/contact" className="group block md:border-r border-black/[0.08]">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                            viewport={{ once: true }}
+                            className="px-6 md:px-12 lg:px-16 py-8 md:py-10 lg:py-12 hover:bg-neutral-50/50 transition-colors duration-500 flex flex-col items-center"
+                        >
+                            <div className="w-full max-w-md">
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="w-6 h-[2px] bg-black" />
+                                    <span className="text-[9px] tracking-[0.3em] font-bold text-black uppercase">Buying</span>
+                                </div>
+
+                                <div className="flex items-start gap-5 md:gap-6 mb-5">
+                                    <div className="w-14 h-14 md:w-16 md:h-16 border border-black/[0.08] flex items-center justify-center flex-shrink-0 group-hover:border-accent group-hover:bg-accent/[0.04] transition-all duration-500">
+                                        <HomeIcon className="w-6 h-6 md:w-7 md:h-7 text-black/70 group-hover:text-accent transition-colors duration-500" strokeWidth={1.5} />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif font-black text-black tracking-tight leading-[1.05] mb-3 uppercase">
+                                            Find Your <br className="hidden md:block" />Next Home
+                                        </h3>
+                                        <p className="text-[13px] text-neutral-500 font-sans leading-[1.85] max-w-sm font-medium">
+                                            Whether it's your first home or your forever home, we'll guide you to the right property with expert local knowledge and personalized attention.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase text-black group-hover:text-accent transition-colors duration-300 ml-[4.5rem] md:ml-[5rem]">
+                                    <span>Start Your Search</span>
+                                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                                </div>
+                            </div>
+                        </motion.div>
+                    </Link>
+
+                    {/* Right: What's My Home Worth? */}
+                    <Link to="/contact" className="group block border-t md:border-t-0 border-black/[0.08]">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                            viewport={{ once: true }}
+                            className="px-6 md:px-12 lg:px-16 py-8 md:py-10 lg:py-12 hover:bg-neutral-50/50 transition-colors duration-500 flex flex-col items-center"
+                        >
+                            <div className="w-full max-w-md">
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="w-6 h-[2px] bg-accent" />
+                                    <span className="text-[9px] tracking-[0.3em] font-bold text-neutral-500 uppercase">Selling</span>
+                                </div>
+
+                                <div className="flex items-start gap-5 md:gap-6 mb-5">
+                                    <div className="w-14 h-14 md:w-16 md:h-16 border border-black/[0.08] flex items-center justify-center flex-shrink-0 group-hover:border-accent group-hover:bg-accent/[0.04] transition-all duration-500">
+                                        <LineChart className="w-6 h-6 md:w-7 md:h-7 text-black/70 group-hover:text-accent transition-colors duration-500" strokeWidth={1.5} />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif font-black text-black tracking-tight leading-[1.05] mb-3 uppercase">
+                                            What's My <br className="hidden md:block" />Home Worth?
+                                        </h3>
+                                        <p className="text-[13px] text-neutral-500 font-sans leading-[1.85] max-w-sm font-medium">
+                                            Get a free, expert-prepared home valuation based on real local market data and your home's unique features — not an algorithm.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase text-black group-hover:text-accent transition-colors duration-300 ml-[4.5rem] md:ml-[5rem]">
+                                    <span>Get Free Valuation</span>
+                                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                                </div>
+                            </div>
+                        </motion.div>
+                    </Link>
+                </div>
+            </div>
+        </section>
+    );
+};
+
 const DirectorProfile = () => {
     const ref = useRef(null);
 
     return (
-        <section ref={ref} className="py-0 bg-white text-black flex flex-col md:flex-row min-h-screen border-b border-neutral-200">
-            <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
-                className="w-full md:w-1/2 relative h-[50vh] md:h-auto overflow-hidden"
-            >
-                <div className="absolute inset-0 w-full z-0">
-                    <img
-                        src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=80&w=1200&auto=format&fit=crop"
-                        alt="Luxury home exterior"
-                        loading="lazy"
-                        className="w-full h-full object-cover"
-                    />
-                </div>
-                <div className="absolute inset-6 border border-white/20 hidden md:block pointer-events-none z-10" />
-                <div className="absolute inset-0 bg-black/10 pointer-events-none z-10" />
-            </motion.div>
+        <section ref={ref} className="relative overflow-hidden">
+            {/* Subtle background */}
+            <div className="absolute inset-0 z-0">
+                <img
+                    src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=80&w=1600&auto=format&fit=crop"
+                    alt=""
+                    loading="lazy"
+                    className="w-full h-full object-cover grayscale brightness-[0.08]"
+                />
+                <div className="absolute inset-0 bg-black/60" />
+            </div>
 
-            <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
-                className="w-full md:w-1/2 flex items-center justify-center p-8 md:p-24 lg:p-32 bg-[#fafafa] relative border-l border-neutral-200"
-            >
-                <Quote className="absolute top-12 left-12 w-24 h-24 text-neutral-200/40 -z-0 rotate-180" />
-
-                <div className="relative z-10 w-full max-w-xl">
-                    <span className="inline-block text-accent text-[9px] tracking-[0.3em] font-bold uppercase mb-4">
+            <div className="relative z-10 max-w-[1100px] mx-auto px-6 md:px-12 py-16 md:py-20 lg:py-24">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    viewport={{ once: true }}
+                    className="text-center"
+                >
+                    {/* Label */}
+                    <span className="inline-block text-accent text-[9px] tracking-[0.3em] font-bold uppercase mb-6">
                         The Person Behind the Results
                     </span>
 
-                    <div className="flex items-center gap-5 mb-6">
+                    {/* Headshot + Name inline */}
+                    <div className="flex items-center justify-center gap-5 md:gap-6 mb-6">
                         <img
                             src="/c_homes/Regina Headshot.jpg"
                             alt="Regina Cuervo"
                             loading="lazy"
-                            className="w-20 h-20 md:w-24 md:h-24 object-cover object-top border border-neutral-200 shadow-md flex-shrink-0"
+                            className="w-20 h-20 md:w-24 md:h-24 object-cover object-top border border-white/15 shadow-2xl flex-shrink-0"
                         />
-                        <div>
-                            <h2 className="text-3xl md:text-4xl font-serif font-black tracking-tight text-black leading-none mb-1.5">
-                                REGINA CUERVO
+                        <div className="text-left">
+                            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-[0.9] uppercase mb-2">
+                                Regina Cuervo
                             </h2>
-                            <span className="inline-block text-[9px] tracking-[0.2em] font-bold uppercase text-neutral-400">
+                            <span className="text-[9px] tracking-[0.2em] font-bold uppercase text-white/30">
                                 REALTOR® · Cal DRE #02144970
                             </span>
                         </div>
                     </div>
 
-                    <div className="w-8 h-[2px] bg-black mb-6" />
+                    <div className="w-8 h-[2px] bg-accent mx-auto mb-6" />
 
-                    <p className="text-lg md:text-xl text-black font-serif leading-relaxed mb-6 italic tracking-tight">
+                    {/* Quote */}
+                    <p className="text-xl md:text-2xl lg:text-[26px] text-white font-serif leading-[1.45] mb-8 italic tracking-tight max-w-3xl mx-auto">
                         "Real estate is not just about properties — it's about people, goals, and life's next chapter."
                     </p>
-                    <p className="text-[13px] text-neutral-500 font-sans leading-[1.85] mb-5 font-medium">
+                </motion.div>
+
+                {/* Bio */}
+                <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    viewport={{ once: true }}
+                    className="text-center"
+                >
+                    <p className="text-[13px] text-neutral-400 font-sans leading-[1.85] mb-3 font-medium max-w-3xl mx-auto">
                         With years of experience helping clients buy and sell homes across Southern California, I've built my career on one principle: treat every client's home like it's my own. My deep knowledge of the local market means I can spot opportunity and risk that others miss.
                     </p>
-                    <p className="text-[13px] text-neutral-500 font-sans leading-[1.85] mb-5 font-medium">
-                        I prioritize communication, transparency, and personalized attention. My clients know they can rely on me to advocate fiercely for their best interests while making the experience as smooth and stress-free as possible.
+                    <p className="text-[13px] text-neutral-400 font-sans leading-[1.85] mb-4 font-medium max-w-3xl mx-auto">
+                        I prioritize communication, transparency, and personalized attention — advocating fiercely for my clients' best interests while making the experience as smooth as possible.
                     </p>
-                    <p className="text-[13px] text-black font-sans leading-[1.85] mb-10 font-bold">
+                    <p className="text-[13px] text-white font-sans leading-[1.85] mb-8 font-bold max-w-3xl mx-auto">
                         Whether you're a first-time buyer, a growing family, or a seasoned investor — let's start the conversation.
                     </p>
 
-                    <div className="grid grid-cols-3 gap-0 border-y border-neutral-200">
-                        <div className="py-6 pr-4 border-r border-neutral-200 group">
-                            <ShieldCheck className="w-5 h-5 text-accent mb-2 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-                            <span className="block text-[10px] font-bold tracking-tight text-black uppercase mb-1">Honest Guidance</span>
-                            <span className="block text-[10px] text-neutral-400 leading-snug font-medium">Data-driven advice, always in your interest.</span>
-                        </div>
-                        <div className="py-6 px-4 border-r border-neutral-200 group">
-                            <CheckCircle className="w-5 h-5 text-accent mb-2 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-                            <span className="block text-[10px] font-bold tracking-tight text-black uppercase mb-1">Always Available</span>
-                            <span className="block text-[10px] text-neutral-400 leading-snug font-medium">9 PM questions? Weekend showings? I'm here.</span>
-                        </div>
-                        <div className="py-6 pl-4 group">
-                            <Star className="w-5 h-5 text-accent mb-2 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-                            <span className="block text-[10px] font-bold tracking-tight text-black uppercase mb-1">Detail-Obsessed</span>
-                            <span className="block text-[10px] text-neutral-400 leading-snug font-medium">I sweat the small stuff so you don't have to.</span>
-                        </div>
+                    {/* CTA */}
+                    <Link
+                        to="/contact"
+                        className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-[10px] font-black tracking-[0.2em] uppercase hover:bg-accent hover:text-black transition-all duration-300 mb-10"
+                    >
+                        Work With Regina
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+
+                    {/* Value prop pills */}
+                    <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8 pt-8 border-t border-white/[0.06]">
+                        {[
+                            { icon: <ShieldCheck className="w-3.5 h-3.5 text-accent" strokeWidth={1.5} />, label: "Honest Guidance" },
+                            { icon: <CheckCircle className="w-3.5 h-3.5 text-accent" strokeWidth={1.5} />, label: "Always Available" },
+                            { icon: <Star className="w-3.5 h-3.5 text-accent" strokeWidth={1.5} />, label: "Detail-Obsessed" },
+                        ].map((item, idx) => (
+                            <div key={idx} className="flex items-center gap-2">
+                                {item.icon}
+                                <span className="text-[9px] tracking-[0.15em] font-bold text-white/40 uppercase">{item.label}</span>
+                            </div>
+                        ))}
                     </div>
-                </div>
-            </motion.div>
+                </motion.div>
+            </div>
         </section>
     );
 };
@@ -1264,10 +1374,11 @@ export default function Home() {
                 path="/"
             />
             <HeroHQ />
+            <DualCTATransition />
+            <DirectorProfile />
             <RecentSalesSection />
             <ContentWhyTrustUs />
             <SignatureSellingExperience />
-            <DirectorProfile />
             <NeighborhoodShowcase />
             <CinematicTestimonials />
             <BookingFunnelCTA />
