@@ -667,7 +667,7 @@ const DualCTATransition = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                             viewport={{ once: true }}
-                            className="px-6 md:px-12 lg:px-16 py-8 md:py-10 lg:py-12 hover:bg-neutral-50/50 transition-colors duration-500 flex flex-col items-center"
+                            className="px-6 md:px-12 lg:px-16 py-8 md:py-10 lg:py-12 pb-12 md:pb-14 lg:pb-16 hover:bg-neutral-50/50 transition-colors duration-500 flex flex-col items-center"
                         >
                             <div className="w-full max-w-md">
                                 <div className="flex items-center gap-3 mb-6">
@@ -747,15 +747,15 @@ const DirectorProfile = () => {
             {/* Subtle background */}
             <div className="absolute inset-0 z-0">
                 <img
-                    src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=80&w=1600&auto=format&fit=crop"
+                    src="/DA4A5VBO6FCP7M7ABSRWRG33NQ.jpg"
                     alt=""
                     loading="lazy"
-                    className="w-full h-full object-cover grayscale brightness-[0.08]"
+                    className="w-full h-full object-cover brightness-[0.2]"
                 />
-                <div className="absolute inset-0 bg-black/60" />
+                <div className="absolute inset-0 bg-black/40" />
             </div>
 
-            <div className="relative z-10 max-w-[1100px] mx-auto px-6 md:px-12 py-16 md:py-20 lg:py-24">
+            <div className="relative z-10 max-w-[1300px] mx-auto px-6 md:px-12 py-16 md:py-20 lg:py-24">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
