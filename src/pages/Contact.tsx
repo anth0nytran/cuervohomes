@@ -25,6 +25,9 @@ const INTENT_CONTENT = {
             "Responsive & Available When You Need Us",
             "Free Consultation — No Obligation",
         ],
+        formEyebrow: "Get Started",
+        formHeading: "SEND US A MESSAGE",
+        formButton: "Send Message",
     },
     nexthome: {
         eyebrow: "Find Your Next Home",
@@ -35,6 +38,9 @@ const INTENT_CONTENT = {
             "Expert Negotiation to Get the Best Price",
             "Guided Support From Search to Close",
         ],
+        formEyebrow: "Start Your Search",
+        formHeading: "FIND YOUR NEXT HOME",
+        formButton: "Start My Search",
     },
     homeworth: {
         eyebrow: "Free Home Valuation",
@@ -45,6 +51,9 @@ const INTENT_CONTENT = {
             "Confidential Home Value & Strategy Review",
             "Delivered Within 24 Hours",
         ],
+        formEyebrow: "Get Your Free Report",
+        formHeading: "REQUEST YOUR FREE REPORT",
+        formButton: "Get My Free Report",
     },
 } as const;
 
@@ -339,9 +348,9 @@ export default function Contact() {
                             transition={{ duration: 0.8, ease, delay: 0.3 }}
                             className="w-full max-w-xl"
                         >
-                            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-400 block mb-2">Get Started</span>
+                            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-neutral-400 block mb-2">{content.formEyebrow}</span>
                             <h3 className="text-2xl md:text-3xl font-serif font-black text-white tracking-tight mb-8">
-                                REQUEST YOUR FREE REPORT
+                                {content.formHeading}
                             </h3>
 
                             {apiError && (
@@ -496,7 +505,7 @@ export default function Contact() {
                                         </>
                                     ) : (
                                         <>
-                                            Get My Free Report
+                                            {content.formButton}
                                             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                         </>
                                     )}
