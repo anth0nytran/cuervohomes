@@ -184,7 +184,7 @@ const HeroHQ = () => {
                     className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full"
                 >
                     <Link
-                        to="/contact"
+                        to="/contact?intent=homeworth"
                         className="group inline-flex items-center justify-center gap-3 bg-white text-black px-8 py-5 text-sm font-black tracking-widest uppercase hover:bg-neutral-200 transition-all duration-300 shadow-[0_0_40px_rgba(255,255,255,0.15)] hover:shadow-[0_0_60px_rgba(255,255,255,0.25)] min-w-[280px]"
                     >
                         Get Free Home Valuation
@@ -661,7 +661,7 @@ const DualCTATransition = () => {
                 {/* Two-column split */}
                 <div className="grid grid-cols-1 md:grid-cols-2">
                     {/* Left: Find Your Next Home */}
-                    <Link to="/contact" className="group block md:border-r border-black/[0.08]">
+                    <Link to="/contact?intent=nexthome" className="group block md:border-r border-black/[0.08]">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -698,7 +698,7 @@ const DualCTATransition = () => {
                     </Link>
 
                     {/* Right: What's My Home Worth? */}
-                    <Link to="/contact" className="group block border-t md:border-t-0 border-black/[0.08]">
+                    <Link to="/contact?intent=homeworth" className="group block border-t md:border-t-0 border-black/[0.08]">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -748,7 +748,7 @@ const DirectorProfile = () => {
             <div className="absolute inset-0 z-0">
                 <img
                     src="/DA4A5VBO6FCP7M7ABSRWRG33NQ.jpg"
-                    alt=""
+                    alt="Orange County luxury home interior"
                     loading="lazy"
                     className="w-full h-full object-cover brightness-[0.2]"
                 />
@@ -1101,7 +1101,7 @@ const SignatureSellingExperience = () => {
                 {/* Bottom CTA */}
                 <div className="mt-12 text-center">
                     <Link
-                        to="/contact"
+                        to="/contact?intent=homeworth"
                         className="inline-flex items-center justify-center gap-3 bg-black text-white px-8 py-5 text-xs font-bold tracking-widest uppercase hover:bg-neutral-800 transition-all duration-300 min-w-[280px]"
                     >
                         Start Your Selling Journey
@@ -1355,7 +1355,7 @@ const BookingFunnelCTA = () => {
                 </div>
 
                 <Link
-                    to="/contact"
+                    to="/contact?intent=homeworth"
                     className="inline-flex items-center justify-center bg-white text-black px-8 py-5 md:px-12 md:py-6 text-sm md:text-lg font-black tracking-[0.2em] uppercase hover:bg-neutral-200 transition-all duration-300 shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(255,255,255,0.2)]"
                 >
                     Get Free Home Value Report
@@ -1369,8 +1369,8 @@ export default function Home() {
     return (
         <div className="bg-black w-full overflow-x-hidden selection:bg-accent selection:text-white">
             <SEO
-                title="Orange County Luxury Real Estate Agents | Cuervo Homes"
-                description="Cuervo Homes represents the finest luxury real estate in Orange County. Expert buyer, seller, and investor advisory across Newport Beach, Costa Mesa, Santa Ana, and more. 5.0 rating · 33+ homes sold."
+                title="Orange County Real Estate Agent — Buy, Sell & Invest | Cuervo Homes"
+                description="Regina Cuervo is a top-rated Orange County REALTOR® helping families buy, sell, and invest in homes across Newport Beach, Costa Mesa, Santa Ana, Irvine & more. 5.0★ rating · Free home valuations · Hablamos Español."
                 path="/"
             />
             <HeroHQ />

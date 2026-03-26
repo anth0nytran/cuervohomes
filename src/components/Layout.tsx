@@ -214,7 +214,7 @@ export default function Layout({ children }: LayoutProps) {
                         {/* Bottom CTA */}
                         <div className="p-5 mt-auto">
                             <Link
-                                to="/contact"
+                                to="/contact?intent=homeworth"
                                 onClick={() => setMobileMenuOpen(false)}
                                 className="group flex items-center justify-center gap-3 w-full bg-white text-black py-4 text-xs font-black tracking-widest uppercase"
                             >
@@ -236,7 +236,7 @@ export default function Layout({ children }: LayoutProps) {
             )}>
                 <div className="bg-black/95 backdrop-blur-md border-t border-white/10 px-4 py-3">
                     <Link
-                        to="/contact"
+                        to="/contact?intent=homeworth"
                         className="flex items-center justify-between w-full group"
                     >
                         <div>
@@ -299,7 +299,7 @@ export default function Layout({ children }: LayoutProps) {
                             <ul className="space-y-3 text-[11px] font-medium tracking-wide text-neutral-400">
                                 <li><Link to="/services#sell" className="hover:text-white transition-colors">Sell Your Home</Link></li>
                                 <li><Link to="/services#buy" className="hover:text-white transition-colors">Buy a Home</Link></li>
-                                <li><Link to="/contact" className="hover:text-white transition-colors">Free Home Equity Report</Link></li>
+                                <li><Link to="/contact?intent=homeworth" className="hover:text-white transition-colors">Free Home Equity Report</Link></li>
                                 <li><Link to="/services#more" className="hover:text-white transition-colors">Investment Properties</Link></li>
                                 <li><Link to="/services#faq" className="hover:text-white transition-colors">FAQ</Link></li>
                             </ul>
@@ -357,7 +357,7 @@ export default function Layout({ children }: LayoutProps) {
                             </div>
 
                             <Link
-                                to="/contact"
+                                to="/contact?intent=homeworth"
                                 className="group flex items-center justify-center gap-2 w-full py-3.5 mt-8 border border-white/15 text-[10px] font-bold uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all duration-300"
                             >
                                 Get Free Report <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />

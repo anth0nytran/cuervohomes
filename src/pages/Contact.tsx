@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Phone, Mail, ArrowRight, Clock, Star, CheckCircle, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import SEO from "../hooks/useSEO";
@@ -14,7 +15,50 @@ const fadeUp = (delay = 0) => ({
 });
 
 
+const INTENT_CONTENT = {
+    contact: {
+        eyebrow: "Get In Touch",
+        heading: "LET'S START THE\nCONVERSATION",
+        description: "Whether you're ready to make a move or just exploring your options, we're here to help. Reach out and let's talk about your real estate goals — no pressure, no obligation.",
+        promises: [
+            "Personalized Guidance — No Cookie-Cutter Advice",
+            "Responsive & Available When You Need Us",
+            "Free Consultation — No Obligation",
+        ],
+    },
+    nexthome: {
+        eyebrow: "Find Your Next Home",
+        heading: "YOUR DREAM HOME\nIS OUT THERE",
+        description: "Whether it's your first home or your forever home, we'll guide you to the right property with expert local knowledge, off-market opportunities, and personalized attention every step of the way.",
+        promises: [
+            "Access to Off-Market & Coming-Soon Listings",
+            "Expert Negotiation to Get the Best Price",
+            "Guided Support From Search to Close",
+        ],
+    },
+    homeworth: {
+        eyebrow: "Free Home Valuation",
+        heading: "WHAT IS YOUR HOME\nREALLY WORTH?",
+        description: "Online estimates can miss the mark by tens of thousands of dollars. Receive a personalized home value report prepared by a local expert—factoring in your home's unique upgrades, condition, and the latest market activity.",
+        promises: [
+            "100% Complimentary — No Obligation",
+            "Confidential Home Value & Strategy Review",
+            "Delivered Within 24 Hours",
+        ],
+    },
+} as const;
+
+type Intent = keyof typeof INTENT_CONTENT;
+
 export default function Contact() {
+    const [searchParams] = useSearchParams();
+    const intent = useMemo<Intent>(() => {
+        const raw = searchParams.get("intent");
+        if (raw === "nexthome" || raw === "homeworth") return raw;
+        return "contact";
+    }, [searchParams]);
+    const content = INTENT_CONTENT[intent];
+
     const reviews = [
         { quote: "Regina did an excellent job of guiding us through this tough market. As first time homebuyers, we did not know what to expect. Regina was with us every step of the way and constantly in communication with us. She was the perfect agent for us.", name: "Kathy C.", detail: "First-Time Buyer · Santa Ana, CA", initials: "KC" },
         { quote: "Regina was absolutely incredible throughout our first buying process. She was knowledgeable, responsive, and truly had our best interests at heart every step of the way. She made what could have been overwhelming feel manageable and exciting.", name: "Mara Paredes", detail: "First-Time Buyer · Orange, CA", initials: "MP" },
@@ -99,8 +143,8 @@ export default function Contact() {
     return (
         <div className="bg-black w-full min-h-screen text-white overflow-x-hidden selection:bg-accent selection:text-white">
             <SEO
-                title="Contact Us — Free Home Valuation"
-                description="Get your free home valuation from Regina Cuervo, Orange County REALTOR®. Call (714) 319-5966 or request your complimentary home equity report online. No obligation."
+                title="Contact Regina Cuervo — Free Home Valuation Orange County"
+                description="Contact Regina Cuervo, top-rated Orange County REALTOR®. Get your free home valuation, schedule a buyer consultation, or start your home search. Call (714) 319-5966. No obligation. English & Spanish."
                 path="/contact"
             />
 
@@ -111,20 +155,24 @@ export default function Contact() {
                 <div className="w-full md:w-[45%] lg:w-[42%] bg-[#0a0a0a] border-b md:border-b-0 md:border-r border-white/[0.06] flex flex-col justify-center p-5 pt-24 md:p-12 lg:p-16">
 
                     <motion.span
+                        key={`eyebrow-${intent}`}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7, ease, delay: 0.2 }}
                         className="text-accent text-[10px] tracking-[0.3em] font-bold uppercase block mb-4"
                     >
-                        Free Home Valuation
+                        {content.eyebrow}
                     </motion.span>
                     <motion.h2
+                        key={`heading-${intent}`}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7, ease, delay: 0.3 }}
                         className="text-2xl md:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-[1.1] mb-5 md:mb-6"
                     >
-                        WHAT IS YOUR HOME <br className="hidden md:block" />REALLY WORTH?
+                        {content.heading.split("\n").map((line, i, arr) => (
+                            <span key={i}>{line}{i < arr.length - 1 && <br className="hidden md:block" />}</span>
+                        ))}
                     </motion.h2>
 
                     {/* Agent card */}
@@ -157,16 +205,12 @@ export default function Contact() {
                         transition={{ duration: 0.7, ease, delay: 0.5 }}
                         className="text-[13px] md:text-[14px] text-neutral-400 font-sans leading-relaxed mb-6 md:mb-8"
                     >
-                        Online estimates can miss the mark by tens of thousands of dollars. Receive a personalized home value report prepared by a local expert—factoring in your home's unique upgrades, condition, and the latest market activity.
+                        {content.description}
                     </motion.p>
 
                     {/* Promises */}
                     <div className="space-y-4 mb-8">
-                        {[
-                            "100% Complimentary — No Obligation",
-                            "Confidential Home Value & Strategy Review",
-                            "Delivered Within 24 Hours",
-                        ].map((item, i) => (
+                        {content.promises.map((item, i) => (
                             <motion.div
                                 key={i}
                                 initial={{ opacity: 0, x: -15 }}

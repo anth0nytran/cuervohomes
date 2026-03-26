@@ -8,10 +8,23 @@
   <meta name="theme-color" content="#0a0a0a" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 
-  <title>Orange County Luxury Real Estate Agents | Cuervo Homes</title>
+  <!-- Local SEO geo tags -->
+  <meta name="geo.region" content="US-CA" />
+  <meta name="geo.placename" content="Orange County, California" />
+  <meta name="geo.position" content="33.7175;-117.8311" />
+  <meta name="ICBM" content="33.7175, -117.8311" />
+
+  <!-- Google Search Console verification (replace YOUR_CODE with actual verification code) -->
+  <!-- <meta name="google-site-verification" content="YOUR_CODE" /> -->
+
+  <title>Orange County Real Estate Agent — Buy, Sell & Invest | Cuervo Homes</title>
   <meta
     name="description"
-    content="Cuervo Homes represents the finest luxury real estate in Orange County. Expert buyer, seller, and investor advisory across Newport Beach, Corona Del Mar, and Laguna Beach."
+    content="Regina Cuervo is a top-rated Orange County REALTOR® helping families buy, sell, and invest in homes across Newport Beach, Costa Mesa, Santa Ana, Irvine & more. 5.0★ rating · Free home valuations · Hablamos Español."
+  />
+  <meta
+    name="keywords"
+    content="Orange County real estate agent, REALTOR Orange County CA, homes for sale Orange County, sell my home Orange County, free home valuation Orange County, Newport Beach real estate, Costa Mesa homes, Santa Ana REALTOR, Irvine real estate agent, first time home buyer Orange County, home equity report, Regina Cuervo REALTOR, Cuervo Homes, buy a home Orange County, Huntington Beach real estate, Laguna Beach homes for sale, Corona Del Mar real estate, Orange County luxury homes, best real estate agent Orange County, bilingual REALTOR Orange County"
   />
 
   <link rel="canonical" href="https://www.cuervohomes.com/" />
@@ -31,10 +44,10 @@
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:url" content="https://www.cuervohomes.com/" />
-  <meta property="og:title" content="Orange County Luxury Real Estate Agents | Cuervo Homes" />
+  <meta property="og:title" content="Orange County Real Estate Agent — Buy, Sell & Invest | Cuervo Homes" />
   <meta
     property="og:description"
-    content="Cuervo Homes represents the finest luxury real estate in Orange County. Expert buyer, seller, and investor advisory."
+    content="Regina Cuervo is a top-rated Orange County REALTOR® helping families buy, sell, and invest in homes across Newport Beach, Costa Mesa, Santa Ana, Irvine & more. 5.0★ rating."
   />
   <meta property="og:image" content="https://www.cuervohomes.com/og/cuervo-og.jpg" />
   <meta property="og:image:width" content="1200" />
@@ -42,10 +55,10 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://www.cuervohomes.com/" />
-  <meta name="twitter:title" content="Orange County Luxury Real Estate Agents | Cuervo Homes" />
+  <meta name="twitter:title" content="Orange County Real Estate Agent — Buy, Sell & Invest | Cuervo Homes" />
   <meta
     name="twitter:description"
-    content="Cuervo Homes represents the finest luxury real estate in Orange County. Expert buyer, seller, and investor advisory."
+    content="Regina Cuervo is a top-rated Orange County REALTOR® helping families buy, sell, and invest in homes across Newport Beach, Costa Mesa, Santa Ana, Irvine & more. 5.0★ rating."
   />
   <meta name="twitter:image" content="https://www.cuervohomes.com/og/cuervo-og.jpg" />
 
@@ -62,22 +75,37 @@
           "inLanguage": "en-US"
         },
         {
-          "@type": "RealEstateAgent",
+          "@type": ["RealEstateAgent", "LocalBusiness"],
           "@id": "https://www.cuervohomes.com/#real-estate-agent",
           "name": "Cuervo Homes",
-          "description": "Orange County real estate advisory team specializing in residential buying, selling, and investment across Newport Beach, Costa Mesa, Santa Ana, and surrounding areas.",
+          "alternateName": "Cuervo Homes — Regina Cuervo, REALTOR®",
+          "description": "Top-rated Orange County real estate agent helping families buy, sell, and invest in homes across Newport Beach, Costa Mesa, Santa Ana, Irvine, and all of Orange County. Free home valuations. Bilingual English & Spanish.",
           "url": "https://www.cuervohomes.com/",
           "priceRange": "$148K–$4.1M",
           "telephone": "+1-714-319-5966",
           "email": "info@cuervohomes.com",
           "image": "https://www.cuervohomes.com/og/cuervo-og.jpg",
+          "logo": "https://www.cuervohomes.com/c_homes/logo-dark.png",
           "address": {
             "@type": "PostalAddress",
-            "addressLocality": "Orange County",
+            "addressLocality": "Orange",
             "addressRegion": "CA",
+            "postalCode": "92868",
             "addressCountry": "US"
           },
-          "openingHours": "Mo-Su 08:00-20:00",
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 33.7175,
+            "longitude": -117.8311
+          },
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+              "opens": "08:00",
+              "closes": "20:00"
+            }
+          ],
           "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5.0",
@@ -85,27 +113,77 @@
             "ratingCount": "17",
             "reviewCount": "17"
           },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Real Estate Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Home Selling",
+                  "description": "Full-service home selling with professional photography, strategic marketing, and expert negotiation to get the highest price."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Home Buying",
+                  "description": "Personalized home search and buyer representation across all of Orange County, including first-time buyer guidance."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Free Home Valuation",
+                  "description": "Complimentary, expert-prepared home value report based on real local market data — delivered within 24 hours."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Investment Properties",
+                  "description": "Real estate investment advisory to help clients identify strong opportunities across Southern California."
+                }
+              }
+            ]
+          },
           "areaServed": [
-            "Orange County",
-            "Newport Beach",
-            "Laguna Beach",
-            "Corona Del Mar",
-            "Irvine",
-            "Huntington Beach",
-            "Costa Mesa",
-            "Santa Ana",
-            "Anaheim",
-            "Orange"
+            { "@type": "City", "name": "Newport Beach", "containedInPlace": { "@type": "State", "name": "California" } },
+            { "@type": "City", "name": "Costa Mesa" },
+            { "@type": "City", "name": "Santa Ana" },
+            { "@type": "City", "name": "Irvine" },
+            { "@type": "City", "name": "Huntington Beach" },
+            { "@type": "City", "name": "Laguna Beach" },
+            { "@type": "City", "name": "Corona Del Mar" },
+            { "@type": "City", "name": "Anaheim" },
+            { "@type": "City", "name": "Orange" },
+            { "@type": "City", "name": "North Tustin" },
+            { "@type": "City", "name": "Whittier" },
+            { "@type": "AdministrativeArea", "name": "Orange County, CA" }
           ],
           "knowsLanguage": ["en", "es"],
+          "sameAs": [],
           "employee": {
             "@type": "Person",
             "@id": "https://www.cuervohomes.com/#regina-cuervo",
             "name": "Regina Cuervo",
             "jobTitle": "REALTOR®",
+            "description": "Bilingual Orange County REALTOR® specializing in residential real estate. Cal DRE #02144970.",
             "image": "https://www.cuervohomes.com/c_homes/headshot_copy.png",
             "telephone": "+1-714-319-5966",
             "email": "info@cuervohomes.com",
+            "hasCredential": {
+              "@type": "EducationalOccupationalCredential",
+              "credentialCategory": "Real Estate License",
+              "recognizedBy": {
+                "@type": "Organization",
+                "name": "California Department of Real Estate"
+              }
+            },
             "worksFor": {
               "@type": "Organization",
               "name": "WE'RE Real Estate Inc"

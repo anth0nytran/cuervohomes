@@ -37,8 +37,8 @@ export default function Services() {
     return (
         <div className="bg-black w-full min-h-screen text-black overflow-x-hidden selection:bg-accent selection:text-white">
             <SEO
-                title="Real Estate Services"
-                description="Expert home selling, buying, and investment services in Orange County. Strategic marketing, hard negotiation, and white-glove service from Regina Cuervo, REALTOR® at Cuervo Homes."
+                title="Real Estate Services — Selling, Buying & Investing in Orange County"
+                description="Sell your home for top dollar, find your dream home, or invest in Orange County real estate. Regina Cuervo offers strategic marketing, expert negotiation, and free home valuations across Newport Beach, Irvine, Costa Mesa & more."
                 path="/services"
             />
             <ServicesHero />
@@ -211,7 +211,7 @@ const SignatureProcess = () => {
                     Every home. Every detail. Every dollar.
                 </p>
                 <Link
-                    to="/contact"
+                    to="/contact?intent=homeworth"
                     className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 text-xs font-bold tracking-widest uppercase hover:bg-neutral-200 transition-all duration-300 w-full sm:w-auto justify-center"
                 >
                     Start Your Selling Journey
@@ -272,7 +272,7 @@ const ServiceSell = () => (
                 </ul>
 
                 <motion.div {...fadeUp(0.5)}>
-                    <Link to="/contact" className="group inline-flex items-center gap-3 bg-black text-white px-8 py-4 md:py-5 font-black tracking-widest uppercase text-xs hover:bg-neutral-800 transition-colors w-full md:w-auto justify-center">
+                    <Link to="/contact?intent=homeworth" className="group inline-flex items-center gap-3 bg-black text-white px-8 py-4 md:py-5 font-black tracking-widest uppercase text-xs hover:bg-neutral-800 transition-colors w-full md:w-auto justify-center">
                         Get Free Equity Report <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </motion.div>
@@ -336,7 +336,7 @@ const ServiceBuy = () => (
                 </ul>
 
                 <motion.div {...fadeUp(0.5)}>
-                    <Link to="/contact" className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 md:py-5 font-black tracking-widest uppercase text-xs hover:bg-neutral-200 transition-colors w-full md:w-auto justify-center shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                    <Link to="/contact?intent=nexthome" className="group inline-flex items-center gap-3 bg-white text-black px-8 py-4 md:py-5 font-black tracking-widest uppercase text-xs hover:bg-neutral-200 transition-colors w-full md:w-auto justify-center shadow-[0_0_30px_rgba(255,255,255,0.1)]">
                         Start Your Home Search <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </motion.div>
@@ -367,18 +367,21 @@ const MoreServices = () => (
                         title: "Home Equity & Value Reports",
                         desc: "Stay informed about your home's current market value and the equity you've built. We provide personalized reports so you can make smarter financial decisions.",
                         cta: "Get Your Report",
+                        intent: "homeworth",
                     },
                     {
                         icon: <TrendingUp className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />,
                         title: "Investment Opportunities",
                         desc: "Looking to grow your wealth through real estate? We help clients identify strong investment properties and opportunities across Southern California.",
                         cta: "See Opportunities",
+                        intent: "nexthome",
                     },
                     {
                         icon: <MapPin className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />,
                         title: "Market Insights & Local Expertise",
                         desc: "From neighborhood trends to pricing strategies, we provide the insights you need to make confident real estate decisions.",
                         cta: "Learn More",
+                        intent: "",
                     },
                 ].map((service, idx) => (
                     <motion.div
@@ -403,7 +406,7 @@ const MoreServices = () => (
                             <p className="text-[12px] md:text-[13px] text-neutral-400 font-sans leading-relaxed mb-4 md:mb-6 flex-1">
                                 {service.desc}
                             </p>
-                            <Link to="/contact" className="text-[10px] font-bold uppercase tracking-widest text-white flex items-center gap-2 group-hover:text-accent transition-colors">
+                            <Link to={`/contact${service.intent ? `?intent=${service.intent}` : ''}`} className="text-[10px] font-bold uppercase tracking-widest text-white flex items-center gap-2 group-hover:text-accent transition-colors">
                                 {service.cta} <ArrowRight className="w-3.5 h-3.5" />
                             </Link>
                         </div>
