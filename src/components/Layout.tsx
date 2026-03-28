@@ -366,8 +366,8 @@ export default function Layout({ children }: LayoutProps) {
                     </div>
 
                     {/* Watermark */}
-                    <div className="w-full flex items-center justify-center pt-16 pb-10 px-6 md:px-0 select-none pointer-events-none overflow-hidden">
-                        <span className="text-[11vw] md:text-[11.5vw] xl:text-[200px] font-serif font-black tracking-tighter leading-none text-white/5 whitespace-nowrap">
+                    <div className="w-full flex items-center justify-center pt-16 pb-10 px-6 md:px-0 select-none pointer-events-none">
+                        <span className="font-serif font-black tracking-tighter leading-none text-white/5 whitespace-nowrap" style={{ fontSize: 'min(11vw, 200px)' }}>
                             CUERVO HOMES
                         </span>
                     </div>

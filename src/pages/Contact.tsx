@@ -180,7 +180,7 @@ export default function Contact() {
                         className="text-2xl md:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-[1.1] mb-5 md:mb-6"
                     >
                         {content.heading.split("\n").map((line, i, arr) => (
-                            <span key={i}>{line}{i < arr.length - 1 && <br className="hidden md:block" />}</span>
+                            <span key={i}>{line}{i < arr.length - 1 && <><br className="hidden md:block" /><span className="md:hidden"> </span></>}</span>
                         ))}
                     </motion.h2>
 
