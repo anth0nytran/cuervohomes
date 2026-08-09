@@ -95,9 +95,221 @@
   .tracking-widest {
     letter-spacing: 0.2em;
   }
-  
+
   .animate-marquee {
     animation: marquee 160s linear infinite;
+  }
+}
+
+/* --- Article prose ---------------------------------------------------------
+   Editorial styling for Markdown-rendered blog bodies. Deliberately plain,
+   fully-visible HTML (no opacity-0 reveal animations) so prerendered output is
+   directly readable by crawlers that don't execute JavaScript.
+--------------------------------------------------------------------------- */
+.prose-cuervo {
+  @apply text-neutral-700 font-sans;
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.prose-cuervo > * + * {
+  margin-top: 1.5rem;
+}
+
+.prose-cuervo h2 {
+  @apply font-serif font-black text-black tracking-tight;
+  font-size: clamp(1.5rem, 3.2vw, 2rem);
+  line-height: 1.15;
+  margin-top: 3.5rem;
+  margin-bottom: 1.25rem;
+  padding-top: 2rem;
+  border-top: 1px solid theme("colors.neutral.200");
+  scroll-margin-top: 6rem;
+}
+
+.prose-cuervo h3 {
+  @apply font-serif font-black text-black tracking-tight;
+  font-size: clamp(1.125rem, 2.2vw, 1.3rem);
+  line-height: 1.3;
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+  scroll-margin-top: 6rem;
+}
+
+.prose-cuervo h4 {
+  @apply font-sans font-bold text-black;
+  font-size: 0.95rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  scroll-margin-top: 6rem;
+}
+
+.prose-cuervo p {
+  margin-bottom: 1.5rem;
+}
+
+.prose-cuervo strong {
+  @apply font-bold text-black;
+}
+
+.prose-cuervo a {
+  @apply text-black font-medium;
+  text-decoration: underline;
+  text-decoration-color: theme("colors.accent.DEFAULT");
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.prose-cuervo a:hover {
+  @apply bg-accent text-black;
+}
+
+.prose-cuervo ul,
+.prose-cuervo ol {
+  margin: 1.5rem 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.prose-cuervo ul > li,
+.prose-cuervo ol > li {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.prose-cuervo ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 8px;
+  height: 2px;
+  background-color: theme("colors.accent.DEFAULT");
+}
+
+.prose-cuervo ol {
+  counter-reset: prose-counter;
+}
+
+.prose-cuervo ol > li {
+  counter-increment: prose-counter;
+}
+
+.prose-cuervo ol > li::before {
+  content: counter(prose-counter, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  @apply font-serif font-black text-accent;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+}
+
+.prose-cuervo li > ul,
+.prose-cuervo li > ol {
+  margin: 0.75rem 0 0;
+}
+
+.prose-cuervo blockquote {
+  @apply bg-black text-white;
+  margin: 2.5rem 0;
+  padding: 1.75rem 1.75rem 1.75rem 2rem;
+  border-left: 3px solid theme("colors.accent.DEFAULT");
+}
+
+.prose-cuervo blockquote p {
+  @apply font-serif font-black italic text-white;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.prose-cuervo blockquote p + p {
+  @apply font-sans font-bold not-italic text-neutral-400;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 1rem;
+}
+
+.prose-table-wrap {
+  margin: 2.5rem 0;
+  overflow-x: auto;
+  border: 1px solid theme("colors.neutral.200");
+}
+
+.prose-cuervo table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  min-width: 34rem;
+}
+
+.prose-cuervo thead {
+  @apply bg-black text-white;
+}
+
+.prose-cuervo th {
+  @apply font-sans font-bold text-left;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.9rem 1rem;
+  white-space: nowrap;
+}
+
+.prose-cuervo td {
+  padding: 0.85rem 1rem;
+  border-top: 1px solid theme("colors.neutral.200");
+  vertical-align: top;
+}
+
+.prose-cuervo tbody tr:nth-child(even) {
+  @apply bg-neutral-50;
+}
+
+.prose-cuervo td:first-child {
+  @apply font-bold text-black;
+}
+
+.prose-cuervo hr {
+  margin: 3rem 0;
+  border: 0;
+  border-top: 1px solid theme("colors.neutral.200");
+}
+
+.prose-cuervo img {
+  width: 100%;
+  height: auto;
+  margin: 2.5rem 0;
+}
+
+.prose-cuervo code {
+  @apply bg-neutral-100 text-black font-sans font-bold;
+  padding: 0.15em 0.4em;
+  font-size: 0.88em;
+}
+
+/* The FAQ block closing each post — visually separated, schema-mirrored. */
+.prose-cuervo h2#frequently-asked-questions {
+  @apply bg-black text-white;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  padding: 2rem 1.5rem;
+  border-top: 0;
+}
+
+@media (min-width: 768px) {
+  .prose-cuervo {
+    font-size: 17px;
+  }
+
+  .prose-cuervo h2#frequently-asked-questions {
+    margin-left: -2.5rem;
+    margin-right: -2.5rem;
+    padding: 2.25rem 2.5rem;
   }
 }
 

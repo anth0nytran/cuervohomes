@@ -102,6 +102,10 @@ export default function Layout({ children }: LayoutProps) {
                             Services
                             <span className={cn("absolute -bottom-1 left-0 h-0.5 bg-white transition-all duration-300", isActive("/services") ? "w-full bg-accent" : "w-0 group-hover:w-full")} />
                         </Link>
+                        <Link to="/blog" className={cn("hover:text-neutral-300 transition-colors relative group", location.pathname.startsWith("/blog") && "text-accent")}>
+                            Blog
+                            <span className={cn("absolute -bottom-1 left-0 h-0.5 bg-white transition-all duration-300", location.pathname.startsWith("/blog") ? "w-full bg-accent" : "w-0 group-hover:w-full")} />
+                        </Link>
                         <Link
                             to="/contact"
                             className={cn(
@@ -150,6 +154,7 @@ export default function Layout({ children }: LayoutProps) {
                             {[
                                 { name: "Home", path: "/" },
                                 { name: "Services", path: "/services" },
+                                { name: "Blog", path: "/blog" },
                                 { name: "Contact", path: "/contact" },
                             ].map((route, i) => (
                                 <motion.div
@@ -181,8 +186,8 @@ export default function Layout({ children }: LayoutProps) {
                                     { name: "Sell Your Home", path: "/services#sell" },
                                     { name: "Buy a Home", path: "/services#buy" },
                                     { name: "Free Home Report", path: "/contact" },
+                                    { name: "Market Reports", path: "/blog" },
                                     { name: "Our Process", path: "/services#process" },
-                                    { name: "Reviews", path: "/services#reviews" },
                                     { name: "FAQ", path: "/services#faq" },
                                 ].map((link) => (
                                     <Link
@@ -290,6 +295,7 @@ export default function Layout({ children }: LayoutProps) {
                             <ul className="space-y-3.5 text-[11px] font-bold tracking-widest uppercase text-neutral-300 mb-8">
                                 <li><Link to="/" className="hover:text-white transition-colors flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-[1px] bg-white transition-all duration-300" />Home</Link></li>
                                 <li><Link to="/services" className="hover:text-white transition-colors flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-[1px] bg-white transition-all duration-300" />Services</Link></li>
+                                <li><Link to="/blog" className="hover:text-white transition-colors flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-[1px] bg-white transition-all duration-300" />Blog</Link></li>
                                 <li><Link to="/contact" className="hover:text-white transition-colors flex items-center gap-2 group"><span className="w-0 group-hover:w-2 h-[1px] bg-white transition-all duration-300" />Contact</Link></li>
                             </ul>
 
@@ -301,6 +307,7 @@ export default function Layout({ children }: LayoutProps) {
                                 <li><Link to="/services#buy" className="hover:text-white transition-colors">Buy a Home</Link></li>
                                 <li><Link to="/contact?intent=homeworth" className="hover:text-white transition-colors">Free Home Equity Report</Link></li>
                                 <li><Link to="/services#more" className="hover:text-white transition-colors">Investment Properties</Link></li>
+                                <li><Link to="/blog" className="hover:text-white transition-colors">OC Market Reports</Link></li>
                                 <li><Link to="/services#faq" className="hover:text-white transition-colors">FAQ</Link></li>
                             </ul>
                         </div>

@@ -12,6 +12,7 @@ export default function NotFound() {
                 title="Page Not Found"
                 description="The page you're looking for doesn't exist. Return to Cuervo Homes for Orange County real estate services."
                 path="/404"
+                noindex
             />
             <div className="text-center px-6 py-32">
                 <motion.span

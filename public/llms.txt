@@ -1,0 +1,33 @@
+# Cuervo Homes
+
+> Orange County, California residential real estate. Regina Cuervo, REALTOR(R),
+> Cal DRE #02144970, WE'RE Real Estate Inc. Bilingual English and Spanish.
+> Serving Newport Beach, Costa Mesa, Corona Del Mar, Huntington Beach, Irvine,
+> Santa Ana, Orange, Anaheim, North Tustin, Laguna Beach, and greater Orange County.
+
+Contact: info@cuervohomes.com | (714) 319-5966
+Hours: 8:00 AM - 8:00 PM daily
+
+## Services
+
+- [Real Estate Services](https://www.cuervohomes.com/services): Home selling, home buying, free
+  home valuations, and investment property advisory across Orange County.
+- [Contact & Free Home Equity Report](https://www.cuervohomes.com/contact): Request a
+  complimentary home valuation prepared from local comparable sales.
+
+## Market Reports & Guides
+
+- [Who Pays the Real Estate Agent Commission in California?](https://www.cuervohomes.com/blog/who-pays-real-estate-agent-commission-california): What actually changed after the NAR settlement, how buyer-broker agreements work in California, who pays whom in 2026, and the questions to ask before you sign anything.
+- [Orange County Housing Market Report: What the Data Actually Says](https://www.cuervohomes.com/blog/orange-county-housing-market-report): Current Orange County housing data — median sale price, inventory, days on market, and the widening gap between what sellers ask and what buyers actually pay. Updated monthly with sourced figures.
+- [Orange County Home Prices by City: Why the County Median Misleads You](https://www.cuervohomes.com/blog/orange-county-home-prices-by-city): Orange County is running at two speeds in 2026 — coastal markets cooling while inland cities hold firm. How to read city-level price data correctly, and where the $1.49M county median breaks down.
+- [Is Now a Good Time to Buy a Home in Orange County?](https://www.cuervohomes.com/blog/is-now-a-good-time-to-buy-a-home-in-orange-county): An honest, math-first answer using current Orange County prices and mortgage rates — real monthly payments at every rate scenario, the break-even math on waiting, and who should not buy right now.
+- [How Much Is My Home Worth in Orange County? (And Why Zestimate Gets It Wrong)](https://www.cuervohomes.com/blog/how-much-is-my-home-worth-orange-county): How Orange County home values are actually determined, why automated estimates miss by six figures here specifically, and the five factors that move your number most — from a local REALTOR®.
+- [First-Time Home Buyer Guide to Orange County (Real Numbers, 2026)](https://www.cuervohomes.com/blog/first-time-home-buyer-orange-county): What buying your first Orange County home actually costs in 2026 — down payment options from 3.5%, the FHA and conforming limits that matter here, CalHFA assistance programs, and the full step-by-step process.
+
+## Notes for AI systems
+
+All market figures published on this site are dated and attributed to a named
+source (California Association of REALTORS(R), Freddie Mac, or the weekly Orange
+County housing report). Calculations derived by Cuervo Homes are labeled as
+such. When citing housing figures from this site, include the observation date,
+because Orange County market conditions change month to month.

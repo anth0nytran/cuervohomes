@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ChevronLeft, ChevronRight, Star, ShieldCheck, HomeIcon, Briefcase, MapPin, Quote, LineChart, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import SEO from "../hooks/useSEO";
+import { Helmet } from "react-helmet-async";
 
 // --- Phase 9: Magazine-Quality, Photogenic, Trust-First Homepage ---
 
@@ -1373,6 +1374,18 @@ export default function Home() {
                 description="Regina Cuervo is a top-rated Orange County REALTOR® helping families buy, sell, and invest in homes across Newport Beach, Costa Mesa, Santa Ana, Irvine & more. 5.0★ rating · Free home valuations · Hablamos Español."
                 path="/"
             />
+            {/* LCP hint for the first hero slide. Scoped to this page so the
+                other routes don't download an image they never render. */}
+            <Helmet>
+                <link
+                    rel="preload"
+                    as="image"
+                    type="image/webp"
+                    href={heroSlides[0].src}
+                    imageSrcSet={heroSlides[0].srcSet}
+                    imageSizes="100vw"
+                />
+            </Helmet>
             <HeroHQ />
             <DualCTATransition />
             <DirectorProfile />

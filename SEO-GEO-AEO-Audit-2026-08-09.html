@@ -1,0 +1,612 @@
+<title>Cuervo Homes — SEO / GEO / AEO Audit</title>
+<style>
+  :root {
+    --ground: #ffffff;
+    --panel: #f4f6f7;
+    --panel-2: #eaeef0;
+    --rule: #dfe4e7;
+    --text: #14171a;
+    --muted: #5c6469;
+    --accent: #a8790a;
+    --accent-ink: #14171a;
+    --accent-bg: #facc15;
+    --critical: #b3261e;
+    --warn: #8a5300;
+    --good: #12693f;
+    --critical-bg: #fdeceb;
+    --warn-bg: #fdf3e2;
+    --good-bg: #e8f5ee;
+    --shadow: 0 1px 2px rgba(20, 23, 26, .06);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #101113;
+      --panel: #17191c;
+      --panel-2: #1e2125;
+      --rule: #2a2e33;
+      --text: #e8eaed;
+      --muted: #9aa0a6;
+      --accent: #facc15;
+      --accent-ink: #101113;
+      --accent-bg: #facc15;
+      --critical: #ff6b5e;
+      --warn: #ffb020;
+      --good: #4ade80;
+      --critical-bg: #2a1614;
+      --warn-bg: #2a2011;
+      --good-bg: #12241a;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #101113;
+    --panel: #17191c;
+    --panel-2: #1e2125;
+    --rule: #2a2e33;
+    --text: #e8eaed;
+    --muted: #9aa0a6;
+    --accent: #facc15;
+    --accent-ink: #101113;
+    --accent-bg: #facc15;
+    --critical: #ff6b5e;
+    --warn: #ffb020;
+    --good: #4ade80;
+    --critical-bg: #2a1614;
+    --warn-bg: #2a2011;
+    --good-bg: #12241a;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    margin: 0;
+    padding: 0 1.25rem 6rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 68rem; margin: 0 auto; }
+
+  h1, h2, h3 {
+    font-family: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  h1 { font-size: clamp(2rem, 5vw, 3.1rem); line-height: 1.02; }
+  h2 { font-size: clamp(1.3rem, 2.6vw, 1.75rem); line-height: 1.12; }
+  h3 { font-size: 1.02rem; letter-spacing: -0.01em; }
+
+  p { margin: 0; max-width: 68ch; }
+
+  .mono {
+    font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .eyebrow {
+    font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .7rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* --- masthead --- */
+  header.masthead {
+    display: flex; flex-direction: column; gap: 1.25rem;
+    padding: 4.5rem 0 2.5rem;
+    border-bottom: 3px solid var(--text);
+  }
+  .masthead .rule-accent { width: 3.5rem; height: 4px; background: var(--accent-bg); }
+  .masthead .meta {
+    display: flex; flex-wrap: wrap; gap: .5rem 2rem;
+    font-size: .8rem; color: var(--muted);
+  }
+
+  section { padding-top: 3.75rem; }
+
+  .section-head {
+    display: flex; flex-direction: column; gap: .5rem;
+    margin-bottom: 1.5rem; padding-bottom: .85rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* --- verdict --- */
+  .verdict {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: 1px; background: var(--rule);
+    border: 1px solid var(--rule); margin-top: 2rem;
+  }
+  .score { background: var(--panel); padding: 1.15rem 1.15rem 1.25rem; display: flex; flex-direction: column; gap: .35rem; }
+  .score .label { font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  .score .nums { display: flex; align-items: baseline; gap: .45rem; }
+  .score .was { font-size: 1.05rem; color: var(--muted); text-decoration: line-through; }
+  .score .now { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.03em; }
+  .score .arrow { color: var(--muted); font-size: .85rem; }
+  .score.total .now { color: var(--accent); }
+
+  /* --- callout --- */
+  .callout {
+    border-left: 4px solid var(--critical);
+    background: var(--critical-bg);
+    padding: 1.15rem 1.35rem;
+    display: flex; flex-direction: column; gap: .6rem;
+    margin-top: 1.5rem;
+  }
+  .callout.good { border-left-color: var(--good); background: var(--good-bg); }
+  .callout h3 { font-size: .95rem; }
+
+  /* --- tables --- */
+  .tablewrap { overflow-x: auto; border: 1px solid var(--rule); margin-top: 1.25rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .875rem; min-width: 44rem; }
+  thead th {
+    background: var(--panel-2); text-align: left; padding: .7rem .85rem;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: .66rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted); white-space: nowrap; border-bottom: 1px solid var(--rule);
+  }
+  td { padding: .8rem .85rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr:nth-child(even) { background: var(--panel); }
+  td.num { font-family: ui-monospace, Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* severity encoded as stripe + chip, not colour alone */
+  tr.sev-c td:first-child { box-shadow: inset 4px 0 0 var(--critical); }
+  tr.sev-h td:first-child { box-shadow: inset 4px 0 0 var(--warn); }
+  tr.sev-m td:first-child { box-shadow: inset 4px 0 0 var(--muted); }
+
+  .chip {
+    display: inline-block; padding: .12rem .5rem;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: .66rem; letter-spacing: .08em; text-transform: uppercase;
+    border: 1px solid currentColor; white-space: nowrap;
+  }
+  .chip.c { color: var(--critical); }
+  .chip.h { color: var(--warn); }
+  .chip.m { color: var(--muted); }
+  .chip.fixed { color: var(--good); }
+  .chip.manual { color: var(--warn); }
+
+  .tag {
+    display: inline-block; margin-right: .25rem;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: .64rem; letter-spacing: .06em;
+    color: var(--muted); border: 1px solid var(--rule); padding: .08rem .34rem;
+  }
+
+  .yes { color: var(--good); font-weight: 700; }
+  .no  { color: var(--critical); font-weight: 700; }
+
+  ul { margin: .85rem 0 0; padding-left: 1.1rem; }
+  li { margin-bottom: .5rem; max-width: 68ch; }
+  li::marker { color: var(--accent); }
+
+  .stack { display: flex; flex-direction: column; gap: 1rem; }
+
+  .prompts { background: var(--panel); border: 1px solid var(--rule); padding: 1.25rem; margin-top: 1.25rem; }
+  .prompts code {
+    display: block; padding: .5rem .7rem; margin-bottom: .45rem;
+    background: var(--ground); border: 1px solid var(--rule);
+    font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .8rem;
+    overflow-x: auto;
+  }
+
+  footer {
+    margin-top: 4.5rem; padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    font-size: .8rem; color: var(--muted);
+  }
+
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible, code:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="rule-accent"></div>
+    <span class="eyebrow">SEO · GEO · AEO Audit — Remediation Report</span>
+    <h1>cuervohomes.com</h1>
+    <p style="color:var(--muted); font-size:1.05rem; max-width:60ch;">
+      A full multi-engine visibility audit of the Cuervo Homes site, the fixes applied, and what
+      remains. Conducted with the local repository as source of truth and verified against production.
+    </p>
+    <div class="meta mono">
+      <span>2026-08-09</span>
+      <span>Vite · React 19 · Vercel</span>
+      <span>Regina Cuervo, REALTOR® · Cal DRE #02144970</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">01 — Verdict</span>
+      <h2>The site had one crawlable URL and no crawlable text</h2>
+    </div>
+
+    <p>
+      Two independent faults were compounding. Every route except the homepage returned a hard
+      <span class="mono">404</span> in production, and the homepage itself shipped an empty
+      <span class="mono">&lt;div id="root"&gt;</span> — so the one URL that did resolve contained no
+      readable content for any crawler that does not execute JavaScript. That describes most AI answer
+      engines. Both are fixed.
+    </p>
+
+    <div class="verdict">
+      <div class="score"><span class="label">SEO Core</span><span class="nums"><span class="was">34</span><span class="arrow">→</span><span class="now">88</span></span></div>
+      <div class="score"><span class="label">AEO</span><span class="nums"><span class="was">12</span><span class="arrow">→</span><span class="now">91</span></span></div>
+      <div class="score"><span class="label">GEO</span><span class="nums"><span class="was">18</span><span class="arrow">→</span><span class="now">79</span></span></div>
+      <div class="score"><span class="label">Local + Entity</span><span class="nums"><span class="was">55</span><span class="arrow">→</span><span class="now">68</span></span></div>
+      <div class="score total"><span class="label">Weighted total</span><span class="nums"><span class="was">F&nbsp;29</span><span class="arrow">→</span><span class="now">A−&nbsp;85</span></span></div>
+    </div>
+
+    <p class="mono" style="font-size:.75rem; color:var(--muted); margin-top:.7rem;">
+      Scores are an assessed rubric, not a vendor metric. The evidence in §04 is measured.
+    </p>
+
+    <div class="callout">
+      <h3>What this cost, in plain terms</h3>
+      <p>
+        The <span class="mono">/services</span> page — carrying eight FAQs and valid FAQPage schema —
+        and the entire <span class="mono">/contact</span> lead-capture page were never indexable. The
+        sitemap actively submitted both URLs to Google, and both returned 404. Any shared link, ad
+        click, or direct visit hit an error page.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">02 — Findings</span>
+      <h2>Eleven findings, ranked</h2>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Sev</th><th>Finding</th><th>Dimension</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr class="sev-c">
+            <td><span class="chip c">Critical</span></td>
+            <td><strong>All non-root routes returned 404.</strong> <span class="mono">vercel.json</span> had redirects and headers but no SPA fallback or static route output. Verified live: <span class="mono">/services</span>, <span class="mono">/contact</span>, <span class="mono">/blog</span>, <span class="mono">/foobar</span> all 404.</td>
+            <td><span class="tag">SEO</span><span class="tag">AEO</span></td>
+            <td><span class="chip fixed">Fixed</span></td>
+          </tr>
+          <tr class="sev-c">
+            <td><span class="chip c">Critical</span></td>
+            <td><strong>Client-only rendering.</strong> Production HTML contained a title and an empty root div. GPTBot, PerplexityBot, ClaudeBot and OAI-SearchBot largely do not run JavaScript, so the site presented zero citable text.</td>
+            <td><span class="tag">AEO</span><span class="tag">GEO</span></td>
+            <td><span class="chip fixed">Fixed</span></td>
+          </tr>
+          <tr class="sev-c">
+            <td><span class="chip c">Critical</span></td>
+            <td><strong>No content depth.</strong> No blog, no market data, no answer-shaped pages. Nothing for an answer engine to cite even had it been able to read the site.</td>
+            <td><span class="tag">AEO</span><span class="tag">GEO</span></td>
+            <td><span class="chip fixed">Fixed</span></td>
+          </tr>
+          <tr class="sev-h">
+            <td><span class="chip h">High</span></td>
+            <td><strong><span class="mono">sameAs</span> was an empty array.</strong> No Google Business Profile, Zillow, Realtor.com, or social URLs. This is the primary signal AI engines use to confirm a brand is a corroborated real-world entity.</td>
+            <td><span class="tag">GEO</span><span class="tag">LOCAL</span></td>
+            <td><span class="chip manual">Needs URLs</span></td>
+          </tr>
+          <tr class="sev-h">
+            <td><span class="chip h">High</span></td>
+            <td><strong>No author entity.</strong> Regina existed only as a nested employee object with no stable <span class="mono">@id</span>, so no page could attribute authorship to a credentialed person.</td>
+            <td><span class="tag">GEO</span></td>
+            <td><span class="chip fixed">Fixed</span></td>
+          </tr>
+          <tr class="sev-h">
+            <td><span class="chip h">High</span></td>
+            <td><strong>Review counts contradict each other.</strong> Schema declares <span class="mono">aggregateRating</span> 5.0 from 17 reviews; the homepage displays 656 team reviews and 1,312 team sales. Conflicting counts depress trust scoring, and rating markup must match reviews visible on the page.</td>
+            <td><span class="tag">SEO</span><span class="tag">GEO</span></td>
+            <td><span class="chip manual">Client decision</span></td>
+          </tr>
+          <tr class="sev-h">
+            <td><span class="chip h">High</span></td>
+            <td><strong>Unknown URLs would have soft-404'd.</strong> A naive SPA rewrite returns 200 for every nonexistent path. Resolved by prerendering real documents and emitting a genuine <span class="mono">404.html</span>.</td>
+            <td><span class="tag">SEO</span></td>
+            <td><span class="chip fixed">Fixed</span></td>
+          </tr>
+          <tr class="sev-m">
+            <td><span class="chip m">Medium</span></td>
+            <td><strong>Deployment checklist referenced the wrong client</strong> — <span class="mono">soldbytoro.com</span> throughout <span class="mono">docs/PRODUCTION_SEO_CHECKLIST.md</span>.</td>
+            <td><span class="tag">SEO</span></td>
+            <td><span class="chip fixed">Fixed</span></td>
+          </tr>
+          <tr class="sev-m">
+            <td><span class="chip m">Medium</span></td>
+            <td><strong>No <span class="mono">llms.txt</span>, no explicit AI-crawler directives</strong> in robots.txt.</td>
+            <td><span class="tag">GEO</span></td>
+            <td><span class="chip fixed">Fixed</span></td>
+          </tr>
+          <tr class="sev-m">
+            <td><span class="chip m">Medium</span></td>
+            <td><strong>Keyword meta tag and a global hero preload.</strong> The keywords tag is a legacy spam signal; the preload downloaded a 100&nbsp;KB homepage image on every route.</td>
+            <td><span class="tag">SEO</span></td>
+            <td><span class="chip fixed">Fixed</span></td>
+          </tr>
+          <tr class="sev-m">
+            <td><span class="chip m">Medium</span></td>
+            <td><strong>Multi-megabyte PNGs still shipping</strong> — <span class="mono">services/aerial.png</span> is 2.3&nbsp;MB while optimized WebP exists for neighborhood imagery. LCP cost on <span class="mono">/services</span>.</td>
+            <td><span class="tag">SEO</span></td>
+            <td><span class="chip manual">Open</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">03 — Remediation</span>
+      <h2>What was built</h2>
+    </div>
+
+    <div class="stack">
+      <div>
+        <h3>Static prerendering</h3>
+        <p style="color:var(--muted);">
+          A Node render pass now writes a complete HTML document for every route at build time. React 19
+          hoists document metadata to the front of the render stream rather than exposing it through a
+          Helmet context, so the prerenderer relocates those tags into <span class="mono">&lt;head&gt;</span>
+          and marks them; the client drops the marked copies immediately before hydration, leaving exactly
+          one of each. The build fails loudly if any route renders empty or without a title — a silently
+          client-only build cannot ship again.
+        </p>
+      </div>
+      <div>
+        <h3>Blog system with schema derived from visible content</h3>
+        <p style="color:var(--muted);">
+          Posts are Markdown with frontmatter. FAQPage schema is <em>extracted from</em> each post's visible
+          FAQ section rather than declared separately, which makes it structurally impossible for the markup
+          to describe content a reader cannot see. Sitemap and <span class="mono">llms.txt</span> regenerate
+          from the content directory on every build.
+        </p>
+      </div>
+      <div>
+        <h3>Entity graph</h3>
+        <p style="color:var(--muted);">
+          Regina now exists as a first-class <span class="mono">Person</span> with a stable
+          <span class="mono">@id</span>, license credential, <span class="mono">knowsAbout</span> topics, and
+          languages — referenced as author on every article and as employee of the agency entity. Per-page
+          BreadcrumbList and BlogPosting schema replace the single malformed site-wide breadcrumb.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">04 — Evidence</span>
+      <h2>Measured before and after</h2>
+    </div>
+
+    <p>Crawlable words are counted from built HTML with all script blocks and tags stripped — what a non-JavaScript crawler actually receives.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Route</th><th>HTTP before</th><th>Words before</th><th>Words after</th><th>Schema on page</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="mono">/</td><td class="num"><span class="yes">200</span></td><td class="num no">0</td><td class="num yes">1,797</td><td class="mono">RealEstateAgent, Person, WebSite</td></tr>
+          <tr><td class="mono">/services</td><td class="num no">404</td><td class="num no">0</td><td class="num yes">793</td><td class="mono">+ FAQPage</td></tr>
+          <tr><td class="mono">/contact</td><td class="num no">404</td><td class="num no">0</td><td class="num yes">968</td><td class="mono">Base graph</td></tr>
+          <tr><td class="mono">/blog</td><td class="num no">404</td><td class="num no">0</td><td class="num yes">1,075</td><td class="mono">Blog, BlogPosting[]</td></tr>
+          <tr><td class="mono">/blog/orange-county-housing-market-report</td><td class="num no">404</td><td class="num no">0</td><td class="num yes">2,561</td><td class="mono">BlogPosting, FAQPage, BreadcrumbList</td></tr>
+          <tr><td class="mono">/blog/first-time-home-buyer-orange-county</td><td class="num no">404</td><td class="num no">0</td><td class="num yes">2,871</td><td class="mono">BlogPosting, FAQPage, BreadcrumbList</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout good">
+      <h3>Verified in a real browser</h3>
+      <p>
+        Post-hydration DOM on an article page: one <span class="mono">&lt;title&gt;</span>, one canonical,
+        one description, one <span class="mono">og:title</span>, zero leftover prerendered tags, zero console
+        errors. Schema parses to BlogPosting + BreadcrumbList + FAQPage with 7 questions extracted from the
+        visible FAQ section.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">05 — Content</span>
+      <h2>Six starter articles</h2>
+    </div>
+
+    <p>
+      Every figure is attributed to a named, dated source; every in-house calculation is labelled as
+      calculated. Where sources conflicted on methodology — mixing asking prices with sold prices — the
+      article says so rather than publishing false precision.
+    </p>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Article</th><th>Answers</th><th>Words</th><th>Citation magnet</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Orange County Housing Market Report</strong><br><span class="mono" style="font-size:.72rem;color:var(--muted)">undated URL, updated monthly</span></td>
+            <td>“is the OC market cooling”</td>
+            <td class="num">2,561</td>
+            <td>$359K list-vs-sale gap; months-of-supply calculation</td>
+          </tr>
+          <tr>
+            <td><strong>Is Now a Good Time to Buy in Orange County?</strong></td>
+            <td>A literal ChatGPT prompt</td>
+            <td class="num">2,300</td>
+            <td>Payment table across six rate scenarios</td>
+          </tr>
+          <tr>
+            <td><strong>How Much Is My Home Worth?</strong></td>
+            <td>“how much is my house worth”</td>
+            <td class="num">2,200</td>
+            <td>Why AVMs fail in OC specifically; feeds the equity-report CTA</td>
+          </tr>
+          <tr>
+            <td><strong>Home Prices by City</strong></td>
+            <td>“cheapest city in Orange County”</td>
+            <td class="num">2,100</td>
+            <td>The two-speed coastal/inland split; how to read city data honestly</td>
+          </tr>
+          <tr>
+            <td><strong>Who Pays Agent Commission in California?</strong></td>
+            <td>Post-NAR-settlement confusion</td>
+            <td class="num">2,200</td>
+            <td>Structure comparison table; buyer-broker shortfall clause</td>
+          </tr>
+          <tr>
+            <td><strong>First-Time Buyer Guide</strong></td>
+            <td>“first time home buyer Orange County”</td>
+            <td class="num">2,871</td>
+            <td>2026 OC loan limits, CalHFA status, honest affordability math</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:1.25rem;">
+      Verified anchor data: OC median existing single-family sale price <strong>$1,490,000</strong> (C.A.R.,
+      June 2026) · median list price <strong>$1,849,000</strong> · active inventory <strong>5,192</strong> ·
+      pending <strong>1,824</strong> · median <strong>41</strong> days on market (August 3, 2026) ·
+      30-year fixed <strong>6.69%</strong> (Freddie Mac, August 6, 2026).
+    </p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">06 — Readiness</span>
+      <h2>AEO and GEO checklists</h2>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Check</th><th>Dimension</th><th>Home</th><th>Services</th><th>Articles</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Direct answer in first 150 words</td><td><span class="tag">AEO</span></td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td></tr>
+          <tr><td>Question-shaped H2s</td><td><span class="tag">AEO</span></td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td></tr>
+          <tr><td>Snippet-target block ≤55 words</td><td><span class="tag">AEO</span></td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td></tr>
+          <tr><td>FAQ section with 4+ natural questions</td><td><span class="tag">AEO</span></td><td class="no">✗</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>FAQPage schema matching visible FAQ</td><td><span class="tag">AEO</span></td><td class="no">✗</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Table or comparison block</td><td><span class="tag">AEO</span></td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td></tr>
+          <tr><td>Explicit units and numbers</td><td><span class="tag">AEO</span></td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Named author with credentials</td><td><span class="tag">GEO</span></td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Inline citations to authoritative sources</td><td><span class="tag">GEO</span></td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td></tr>
+          <tr><td>Original statistics or calculations</td><td><span class="tag">GEO</span></td><td class="yes">✓</td><td class="no">✗</td><td class="yes">✓</td></tr>
+          <tr><td>Breadcrumbs + BreadcrumbList schema</td><td><span class="tag">GEO</span></td><td class="no">n/a</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Canonical, schema and visible copy agree</td><td><span class="tag">GEO</span></td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td><span class="mono">sameAs</span> entity corroboration</td><td><span class="tag">GEO</span></td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mono" style="font-size:.75rem;color:var(--muted);margin-top:.7rem;">
+      Home and Services remain answer-thin by design — they are conversion pages. Adding one
+      question-shaped section to each is the cheapest remaining AEO gain.
+    </p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">07 — Roadmap</span>
+      <h2>Next 90 days</h2>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr><th>Window</th><th>Focus</th><th>Tasks</th><th>Measure</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mono">Week 1</td>
+            <td><strong>Deploy &amp; verify</strong></td>
+            <td>Ship this build. Confirm all nine URLs return 200 and an unknown URL returns 404. Submit the sitemap in Search Console and request indexing for <span class="mono">/services</span>, <span class="mono">/contact</span>, and <span class="mono">/blog</span>.</td>
+            <td>Indexed pages: 1 → 9</td>
+          </tr>
+          <tr>
+            <td class="mono">Weeks 1–2</td>
+            <td><strong>Entity corroboration</strong></td>
+            <td>Supply real profile URLs and populate <span class="mono">sameAs</span>. Claim and verify Google Business Profile, Bing Places, Apple Business Connect. Sync NAP across the top ten citations. Resolve the 17-vs-656 review conflict.</td>
+            <td>GEO 79 → 92; local pack eligibility</td>
+          </tr>
+          <tr>
+            <td class="mono">Weeks 3–4</td>
+            <td><strong>Baseline AI visibility</strong></td>
+            <td>Run the prompt set below across ChatGPT, Perplexity, Gemini and Claude. Record whether Cuervo Homes is named. Add one question-shaped section with FAQ schema to Home and Services.</td>
+            <td>Named-mention rate per engine</td>
+          </tr>
+          <tr>
+            <td class="mono">Weeks 5–8</td>
+            <td><strong>Compounding content</strong></td>
+            <td>Refresh the market report monthly with new C.A.R. and inventory figures, bumping <span class="mono">dateModified</span>. Publish two new posts per month. Convert the 11 footer city names into real service-area pages with unique local proof.</td>
+            <td>Ranking long-tail city queries</td>
+          </tr>
+          <tr>
+            <td class="mono">Weeks 9–12</td>
+            <td><strong>Authority &amp; performance</strong></td>
+            <td>Internal-link sweep across the topic cluster. Convert remaining multi-megabyte PNGs to WebP. Re-run the prompt set and compare to the week-3 baseline. Pursue local press and directory placements.</td>
+            <td>AI citation rate vs. baseline; LCP</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="prompts">
+      <span class="eyebrow">Test prompts — run monthly, record whether Cuervo Homes is named</span>
+      <div style="margin-top:.85rem;">
+        <code>Best real estate agent in Orange County, CA</code>
+        <code>Is now a good time to buy a home in Orange County?</code>
+        <code>Who pays the realtor commission in California?</code>
+        <code>What is the median home price in Orange County right now?</code>
+        <code>Bilingual realtor Newport Beach or Costa Mesa — who should I call?</code>
+        <code>First-time home buyer programs in Orange County</code>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">08 — Blocked</span>
+      <h2>What needs the client</h2>
+    </div>
+
+    <ul>
+      <li><strong>Profile URLs for <span class="mono">sameAs</span></strong> — Google Business Profile, Zillow, Realtor.com, Facebook, Instagram, LinkedIn, Yelp. Highest-value remaining task; cannot be invented, since fabricated URLs would actively damage entity resolution.</li>
+      <li><strong>A decision on review counts.</strong> Either surface the 17 individual reviews the schema claims, or change the markup to reflect what is genuinely verifiable and displayed.</li>
+      <li><strong>Confirm the deployed route behaviour</strong> after the first deploy. Vercel serves <span class="mono">/blog/slug</span> from the prerendered directory index; this is standard static hosting behaviour but is the one thing not verifiable from local build output.</li>
+      <li><strong>Google Search Console access</strong> to submit the sitemap and monitor indexing.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>
+      Prepared for Cuervo Homes · Regina Cuervo, REALTOR®, Cal DRE #02144970, WE'RE Real Estate Inc.
+      Market figures are attributed to the California Association of REALTORS®, Freddie Mac, and the
+      weekly Orange County housing report, each with its observation date. Scores are an assessed rubric;
+      HTTP codes and word counts are measured from production and from built output.
+    </p>
+  </footer>
+
+</div>

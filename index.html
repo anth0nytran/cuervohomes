@@ -17,17 +17,6 @@
   <!-- Google Search Console verification (replace YOUR_CODE with actual verification code) -->
   <!-- <meta name="google-site-verification" content="YOUR_CODE" /> -->
 
-  <title>Orange County Real Estate Agent — Buy, Sell & Invest | Cuervo Homes</title>
-  <meta
-    name="description"
-    content="Regina Cuervo is a top-rated Orange County REALTOR® helping families buy, sell, and invest in homes across Newport Beach, Costa Mesa, Santa Ana, Irvine & more. 5.0★ rating · Free home valuations · Hablamos Español."
-  />
-  <meta
-    name="keywords"
-    content="Orange County real estate agent, REALTOR Orange County CA, homes for sale Orange County, sell my home Orange County, free home valuation Orange County, Newport Beach real estate, Costa Mesa homes, Santa Ana REALTOR, Irvine real estate agent, first time home buyer Orange County, home equity report, Regina Cuervo REALTOR, Cuervo Homes, buy a home Orange County, Huntington Beach real estate, Laguna Beach homes for sale, Corona Del Mar real estate, Orange County luxury homes, best real estate agent Orange County, bilingual REALTOR Orange County"
-  />
-
-  <link rel="canonical" href="https://www.cuervohomes.com/" />
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -37,32 +26,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet" />
-  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-  <link rel="preload" as="image" type="image/webp" href="/neighborhoods/hero/newport-beach-1600.webp" />
 
   <meta property="og:site_name" content="Cuervo Homes" />
-  <meta property="og:type" content="website" />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:url" content="https://www.cuervohomes.com/" />
-  <meta property="og:title" content="Orange County Real Estate Agent — Buy, Sell & Invest | Cuervo Homes" />
-  <meta
-    property="og:description"
-    content="Regina Cuervo is a top-rated Orange County REALTOR® helping families buy, sell, and invest in homes across Newport Beach, Costa Mesa, Santa Ana, Irvine & more. 5.0★ rating."
-  />
-  <meta property="og:image" content="https://www.cuervohomes.com/og/cuervo-og.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://www.cuervohomes.com/" />
-  <meta name="twitter:title" content="Orange County Real Estate Agent — Buy, Sell & Invest | Cuervo Homes" />
-  <meta
-    name="twitter:description"
-    content="Regina Cuervo is a top-rated Orange County REALTOR® helping families buy, sell, and invest in homes across Newport Beach, Costa Mesa, Santa Ana, Irvine & more. 5.0★ rating."
-  />
-  <meta name="twitter:image" content="https://www.cuervohomes.com/og/cuervo-og.jpg" />
 
-  <!-- Structured Data -->
+  <!--
+    Site-wide entity graph. Page-level metadata (title, description, canonical,
+    OG/Twitter, Article/FAQ/Breadcrumb schema) is owned by the SEO component in
+    src/hooks/useSEO.tsx and injected into the app-head placeholder below during
+    prerendering. Do not duplicate page-level tags here.
+  -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -72,7 +46,8 @@
           "@id": "https://www.cuervohomes.com/#website",
           "url": "https://www.cuervohomes.com/",
           "name": "Cuervo Homes",
-          "inLanguage": "en-US"
+          "inLanguage": "en-US",
+          "publisher": { "@id": "https://www.cuervohomes.com/#real-estate-agent" }
         },
         {
           "@type": ["RealEstateAgent", "LocalBusiness"],
@@ -85,7 +60,7 @@
           "telephone": "+1-714-319-5966",
           "email": "info@cuervohomes.com",
           "image": "https://www.cuervohomes.com/og/cuervo-og.jpg",
-          "logo": "https://www.cuervohomes.com/c_homes/logo-dark.png",
+          "logo": "https://www.cuervohomes.com/c_homes/main_logo_full.png",
           "address": {
             "@type": "PostalAddress",
             "addressLocality": "Orange",
@@ -166,60 +141,51 @@
             { "@type": "AdministrativeArea", "name": "Orange County, CA" }
           ],
           "knowsLanguage": ["en", "es"],
-          "sameAs": [],
-          "employee": {
-            "@type": "Person",
-            "@id": "https://www.cuervohomes.com/#regina-cuervo",
-            "name": "Regina Cuervo",
-            "jobTitle": "REALTOR®",
-            "description": "Bilingual Orange County REALTOR® specializing in residential real estate. Cal DRE #02144970.",
-            "image": "https://www.cuervohomes.com/c_homes/headshot_copy.png",
-            "telephone": "+1-714-319-5966",
-            "email": "info@cuervohomes.com",
-            "hasCredential": {
-              "@type": "EducationalOccupationalCredential",
-              "credentialCategory": "Real Estate License",
-              "recognizedBy": {
-                "@type": "Organization",
-                "name": "California Department of Real Estate"
-              }
-            },
-            "worksFor": {
-              "@type": "Organization",
-              "name": "WE'RE Real Estate Inc"
-            }
-          }
+          "employee": { "@id": "https://www.cuervohomes.com/#regina-cuervo" }
         },
         {
-          "@type": "BreadcrumbList",
-          "@id": "https://www.cuervohomes.com/#breadcrumb",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Home",
-              "item": "https://www.cuervohomes.com/"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "Services",
-              "item": "https://www.cuervohomes.com/services"
-            },
-            {
-              "@type": "ListItem",
-              "position": 3,
-              "name": "Contact",
-              "item": "https://www.cuervohomes.com/contact"
+          "@type": "Person",
+          "@id": "https://www.cuervohomes.com/#regina-cuervo",
+          "name": "Regina Cuervo",
+          "givenName": "Regina",
+          "familyName": "Cuervo",
+          "jobTitle": "REALTOR®",
+          "description": "Bilingual Orange County REALTOR® specializing in residential real estate across Newport Beach, Costa Mesa, Irvine, Santa Ana, and greater Orange County. Cal DRE #02144970.",
+          "image": "https://www.cuervohomes.com/c_homes/headshot.jpg",
+          "url": "https://www.cuervohomes.com/",
+          "telephone": "+1-714-319-5966",
+          "email": "info@cuervohomes.com",
+          "knowsLanguage": ["en", "es"],
+          "knowsAbout": [
+            "Orange County real estate",
+            "Residential home sales",
+            "First-time home buyers",
+            "Home valuation and pricing strategy",
+            "Real estate investment properties"
+          ],
+          "hasCredential": {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "Real Estate License",
+            "identifier": "CA DRE #02144970",
+            "recognizedBy": {
+              "@type": "Organization",
+              "name": "California Department of Real Estate",
+              "url": "https://www.dre.ca.gov/"
             }
-          ]
+          },
+          "worksFor": {
+            "@type": "Organization",
+            "name": "WE'RE Real Estate Inc"
+          },
+          "areaServed": { "@type": "AdministrativeArea", "name": "Orange County, CA" }
         }
       ]
     }
   </script>
+  <!--app-head-->
 </head>
 <body>
-  <div id="root"></div>
+  <div id="root"><!--app-html--></div>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>
