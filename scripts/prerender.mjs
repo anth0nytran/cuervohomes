@@ -1,6 +1,7 @@
-import { readFile, writeFile, mkdir, readdir, rm } from "node:fs/promises";
+import { readFile, writeFile, mkdir, rm } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
+import { publishCutoff, readAllPosts } from "./lib/scheduled-posts.mjs";
 
 /**
  * Static prerenderer.
@@ -18,21 +19,29 @@ import { pathToFileURL } from "node:url";
 const root = process.cwd();
 const distDir = path.join(root, "dist");
 const ssrDir = path.join(root, "dist-ssr");
-const blogDir = path.join(root, "src", "content", "blog");
 
 const STATIC_ROUTES = ["/", "/services", "/contact"];
 
 async function blogRoutes() {
-    let files = [];
-    try {
-        files = await readdir(blogDir);
-    } catch {
-        console.warn("[prerender] No blog content directory found — skipping blog routes.");
+    const cutoff = publishCutoff();
+    const all = await readAllPosts(cutoff);
+
+    if (!all.length) {
+        console.warn("[prerender] No blog content found — skipping blog routes.");
         return [];
     }
-    return files
-        .filter((file) => file.endsWith(".md"))
-        .map((file) => `/blog/${file.replace(/\.md$/, "")}`);
+
+    const queued = all.filter((post) => !post.published);
+    if (queued.length) {
+        console.log(
+            `[prerender] ${queued.length} post(s) scheduled for later, not built as of ${cutoff}:`
+        );
+        for (const post of queued) {
+            console.log(`[prerender]   ${post.datePublished}  ${post.slug}`);
+        }
+    }
+
+    return all.filter((post) => post.published).map((post) => `/blog/${post.slug}`);
 }
 
 /** Writes "/" to dist/index.html and "/x/y" to dist/x/y/index.html. */

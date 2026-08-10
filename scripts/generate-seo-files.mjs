@@ -1,44 +1,22 @@
-import { mkdir, writeFile, readdir, readFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { publishCutoff, readAllPosts } from "./lib/scheduled-posts.mjs";
 
 const SITE_URL = (process.env.SITE_URL || "https://www.cuervohomes.com").replace(/\/+$/, "");
-const TODAY = new Date().toISOString().slice(0, 10);
+const CUTOFF = publishCutoff();
+const TODAY = CUTOFF;
 
 const publicDir = path.resolve(process.cwd(), "public");
-const blogDir = path.resolve(process.cwd(), "src", "content", "blog");
 
-/** Pulls a scalar frontmatter field without a full YAML parse. */
-function frontmatterValue(raw, key) {
-  const match = new RegExp(`^${key}:\\s*(.*)$`, "m").exec(raw);
-  if (!match) return null;
-  return match[1].trim().replace(/^["']|["']$/g, "");
-}
+// Scheduled posts are excluded from the sitemap and llms.txt as well as the
+// build — announcing a URL that returns 404 is worse than not announcing it.
+const allPosts = await readAllPosts(CUTOFF);
+const posts = allPosts
+  .filter((post) => post.published)
+  .map((post) => ({ ...post, lastmod: post.dateModified }))
+  .sort((a, b) => (a.lastmod < b.lastmod ? 1 : -1));
 
-async function loadPosts() {
-  let files = [];
-  try {
-    files = await readdir(blogDir);
-  } catch {
-    return [];
-  }
-
-  const posts = [];
-  for (const file of files.filter((f) => f.endsWith(".md"))) {
-    const raw = await readFile(path.join(blogDir, file), "utf8");
-    const slug = file.replace(/\.md$/, "");
-    posts.push({
-      slug,
-      title: frontmatterValue(raw, "title") || slug,
-      description: frontmatterValue(raw, "description") || "",
-      lastmod:
-        frontmatterValue(raw, "dateModified") || frontmatterValue(raw, "datePublished") || TODAY,
-    });
-  }
-
-  return posts.sort((a, b) => (a.lastmod < b.lastmod ? 1 : -1));
-}
-
-const posts = await loadPosts();
+const scheduled = allPosts.filter((post) => !post.published);
 
 const routes = [
   { path: "/", changefreq: "weekly", priority: "1.0", lastmod: TODAY },
@@ -147,3 +125,10 @@ await writeFile(path.join(publicDir, "llms.txt"), llms, "utf8");
 console.log(
   `Generated sitemap.xml (${routes.length} URLs), robots.txt, and llms.txt for ${SITE_URL}`
 );
+
+if (scheduled.length) {
+  const next = scheduled[scheduled.length - 1];
+  console.log(
+    `${scheduled.length} post(s) queued behind ${CUTOFF}; next is ${next.slug} on ${next.datePublished}`
+  );
+}

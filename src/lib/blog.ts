@@ -1,4 +1,5 @@
 import { marked } from "marked";
+import publishedMarkdown from "virtual:blog-posts";
 import type { FaqItem } from "@/hooks/useSEO";
 
 /**
@@ -217,15 +218,14 @@ function toPost(slug: string, raw: string): BlogPost {
     };
 }
 
-const modules = import.meta.glob<string>("/src/content/blog/*.md", {
-    query: "?raw",
-    import: "default",
-    eager: true,
-});
-
-/** All posts, newest first. */
-export const posts: BlogPost[] = Object.entries(modules)
-    .map(([path, raw]) => toPost(path.split("/").pop()!.replace(/\.md$/, ""), raw))
+/**
+ * All published posts, newest first.
+ *
+ * The virtual module contains only posts whose datePublished has arrived, so
+ * scheduled drafts are absent from the bundle rather than filtered out of it.
+ */
+export const posts: BlogPost[] = Object.entries(publishedMarkdown)
+    .map(([slug, raw]) => toPost(slug, raw))
     .sort((a, b) => (a.datePublished < b.datePublished ? 1 : -1));
 
 export function getPost(slug: string | undefined): BlogPost | undefined {

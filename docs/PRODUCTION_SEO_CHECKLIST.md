@@ -66,7 +66,66 @@ This must return a non-zero count. If it returns 0, prerendering did not run and
 - Re-test AI visibility monthly with prompts such as “best real estate agent in Orange County”, “is now a good time to buy a home in Orange County”, and “who pays realtor commission in California” across ChatGPT, Perplexity, and Gemini. Track whether Cuervo Homes is named.
 - Add dedicated service-area pages over time (one URL per city) for stronger long-tail local rankings.
 
-## 6) Authoring a new blog post
+## 6) Scheduled publishing
+
+Posts release themselves. A post is live once its `datePublished` is on or before
+the build date; anything future-dated is excluded from the bundle, the prerendered
+routes, the sitemap, and `llms.txt`.
+
+Unreleased posts leave **no trace** in the deployed output — not the body, not the
+slug, not a route. `src/lib/blog.ts` reads a `virtual:blog-posts` module built by
+the `cuervo:scheduled-posts` plugin in `vite.config.ts`, which filters by date
+before anything reaches the bundle. (An `import.meta.glob` cannot do this: globs
+resolve at compile time and would bake every scheduled slug — the whole content
+calendar — into the shipped JavaScript even with the bodies blanked.)
+
+### Releasing on a schedule
+
+`.github/workflows/publish-scheduled-post.yml` pings a Vercel deploy hook at
+16:00 UTC on the 9th of each month. The workflow decides nothing; it only
+rebuilds, and whatever has come due goes live. Re-running it is harmless.
+
+One-time setup:
+
+1. Vercel → Project → Settings → Git → Deploy Hooks → create a hook on `main`.
+2. GitHub → Settings → Secrets and variables → Actions → add `VERCEL_DEPLOY_HOOK_URL`.
+
+Until that secret exists the workflow fails loudly rather than silently skipping.
+Use **Run workflow** on the Actions tab to publish early or retry a failed release.
+
+GitHub cron runs in UTC and ignores US daylight saving, so 16:00 UTC is 9:00 AM
+Pacific in summer and 8:00 AM in winter. Scheduled runs can also start several
+minutes late under load. If exact timing ever matters more than simplicity,
+switch the cron to daily — the date filter still releases each post on its own
+date, and a daily rebuild makes the trigger time irrelevant.
+
+### Previewing the queue
+
+```bash
+PUBLISH_AS_OF=2026-12-09 npm run build
+```
+
+Builds as if it were that date, so you can review a queued post rendered exactly
+as it will ship. Every build prints what is live and what is still waiting:
+
+```
+6 post(s) live as of 2026-08-10, 1 scheduled
+[prerender] 1 post(s) scheduled for later, not built as of 2026-08-10:
+[prerender]   2026-09-09  how-to-sell-a-house-in-orange-county
+```
+
+### What not to schedule
+
+**Never pre-write dated market data.** A post scheduled for next March cannot
+honestly quote next March's median price, inventory, or mortgage rate. Market
+commentary belongs in the single evergreen report at
+`/blog/orange-county-housing-market-report`, refreshed monthly against published
+C.A.R. and Freddie Mac figures. Scheduled posts should be evergreen — process
+guides, disclosure and tax explainers, neighborhood comparisons — and should link
+to the market report for current numbers rather than hardcoding a figure that
+goes stale.
+
+## 7) Authoring a new blog post
 
 1. Create `src/content/blog/<slug>.md`. The filename becomes the URL.
 2. Frontmatter requires `title`, `description`, `answer`, `category`, `datePublished`, `readingTime`, `image`, `imageAlt`. Supported list field: `tags`.

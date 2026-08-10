@@ -1,0 +1,42 @@
+name: Publish scheduled post
+
+# Releases the next queued blog post.
+#
+# Nothing in this workflow decides *what* ships. Posts carry their own
+# datePublished, and the build excludes anything future-dated, so this only
+# needs to trigger a rebuild on the 9th — whatever has come due goes live.
+# Re-running it is harmless.
+#
+# Setup (one time):
+#   1. Vercel → Project → Settings → Git → Deploy Hooks → create a hook on main.
+#   2. GitHub → Settings → Secrets and variables → Actions → New secret
+#      named VERCEL_DEPLOY_HOOK_URL, pasting that URL.
+#
+# Note on timing: GitHub cron is UTC and does not observe US daylight saving,
+# so 16:00 UTC is 9:00 AM Pacific in summer and 8:00 AM Pacific in winter.
+# Scheduled runs on busy infrastructure can also start several minutes late.
+
+on:
+  schedule:
+    - cron: "0 16 9 * *" # 09:00 PT (summer) / 08:00 PT (winter), 9th of each month
+  workflow_dispatch: # lets you publish early or re-run a failed release
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel rebuild
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::error::VERCEL_DEPLOY_HOOK_URL secret is not set — nothing to trigger."
+            exit 1
+          fi
+          code=$(curl -sS -X POST -o response.json -w "%{http_code}" "$HOOK")
+          echo "Vercel responded $code"
+          cat response.json
+          case "$code" in
+            2*) echo "Rebuild queued." ;;
+            *)  echo "::error::Deploy hook failed with HTTP $code"; exit 1 ;;
+          esac
