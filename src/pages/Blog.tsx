@@ -30,7 +30,7 @@ export default function Blog() {
                         "@context": "https://schema.org",
                         "@type": "Blog",
                         "@id": `${SITE_URL}/blog#blog`,
-                        name: "Cuervo Homes — Orange County Real Estate Insights",
+                        name: "Cuervo Homes Group — Orange County Real Estate Insights",
                         description:
                             "Data-driven Orange County housing market reports and home buying and selling guides.",
                         url: `${SITE_URL}/blog`,

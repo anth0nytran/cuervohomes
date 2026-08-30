@@ -67,9 +67,34 @@ function scheduledPosts(): Plugin {
   }
 }
 
+/**
+ * Injects the Google Search Console verification meta tag from the
+ * GOOGLE_SITE_VERIFICATION environment variable.
+ *
+ * This replaces a commented-out placeholder in index.html that could never
+ * have worked — verification has to be in the served markup, and a comment
+ * isn't. Set the variable in Vercel → Settings → Environment Variables and
+ * redeploy; leave it unset and nothing is emitted, which is the correct
+ * behaviour for a site verified by DNS or an HTML file instead.
+ */
+function searchConsoleVerification(): Plugin {
+  const token = process.env.GOOGLE_SITE_VERIFICATION?.trim()
+
+  return {
+    name: 'cuervo:search-console-verification',
+    transformIndexHtml(html) {
+      if (!token) return html
+      return html.replace(
+        '</head>',
+        `  <meta name="google-site-verification" content="${token.replace(/"/g, '&quot;')}" />\n</head>`
+      )
+    },
+  }
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), scheduledPosts()],
+  plugins: [react(), scheduledPosts(), searchConsoleVerification()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

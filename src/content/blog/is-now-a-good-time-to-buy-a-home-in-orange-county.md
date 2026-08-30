@@ -34,7 +34,7 @@ With 20% down, you're financing $1,192,000. Here is principal and interest acros
 | 7.00% | $7,931 | +$247 |
 | 7.50% | $8,335 | +$651 |
 
-*Calculated by Cuervo Homes on a $1,192,000 loan, 30-year fixed, principal and interest only.*
+*Calculated by Cuervo Homes Group on a $1,192,000 loan, 30-year fixed, principal and interest only.*
 
 Two things jump out.
 
@@ -134,4 +134,4 @@ A conventional 20% down payment on the $1,490,000 median is $298,000. Lower-down
 - [Orange County Housing Report](https://www.ocrealestateinc.com/orange-county-housing-report/) (inventory and days-on-market, August 3, 2026)
 - [Federal Housing Finance Agency — conforming loan limits](https://www.fhfa.gov/data/conforming-loan-limit)
 
-Payment figures are calculated by Cuervo Homes and are illustrative, covering principal and interest only. Property tax, insurance, HOA, and Mello-Roos estimates vary by city and tract and must be verified for a specific property. This is general information, not lending, tax, or investment advice.
+Payment figures are calculated by Cuervo Homes Group and are illustrative, covering principal and interest only. Property tax, insurance, HOA, and Mello-Roos estimates vary by city and tract and must be verified for a specific property. This is general information, not lending, tax, or investment advice.

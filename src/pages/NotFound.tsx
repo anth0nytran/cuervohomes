@@ -10,7 +10,7 @@ export default function NotFound() {
         <div className="bg-black w-full min-h-screen text-white flex items-center justify-center selection:bg-accent selection:text-white">
             <SEO
                 title="Page Not Found"
-                description="The page you're looking for doesn't exist. Return to Cuervo Homes for Orange County real estate services."
+                description="The page you're looking for doesn't exist. Return to Cuervo Homes Group for Orange County real estate services."
                 path="/404"
                 noindex
             />

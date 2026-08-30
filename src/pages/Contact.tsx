@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Phone, Mail, ArrowRight, Clock, Star, CheckCircle, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import SEO from "../hooks/useSEO";
+import { trackLeadSubmitted, trackLeadFailed, trackPhoneClick, trackEmailClick } from "../lib/analytics";
 
 // --- Shared animation helpers (same vocabulary as Home.tsx) ---
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -117,7 +118,10 @@ export default function Contact() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setApiError("");
-        if (!validate()) return;
+        if (!validate()) {
+            trackLeadFailed("validation");
+            return;
+        }
         setSubmitting(true);
         try {
             const res = await fetch("/api/send", {
@@ -139,11 +143,14 @@ export default function Contact() {
             const data = await res.json();
             if (!res.ok && data?.error) {
                 setApiError(data.error);
+                trackLeadFailed("api");
             } else {
                 setSubmitted(true);
+                trackLeadSubmitted(form.service, form.timeline);
             }
         } catch {
             setApiError("Something went wrong. Please try again.");
+            trackLeadFailed("network");
         } finally {
             setSubmitting(false);
         }
@@ -193,8 +200,10 @@ export default function Contact() {
                     >
                         <div className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden ring-2 ring-white/10 ring-offset-2 ring-offset-[#0a0a0a] flex-shrink-0">
                             <img
-                                src="/c_homes/headshot_copy.png"
-                                alt="Regina Cuervo, REALTOR®"
+                                src="/c_homes/team/regina-cuervo.jpg"
+                                alt="Regina Cuervo, REALTOR® at Cuervo Homes Group"
+                                width={900}
+                                height={900}
                                 className="w-full h-full object-cover"
                             />
                         </div>
@@ -202,7 +211,7 @@ export default function Contact() {
                             <h3 className="text-sm font-serif font-black text-white leading-tight">Regina Cuervo</h3>
                             <p className="text-[10px] text-neutral-400 font-sans mt-0.5">Your Local Expert · Orange County Specialist</p>
                             <p className="text-[10px] text-neutral-500 font-sans mt-0.5 flex items-center gap-1.5">
-                                WE'RE Real Estate <span className="text-white/30">|</span> 5.0<Star className="w-2.5 h-2.5 text-accent fill-accent inline" /> · 656 team reviews
+                                Nest Real Estate <span className="text-white/30">|</span> 5.0<Star className="w-2.5 h-2.5 text-accent fill-accent inline" /> · 656 team reviews
                             </p>
                         </div>
                     </motion.div>
@@ -242,11 +251,11 @@ export default function Contact() {
                     >
                         <div className="flex items-center gap-3">
                             <Phone className="w-4 h-4 text-accent flex-shrink-0" />
-                            <a href="tel:7143195966" className="text-sm font-sans font-medium text-white hover:text-accent transition-colors">(714) 319-5966</a>
+                            <a href="tel:7143195966" onClick={() => trackPhoneClick("contact-sidebar")} className="text-sm font-sans font-medium text-white hover:text-accent transition-colors">(714) 319-5966</a>
                         </div>
                         <div className="flex items-center gap-3">
                             <Mail className="w-4 h-4 text-accent flex-shrink-0" />
-                            <a href="mailto:info@cuervohomes.com" className="text-sm font-sans font-medium text-white hover:text-accent transition-colors">info@cuervohomes.com</a>
+                            <a href="mailto:info@cuervohomes.com" onClick={() => trackEmailClick("contact-sidebar")} className="text-sm font-sans font-medium text-white hover:text-accent transition-colors">info@cuervohomes.com</a>
                         </div>
                         <div className="flex items-center gap-3">
                             <Clock className="w-4 h-4 text-accent flex-shrink-0" />
@@ -328,6 +337,7 @@ export default function Contact() {
                                 >
                                     <a
                                         href="tel:7143195966"
+                                        onClick={() => trackPhoneClick("contact-cta")}
                                         className="inline-flex items-center justify-center gap-2 bg-white text-black px-6 py-3.5 text-xs font-black tracking-[0.15em] uppercase hover:bg-neutral-200 transition-all"
                                     >
                                         <Phone className="w-3.5 h-3.5" /> Call Regina Now
@@ -519,7 +529,7 @@ export default function Contact() {
                                 transition={{ duration: 0.5, delay: 1 }}
                                 className="text-[9px] text-neutral-500 font-sans leading-relaxed mt-5"
                             >
-                                By submitting this form, you consent to receive calls, text messages (including via automated technology), and emails from Cuervo Homes / WE'RE Real Estate Inc at the phone number and email provided, including for marketing purposes. You understand that consent is not a condition of purchase. Message and data rates may apply. Message frequency varies. You may opt out at any time by replying STOP. View our{" "}
+                                By submitting this form, you consent to receive calls, text messages (including via automated technology), and emails from Cuervo Homes Group / Nest Real Estate at the phone number and email provided, including for marketing purposes. You understand that consent is not a condition of purchase. Message and data rates may apply. Message frequency varies. You may opt out at any time by replying STOP. View our{" "}
                                 <span className="underline cursor-pointer hover:text-white transition-colors">Privacy Policy</span> and{" "}
                                 <span className="underline cursor-pointer hover:text-white transition-colors">Terms of Service</span>.
                             </motion.p>

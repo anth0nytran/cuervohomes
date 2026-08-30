@@ -4,6 +4,7 @@ import { ArrowRight, ChevronLeft, ChevronRight, Star, ShieldCheck, HomeIcon, Bri
 import { motion, AnimatePresence } from "framer-motion";
 import SEO from "../hooks/useSEO";
 import { Helmet } from "react-helmet-async";
+import { cn } from "../lib/utils";
 
 // --- Phase 9: Magazine-Quality, Photogenic, Trust-First Homepage ---
 
@@ -249,8 +250,8 @@ const HeroHQ = () => {
                             <div className="flex flex-none items-center">
                                 {[...Array(2)].map((_, i) => (
                                     <div key={`half1-${i}`} className="flex flex-none items-center gap-8 md:gap-16 px-4 md:px-8">
-                                        <img src="/c_homes/broker_logo_copy.png" alt="Brokerage" className="h-5 md:h-7 object-contain brightness-0 invert opacity-40 hover:opacity-100 transition-opacity duration-300 cursor-default" />
-                                        {["Zillow Preferred Agent", "Redfin Partner Agent", "WE'RE Real Estate Orange County", "Realtor.com", "MLS", "Homes.com"].map((name) => (
+                                        <img src="/c_homes/nest-real-estate-white.png" alt="Nest Real Estate" width={1200} height={328} className="h-5 md:h-7 w-auto object-contain opacity-40 hover:opacity-100 transition-opacity duration-300 cursor-default" />
+                                        {["Zillow Preferred Agent", "Redfin Partner Agent", "Nest Real Estate Orange County", "Realtor.com", "MLS", "Homes.com"].map((name) => (
                                             <span key={`${i}-${name}`} className="text-[10px] md:text-xs font-bold tracking-[0.2em] text-white/40 hover:text-white transition-colors duration-300 cursor-default uppercase whitespace-nowrap">{name}</span>
                                         ))}
                                     </div>
@@ -259,8 +260,8 @@ const HeroHQ = () => {
                             <div className="flex flex-none items-center" aria-hidden="true">
                                 {[...Array(2)].map((_, i) => (
                                     <div key={`half2-${i}`} className="flex flex-none items-center gap-8 md:gap-16 px-4 md:px-8">
-                                        <img src="/c_homes/broker_logo_copy.png" alt="Brokerage" className="h-5 md:h-7 object-contain brightness-0 invert opacity-40 hover:opacity-100 transition-opacity duration-300 cursor-default" />
-                                        {["Zillow Preferred Agent", "Redfin Partner Agent", "WE'RE Real Estate Orange County", "Realtor.com", "MLS", "Homes.com"].map((name) => (
+                                        <img src="/c_homes/nest-real-estate-white.png" alt="Nest Real Estate" width={1200} height={328} className="h-5 md:h-7 w-auto object-contain opacity-40 hover:opacity-100 transition-opacity duration-300 cursor-default" />
+                                        {["Zillow Preferred Agent", "Redfin Partner Agent", "Nest Real Estate Orange County", "Realtor.com", "MLS", "Homes.com"].map((name) => (
                                             <span key={`${i}-${name}`} className="text-[10px] md:text-xs font-bold tracking-[0.2em] text-white/40 hover:text-white transition-colors duration-300 cursor-default uppercase whitespace-nowrap">{name}</span>
                                         ))}
                                     </div>
@@ -423,7 +424,7 @@ const RecentSalesSection = () => {
                             >
                                 <div className="flex items-center gap-3 mb-6">
                                     <div className="w-6 h-[2px] bg-accent" />
-                                    <span className="text-[9px] tracking-[0.3em] font-bold text-neutral-500 uppercase">WE'RE Real Estate · Team</span>
+                                    <span className="text-[9px] tracking-[0.3em] font-bold text-neutral-500 uppercase">Nest Real Estate · Team</span>
                                 </div>
 
                                 <div className="flex items-end gap-4 mb-8">
@@ -626,7 +627,7 @@ const ContentWhyTrustUs = () => {
                         <h3 className="text-lg md:text-xl font-serif font-black text-white mb-4 tracking-tight leading-snug min-h-[2lh]">Proven Experience<br className="hidden md:block" /> You Can Count On</h3>
                         <div className="text-[13px] text-neutral-300 leading-[1.85] font-sans mb-8 flex-1 space-y-3">
                             <p>Real estate decisions require <span className="text-white font-medium">expertise you can trust</span>.</p>
-                            <p>With a strong track record of successful transactions and satisfied clients across Southern California, Cuervo Homes brings the experience, market insight, and negotiation skills needed to deliver <span className="text-white font-medium">exceptional results</span>.</p>
+                            <p>With a strong track record of successful transactions and satisfied clients across Southern California, Cuervo Homes Group brings the experience, market insight, and negotiation skills needed to deliver <span className="text-white font-medium">exceptional results</span>.</p>
                         </div>
                         <Link to="/services" className="inline-flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.2em] text-white border-b border-white/30 pb-1 group-hover:text-accent group-hover:border-accent transition-colors mt-auto">
                             Learn More <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
@@ -772,8 +773,10 @@ const DirectorProfile = () => {
                     {/* Headshot + Name inline */}
                     <div className="flex items-center justify-center gap-5 md:gap-6 mb-6">
                         <img
-                            src="/c_homes/Regina Headshot.jpg"
-                            alt="Regina Cuervo"
+                            src="/c_homes/team/regina-cuervo.jpg"
+                            alt="Regina Cuervo, REALTOR® and founder of Cuervo Homes Group"
+                            width={900}
+                            height={900}
                             loading="lazy"
                             className="w-20 h-20 md:w-24 md:h-24 object-cover object-top border border-white/15 shadow-2xl flex-shrink-0"
                         />
@@ -841,7 +844,171 @@ const DirectorProfile = () => {
     );
 };
 
-// --- The Cuervo Homes Signature Selling Experience ---
+/*
+ * --- Meet the Team ---
+ *
+ * TODO(client): `pending: true` marks an agent whose name and DRE number
+ * Regina has not sent yet. Replace `name` and `license`, then drop the flag —
+ * the muted placeholder styling keys off it, and the matching schema.org
+ * Person entities in index.html need the same two values filled in.
+ *
+ * The four headshots come from four unrelated shoots (studio grey, blue
+ * vignette, garden, wood wall). The grayscale-to-colour hover is doing real
+ * work here: it neutralises four clashing backgrounds into one coherent grid.
+ */
+const TEAM = [
+    {
+        slug: "regina-cuervo",
+        name: "Regina Cuervo",
+        role: "REALTOR® · Founder",
+        license: "Cal DRE #02144970",
+        blurb: "Leads the group across Orange County, focused on sellers and first-time buyers. Bilingual English & Spanish.",
+        pending: false,
+    },
+    {
+        slug: "richard-mayen",
+        name: "Richard Mayen",
+        role: "REALTOR®",
+        license: "Cal DRE # pending",
+        blurb: "Works with buyers and sellers throughout central and north Orange County.",
+        pending: false,
+    },
+    {
+        slug: "agent-three",
+        name: "Name Pending",
+        role: "REALTOR®",
+        license: "Cal DRE # pending",
+        blurb: "Full bio coming soon.",
+        pending: true,
+    },
+    {
+        slug: "agent-four",
+        name: "Name Pending",
+        role: "REALTOR®",
+        license: "Cal DRE # pending",
+        blurb: "Full bio coming soon.",
+        pending: true,
+    },
+];
+
+const TeamSection = () => (
+    <section id="team" className="relative bg-neutral-950 border-t border-white/[0.08]">
+        <div className="max-w-[1500px] mx-auto px-6 md:px-12 py-16 md:py-24">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true }}
+                className="max-w-3xl mb-12 md:mb-16"
+            >
+                <div className="flex items-center gap-3 mb-5">
+                    <div className="w-6 h-[2px] bg-accent" />
+                    <span className="text-[9px] tracking-[0.3em] font-bold text-neutral-500 uppercase">
+                        Meet the Group
+                    </span>
+                </div>
+
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-black tracking-tight text-white leading-[0.95] uppercase mb-5">
+                    The Team Behind <br className="hidden md:block" /> Every Close
+                </h2>
+
+                <p className="text-[13px] md:text-sm text-neutral-400 font-sans leading-[1.85] font-medium">
+                    Cuervo Homes Group is a team of licensed Orange County REALTORS® brokered by{" "}
+                    <span className="text-white font-bold">Nest Real Estate</span>. You get one
+                    dedicated point of contact — backed by the whole group's market knowledge,
+                    vendor network, and negotiating experience.
+                </p>
+            </motion.div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.08] border border-white/[0.08]">
+                {TEAM.map((member, i) => (
+                    <motion.article
+                        key={member.slug}
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                        viewport={{ once: true }}
+                        className="group bg-neutral-950 flex flex-col"
+                    >
+                        <div className="relative overflow-hidden aspect-square bg-neutral-900">
+                            <picture>
+                                <source srcSet={`/c_homes/team/${member.slug}.webp`} type="image/webp" />
+                                <img
+                                    src={`/c_homes/team/${member.slug}.jpg`}
+                                    alt={
+                                        member.pending
+                                            ? "Cuervo Homes Group REALTOR® headshot"
+                                            : `${member.name}, ${member.role} at Cuervo Homes Group`
+                                    }
+                                    width={900}
+                                    height={900}
+                                    loading="lazy"
+                                    className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                                />
+                            </picture>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-30 transition-opacity duration-500" />
+                        </div>
+
+                        <div className="p-5 md:p-7 flex-1 flex flex-col">
+                            <h3 className={cn(
+                                "text-base md:text-xl font-serif font-black tracking-tight uppercase leading-tight mb-2",
+                                member.pending ? "text-white/35" : "text-white"
+                            )}>
+                                {member.name}
+                            </h3>
+
+                            <span className="text-[9px] tracking-[0.2em] font-bold uppercase text-accent mb-1.5">
+                                {member.role}
+                            </span>
+                            <span className="text-[10px] text-neutral-500 font-medium mb-4">
+                                {member.license}
+                            </span>
+
+                            <p className={cn(
+                                "text-[12px] font-sans leading-[1.75] font-medium mt-auto",
+                                member.pending ? "text-neutral-600 italic" : "text-neutral-400"
+                            )}>
+                                {member.blurb}
+                            </p>
+                        </div>
+                    </motion.article>
+                ))}
+            </div>
+
+            <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="flex flex-col sm:flex-row items-center justify-between gap-6 mt-10 md:mt-14 pt-8 border-t border-white/[0.08]"
+            >
+                <div className="flex items-center gap-5">
+                    <span className="text-[9px] tracking-[0.25em] font-bold text-neutral-600 uppercase whitespace-nowrap">
+                        Brokered By
+                    </span>
+                    <img
+                        src="/c_homes/nest-real-estate-white.png"
+                        alt="Nest Real Estate"
+                        width={1200}
+                        height={328}
+                        loading="lazy"
+                        className="h-7 md:h-9 w-auto object-contain opacity-70"
+                    />
+                </div>
+
+                <Link
+                    to="/contact"
+                    className="group inline-flex items-center gap-3 border border-white/20 text-white px-7 py-3.5 text-[10px] font-black tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-300"
+                >
+                    Work With the Team
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+            </motion.div>
+        </div>
+    </section>
+);
+
+// --- The Cuervo Homes Group Signature Selling Experience ---
 const SELLING_STEPS = [
     {
         number: "01",
@@ -928,7 +1095,7 @@ const SignatureSellingExperience = () => {
                         Our Process
                     </span>
                     <h2 className="text-3xl md:text-5xl font-serif font-black tracking-tight text-black leading-tight mb-5 uppercase">
-                        The Cuervo Homes <br className="hidden md:block" /> Signature Selling Experience
+                        The Cuervo Homes Group <br className="hidden md:block" /> Signature Selling Experience
                     </h2>
                     <div className="w-12 h-[2px] bg-black mx-auto mb-5" />
                     <p className="text-neutral-500 max-w-2xl mx-auto font-sans text-[15px] leading-relaxed">
@@ -1370,7 +1537,7 @@ export default function Home() {
     return (
         <div className="bg-black w-full overflow-x-hidden selection:bg-accent selection:text-white">
             <SEO
-                title="Orange County Real Estate Agent — Buy, Sell & Invest | Cuervo Homes"
+                title="Orange County Real Estate Agent — Buy, Sell & Invest | Cuervo Homes Group"
                 description="Regina Cuervo is a top-rated Orange County REALTOR® helping families buy, sell, and invest in homes across Newport Beach, Costa Mesa, Santa Ana, Irvine & more. 5.0★ rating · Free home valuations · Hablamos Español."
                 path="/"
             />
@@ -1389,6 +1556,7 @@ export default function Home() {
             <HeroHQ />
             <DualCTATransition />
             <DirectorProfile />
+            <TeamSection />
             <RecentSalesSection />
             <ContentWhyTrustUs />
             <SignatureSellingExperience />

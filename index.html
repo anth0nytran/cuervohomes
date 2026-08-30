@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="author" content="Cuervo Homes" />
+  <meta name="author" content="Cuervo Homes Group" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="theme-color" content="#0a0a0a" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -14,8 +14,11 @@
   <meta name="geo.position" content="33.7175;-117.8311" />
   <meta name="ICBM" content="33.7175, -117.8311" />
 
-  <!-- Google Search Console verification (replace YOUR_CODE with actual verification code) -->
-  <!-- <meta name="google-site-verification" content="YOUR_CODE" /> -->
+  <!--
+    Google Search Console verification is injected at build time from the
+    GOOGLE_SITE_VERIFICATION environment variable (see vite.config.ts).
+    Don't hard-code it here.
+  -->
 
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -27,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet" />
 
-  <meta property="og:site_name" content="Cuervo Homes" />
+  <meta property="og:site_name" content="Cuervo Homes Group" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -36,6 +39,11 @@
     OG/Twitter, Article/FAQ/Breadcrumb schema) is owned by the SEO component in
     src/hooks/useSEO.tsx and injected into the app-head placeholder below during
     prerendering. Do not duplicate page-level tags here.
+
+    TODO(client): the two unnamed agents in the homepage team grid deliberately
+    have no Person entity below. A placeholder name is worse than no entity at
+    all once it is in the knowledge graph. Add them next to #richard-mayen when
+    Regina sends the names and DRE numbers.
   -->
   <script type="application/ld+json">
     {
@@ -45,22 +53,23 @@
           "@type": "WebSite",
           "@id": "https://www.cuervohomes.com/#website",
           "url": "https://www.cuervohomes.com/",
-          "name": "Cuervo Homes",
+          "name": "Cuervo Homes Group",
+          "alternateName": "Cuervo Homes",
           "inLanguage": "en-US",
           "publisher": { "@id": "https://www.cuervohomes.com/#real-estate-agent" }
         },
         {
           "@type": ["RealEstateAgent", "LocalBusiness"],
           "@id": "https://www.cuervohomes.com/#real-estate-agent",
-          "name": "Cuervo Homes",
-          "alternateName": "Cuervo Homes — Regina Cuervo, REALTOR®",
+          "name": "Cuervo Homes Group",
+          "alternateName": ["Cuervo Homes", "Cuervo Homes Group — Regina Cuervo, REALTOR®"],
           "description": "Top-rated Orange County real estate agent helping families buy, sell, and invest in homes across Newport Beach, Costa Mesa, Santa Ana, Irvine, and all of Orange County. Free home valuations. Bilingual English & Spanish.",
           "url": "https://www.cuervohomes.com/",
           "priceRange": "$148K–$4.1M",
           "telephone": "+1-714-319-5966",
           "email": "info@cuervohomes.com",
           "image": "https://www.cuervohomes.com/og/cuervo-og.jpg",
-          "logo": "https://www.cuervohomes.com/c_homes/main_logo_full.png",
+          "logo": "https://www.cuervohomes.com/c_homes/chg-cursive-black.png",
           "address": {
             "@type": "PostalAddress",
             "addressLocality": "Orange",
@@ -141,7 +150,19 @@
             { "@type": "AdministrativeArea", "name": "Orange County, CA" }
           ],
           "knowsLanguage": ["en", "es"],
-          "employee": { "@id": "https://www.cuervohomes.com/#regina-cuervo" }
+          "parentOrganization": { "@id": "https://www.cuervohomes.com/#nest-real-estate" },
+          "employee": [
+            { "@id": "https://www.cuervohomes.com/#regina-cuervo" },
+            { "@id": "https://www.cuervohomes.com/#richard-mayen" }
+          ]
+        },
+        {
+          "@type": "RealEstateAgent",
+          "@id": "https://www.cuervohomes.com/#nest-real-estate",
+          "name": "Nest Real Estate",
+          "description": "California real estate brokerage. Cuervo Homes Group operates under Nest Real Estate.",
+          "logo": "https://www.cuervohomes.com/c_homes/nest-real-estate-white.png",
+          "areaServed": { "@type": "AdministrativeArea", "name": "Orange County, CA" }
         },
         {
           "@type": "Person",
@@ -150,8 +171,8 @@
           "givenName": "Regina",
           "familyName": "Cuervo",
           "jobTitle": "REALTOR®",
-          "description": "Bilingual Orange County REALTOR® specializing in residential real estate across Newport Beach, Costa Mesa, Irvine, Santa Ana, and greater Orange County. Cal DRE #02144970.",
-          "image": "https://www.cuervohomes.com/c_homes/headshot.jpg",
+          "description": "Bilingual Orange County REALTOR® and founder of Cuervo Homes Group, specializing in residential real estate across Newport Beach, Costa Mesa, Irvine, Santa Ana, and greater Orange County. Cal DRE #02144970.",
+          "image": "https://www.cuervohomes.com/c_homes/team/regina-cuervo.jpg",
           "url": "https://www.cuervohomes.com/",
           "telephone": "+1-714-319-5966",
           "email": "info@cuervohomes.com",
@@ -173,10 +194,20 @@
               "url": "https://www.dre.ca.gov/"
             }
           },
-          "worksFor": {
-            "@type": "Organization",
-            "name": "WE'RE Real Estate Inc"
-          },
+          "worksFor": { "@id": "https://www.cuervohomes.com/#real-estate-agent" },
+          "areaServed": { "@type": "AdministrativeArea", "name": "Orange County, CA" }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://www.cuervohomes.com/#richard-mayen",
+          "name": "Richard Mayen",
+          "givenName": "Richard",
+          "familyName": "Mayen",
+          "jobTitle": "REALTOR®",
+          "description": "Orange County REALTOR® with Cuervo Homes Group, working with buyers and sellers across central and north Orange County.",
+          "image": "https://www.cuervohomes.com/c_homes/team/richard-mayen.jpg",
+          "url": "https://www.cuervohomes.com/#team",
+          "worksFor": { "@id": "https://www.cuervohomes.com/#real-estate-agent" },
           "areaServed": { "@type": "AdministrativeArea", "name": "Orange County, CA" }
         }
       ]

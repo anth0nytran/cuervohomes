@@ -102,7 +102,7 @@ Zestimate is a reasonable starting range but tends to be less reliable in Orange
 
 ### How much does it cost to find out what my home is worth?
 
-A REALTOR®'s comparative market analysis is typically free, including the one Cuervo Homes provides. A licensed appraisal generally costs several hundred dollars and is usually ordered by a lender during a transaction. For deciding whether and how to sell, the free market analysis is generally the more useful of the two.
+A REALTOR®'s comparative market analysis is typically free, including the one Cuervo Homes Group provides. A licensed appraisal generally costs several hundred dollars and is usually ordered by a lender during a transaction. For deciding whether and how to sell, the free market analysis is generally the more useful of the two.
 
 ### What adds the most value to a home in Orange County?
 

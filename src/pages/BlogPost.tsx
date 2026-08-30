@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { ArrowRight, ArrowLeft, Calendar, Clock, Phone } from "lucide-react";
 import SEO from "../hooks/useSEO";
+import { trackPhoneClick } from "../lib/analytics";
 import NotFound from "./NotFound";
 import { getPost, getRelatedPosts, formatDate, type BlogPost as Post } from "@/lib/blog";
 
@@ -83,8 +84,10 @@ const ArticleHero = ({ post }: { post: Post }) => (
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-6 border-t border-white/[0.08] text-[10px] font-bold tracking-widest uppercase text-neutral-400">
                 <span className="flex items-center gap-2 text-white">
                     <img
-                        src="/c_homes/headshot.jpg"
+                        src="/c_homes/team/regina-cuervo.jpg"
                         alt="Regina Cuervo, REALTOR®"
+                        width={900}
+                        height={900}
                         className="w-7 h-7 rounded-full object-cover border border-white/20"
                     />
                     Regina Cuervo, REALTOR®
@@ -173,8 +176,10 @@ const AuthorBio = () => (
         <div className="max-w-4xl mx-auto px-6 md:px-12 py-12 md:py-16">
             <div className="flex flex-col sm:flex-row gap-6 md:gap-10">
                 <img
-                    src="/c_homes/headshot.jpg"
+                    src="/c_homes/team/regina-cuervo.jpg"
                     alt="Regina Cuervo, Orange County REALTOR®"
+                    width={900}
+                    height={900}
                     loading="lazy"
                     className="w-24 h-24 md:w-32 md:h-32 object-cover flex-shrink-0 border border-neutral-200"
                 />
@@ -186,7 +191,8 @@ const AuthorBio = () => (
                         Regina Cuervo, REALTOR®
                     </h2>
                     <p className="text-[13px] md:text-sm text-neutral-600 font-sans leading-relaxed mb-5">
-                        Regina is a bilingual Orange County REALTOR® with WE&apos;RE Real Estate Inc, working
+                        Regina is a bilingual Orange County REALTOR® and founder of Cuervo Homes Group,
+                        brokered by Nest Real Estate, working
                         with buyers and sellers across Newport Beach, Costa Mesa, Irvine, Santa Ana, Orange,
                         Anaheim, and Huntington Beach. She writes these reports from live MLS activity and
                         published C.A.R. and Freddie Mac data — not national headlines that ignore how
@@ -200,6 +206,7 @@ const AuthorBio = () => (
                     <div className="flex flex-wrap gap-3">
                         <a
                             href="tel:7143195966"
+                            onClick={() => trackPhoneClick("blog-post-cta")}
                             className="group inline-flex items-center gap-2 bg-black text-white px-6 py-3 text-[10px] font-black tracking-widest uppercase hover:bg-neutral-800 transition-colors"
                         >
                             <Phone className="w-3.5 h-3.5" /> (714) 319-5966
@@ -290,7 +297,7 @@ const ArticleCTA = () => (
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
             <p className="text-[9px] md:text-[10px] text-neutral-600 uppercase tracking-widest mt-6">
-                Regina Cuervo, REALTOR® · Cal DRE #02144970 · WE&apos;RE Real Estate Inc
+                Regina Cuervo, REALTOR® · Cal DRE #02144970 · Nest Real Estate
             </p>
         </div>
     </section>

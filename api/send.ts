@@ -121,7 +121,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;">
     <tr><td style="border-top:6px solid #000;padding:18px 20px;border-bottom:1px solid #f1f5f9;">
       <table role="presentation" width="100%"><tr>
-        <td style="font-size:16px;font-weight:700;">Cuervo Homes</td>
+        <td style="font-size:16px;font-weight:700;">Cuervo Homes Group</td>
         <td align="right"><span style="background:#000;color:#fff;font-weight:700;font-size:12px;padding:6px 10px;border-radius:999px;">NEW LEAD</span></td>
       </tr></table>
     </td></tr>
@@ -168,7 +168,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     <tr><td style="padding:28px 24px;">
       <div style="font-size:22px;font-weight:800;margin:0 0 16px;">Hi ${esc(firstName)},</div>
       <p style="font-size:15px;color:#374151;line-height:1.7;margin:0 0 16px;">
-        Thank you for reaching out to Cuervo Homes! We've received your request and Regina will personally review your information.
+        Thank you for reaching out to Cuervo Homes Group! We've received your request and Regina will personally review your information.
       </p>
       <p style="font-size:15px;color:#374151;line-height:1.7;margin:0 0 24px;">
         You can expect to hear back within <strong>24 hours</strong> — typically much sooner. In the meantime, here's a summary of what you submitted:
@@ -189,7 +189,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       </p>
       <div style="border-top:1px solid #e5e7eb;padding-top:20px;text-align:center;">
         <div style="font-size:13px;font-weight:700;color:#111;">Regina Cuervo, REALTOR®</div>
-        <div style="font-size:12px;color:#6b7280;margin-top:2px;">WE'RE Real Estate Inc · Cal DRE #02144970</div>
+        <div style="font-size:12px;color:#6b7280;margin-top:2px;">Nest Real Estate · Cal DRE #02144970</div>
         <div style="font-size:12px;color:#6b7280;margin-top:2px;">English & Spanish</div>
         <div style="margin-top:12px;">
           <a href="https://www.cuervohomes.com" style="font-size:12px;color:#000;font-weight:600;text-decoration:none;">cuervohomes.com</a>
@@ -204,7 +204,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         // Send lead notification
         const { error: leadErr } = await resend.emails.send({
-            from: "Cuervo Homes | New Lead <leads@quicklaunchweb.us>",
+            from: "Cuervo Homes Group | New Lead <leads@quicklaunchweb.us>",
             to: [toEmail],
             bcc,
             replyTo: email,
@@ -220,12 +220,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         // Send prospect confirmation
         await resend.emails.send({
-            from: "Regina Cuervo · Cuervo Homes <leads@quicklaunchweb.us>",
+            from: "Regina Cuervo · Cuervo Homes Group <leads@quicklaunchweb.us>",
             to: [email],
             replyTo: toEmail,
             subject: `We received your request, ${firstName}!`,
             html: prospectHtml,
-            text: `Hi ${firstName},\n\nThank you for reaching out to Cuervo Homes! We've received your request for ${serviceLabel} and Regina will personally review your information.\n\nExpect to hear back within 24 hours.\n\nRegina Cuervo, REALTOR®\n(714) 319-5966\ninfo@cuervohomes.com`,
+            text: `Hi ${firstName},\n\nThank you for reaching out to Cuervo Homes Group! We've received your request for ${serviceLabel} and Regina will personally review your information.\n\nExpect to hear back within 24 hours.\n\nRegina Cuervo, REALTOR®\n(714) 319-5966\ninfo@cuervohomes.com`,
         }).catch((err) => console.error("Prospect email failed (non-blocking):", err));
 
     } catch (error) {

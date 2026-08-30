@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { trackPhoneClick, trackEmailClick, trackCtaClick } from "@/lib/analytics";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, ArrowRight, Phone, Mail, MapPin } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
@@ -78,19 +79,15 @@ export default function Layout({ children }: LayoutProps) {
                         className="cursor-pointer flex items-center gap-2.5"
                     >
                         <img
-                            src="/c_homes/main_logo_full_logo_only_copy.png"
-                            alt="Cuervo Homes Logo"
+                            src="/c_homes/chg-horizontal-white.png"
+                            alt="Cuervo Homes Group"
+                            width={1600}
+                            height={224}
                             className={cn(
-                                "object-contain transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                                scrolled ? "h-5" : "h-7 md:h-8"
+                                "w-auto object-contain transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                                scrolled ? "h-6" : "h-8 md:h-9"
                             )}
                         />
-                        <span className={cn(
-                            "font-serif font-bold text-white tracking-widest uppercase transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                            scrolled ? "text-xs" : "text-lg md:text-xl"
-                        )}>
-                            Cuervo Homes
-                        </span>
                     </Link>
 
                     <div className="hidden md:flex items-center gap-8 text-xs font-bold tracking-widest uppercase text-white">
@@ -141,8 +138,7 @@ export default function Layout({ children }: LayoutProps) {
                         {/* Header */}
                         <div className="flex justify-between items-center p-5 border-b border-white/[0.08]">
                             <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2">
-                                <img src="/c_homes/main_logo_full_logo_only_copy.png" alt="Cuervo Homes" className="h-5 object-contain" />
-                                <span className="text-sm font-serif font-bold tracking-widest uppercase">Cuervo Homes</span>
+                                <img src="/c_homes/chg-horizontal-white.png" alt="Cuervo Homes Group" width={1600} height={224} className="h-6 w-auto object-contain" />
                             </Link>
                             <button onClick={() => setMobileMenuOpen(false)} className="p-1">
                                 <X className="w-6 h-6 text-white" />
@@ -205,10 +201,10 @@ export default function Layout({ children }: LayoutProps) {
                         {/* Contact Info */}
                         <div className="p-5 border-b border-white/[0.08] space-y-3">
                             <span className="text-[9px] font-bold tracking-[0.25em] uppercase text-neutral-500 block mb-3">Get in Touch</span>
-                            <a href="tel:7143195966" className="flex items-center gap-3 text-sm font-sans font-medium text-white">
+                            <a href="tel:7143195966" onClick={() => trackPhoneClick("mobile-menu")} className="flex items-center gap-3 text-sm font-sans font-medium text-white">
                                 <Phone className="w-3.5 h-3.5 text-accent" /> (714) 319-5966
                             </a>
-                            <a href="mailto:info@cuervohomes.com" className="flex items-center gap-3 text-sm font-sans text-neutral-400">
+                            <a href="mailto:info@cuervohomes.com" onClick={() => trackEmailClick("mobile-menu")} className="flex items-center gap-3 text-sm font-sans text-neutral-400">
                                 <Mail className="w-3.5 h-3.5 text-accent" /> info@cuervohomes.com
                             </a>
                             <span className="flex items-center gap-3 text-sm font-sans text-neutral-500">
@@ -220,7 +216,10 @@ export default function Layout({ children }: LayoutProps) {
                         <div className="p-5 mt-auto">
                             <Link
                                 to="/contact?intent=homeworth"
-                                onClick={() => setMobileMenuOpen(false)}
+                                onClick={() => {
+                                    trackCtaClick("Get Free Home Report", "mobile-menu");
+                                    setMobileMenuOpen(false);
+                                }}
                                 className="group flex items-center justify-center gap-3 w-full bg-white text-black py-4 text-xs font-black tracking-widest uppercase"
                             >
                                 Get Free Home Report
@@ -242,6 +241,7 @@ export default function Layout({ children }: LayoutProps) {
                 <div className="bg-black/95 backdrop-blur-md border-t border-white/10 px-4 py-3">
                     <Link
                         to="/contact?intent=homeworth"
+                        onClick={() => trackCtaClick("Home Equity Report", "sticky-bar")}
                         className="flex items-center justify-between w-full group"
                     >
                         <div>
@@ -268,9 +268,12 @@ export default function Layout({ children }: LayoutProps) {
                         <div className="p-6 md:p-16 border-b md:border-b-0 md:border-r border-white/10 flex flex-col justify-between">
                             <div>
                                 <img
-                                    src="/c_homes/main_logo_full_logo_only_copy.png"
-                                    alt="Cuervo Homes"
-                                    className="h-14 md:h-20 object-contain mb-5"
+                                    src="/c_homes/chg-cursive-white.png"
+                                    alt="Cuervo Homes Group"
+                                    width={1200}
+                                    height={586}
+                                    loading="lazy"
+                                    className="h-14 md:h-20 w-auto object-contain mb-5"
                                 />
                                 <p className="text-neutral-400 text-[12px] md:text-[13px] leading-[1.8] font-medium mb-8 max-w-sm">
                                     Selling Homes with Strategy. Buying Homes with Confidence. Your trusted real estate advisor across Orange County.
@@ -280,7 +283,14 @@ export default function Layout({ children }: LayoutProps) {
                             <div className="space-y-3 pt-6 border-t border-white/10">
                                 <p className="text-[9px] uppercase tracking-[0.2em] text-white font-bold mb-1.5">Regina Cuervo, REALTOR®</p>
                                 <p className="text-[10px] text-neutral-500 font-medium">Cal DRE #02144970</p>
-                                <p className="text-[10px] text-neutral-500 font-medium tracking-wide">WE'RE Real Estate Inc</p>
+                                <img
+                                    src="/c_homes/nest-real-estate-white.png"
+                                    alt="Nest Real Estate"
+                                    width={1200}
+                                    height={328}
+                                    loading="lazy"
+                                    className="h-6 w-auto object-contain opacity-60 my-1"
+                                />
                                 <p className="text-[10px] text-neutral-500 font-medium mt-1.5 flex items-center gap-2">
                                     <span className="w-1 h-1 rounded-full bg-neutral-600" /> English & Spanish
                                 </p>
@@ -343,10 +353,10 @@ export default function Layout({ children }: LayoutProps) {
                                     <span className="w-4 h-[1px] bg-neutral-700" /> Contact
                                 </h4>
                                 <div className="space-y-3 mb-6">
-                                    <a href="tel:7143195966" className="flex items-center gap-3 text-base font-serif font-bold hover:text-accent transition-colors">
+                                    <a href="tel:7143195966" onClick={() => trackPhoneClick("footer")} className="flex items-center gap-3 text-base font-serif font-bold hover:text-accent transition-colors">
                                         <Phone className="w-3.5 h-3.5 text-accent" /> (714) 319-5966
                                     </a>
-                                    <a href="mailto:info@cuervohomes.com" className="flex items-center gap-3 text-sm font-sans text-neutral-400 hover:text-white transition-colors">
+                                    <a href="mailto:info@cuervohomes.com" onClick={() => trackEmailClick("footer")} className="flex items-center gap-3 text-sm font-sans text-neutral-400 hover:text-white transition-colors">
                                         <Mail className="w-3.5 h-3.5 text-accent" /> info@cuervohomes.com
                                     </a>
                                     <span className="flex items-center gap-3 text-sm font-sans text-neutral-500">
@@ -365,6 +375,7 @@ export default function Layout({ children }: LayoutProps) {
 
                             <Link
                                 to="/contact?intent=homeworth"
+                                onClick={() => trackCtaClick("Get Free Report", "footer")}
                                 className="group flex items-center justify-center gap-2 w-full py-3.5 mt-8 border border-white/15 text-[10px] font-bold uppercase tracking-widest text-white hover:bg-white hover:text-black transition-all duration-300"
                             >
                                 Get Free Report <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
@@ -382,7 +393,7 @@ export default function Layout({ children }: LayoutProps) {
                     {/* Bottom Bar */}
                     <div className="border-t border-white/10 p-6 md:px-12 md:py-8 flex flex-col md:flex-row justify-between items-center gap-6 bg-black/50">
                         <p className="text-[9px] text-neutral-500 uppercase tracking-[0.2em] font-bold">
-                            © 2026 Cuervo Homes. All Rights Reserved.
+                            © 2026 Cuervo Homes Group. All Rights Reserved.
                         </p>
                         <div className="flex gap-6">
                             <a

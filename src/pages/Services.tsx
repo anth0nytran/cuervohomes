@@ -439,8 +439,10 @@ const ServiceTestimonial = () => {
                     <motion.div {...fadeUp(0.1)} className="flex items-center gap-4 mb-6 pb-6 border-b border-white/[0.08]">
                         <div className="w-16 h-16 md:w-[72px] md:h-[72px] rounded-full overflow-hidden ring-2 ring-white/10 ring-offset-2 ring-offset-black flex-shrink-0">
                             <img
-                                src="/c_homes/headshot_copy.png"
-                                alt="Regina Cuervo, REALTOR®"
+                                src="/c_homes/team/regina-cuervo.jpg"
+                                alt="Regina Cuervo, REALTOR® at Cuervo Homes Group"
+                                width={900}
+                                height={900}
                                 loading="lazy"
                                 className="w-full h-full object-cover"
                             />
@@ -473,7 +475,7 @@ const ServiceTestimonial = () => {
                     {/* Detail rows */}
                     <motion.div {...fadeUp(0.3)} className="space-y-3 mb-6">
                         {[
-                            { label: "Brokerage", value: "WE'RE Real Estate Inc" },
+                            { label: "Brokerage", value: "Nest Real Estate" },
                             { label: "License", value: "Cal DRE #02144970" },
                             { label: "Specialties", value: "Buying · Selling · Investment" },
                             { label: "Areas", value: "All of Orange County" },
@@ -582,8 +584,8 @@ const faqData = [
         a: "We serve all of Orange County including Newport Beach, Costa Mesa, Santa Ana, Anaheim, Irvine, Huntington Beach, Orange, Laguna Beach, Corona Del Mar, and surrounding communities. Whether you're buying or selling, we have deep knowledge of every local market."
     },
     {
-        q: "How is Cuervo Homes different from other real estate agents?",
-        a: "We combine aggressive marketing and hard negotiation with a personal, family-first approach. Regina is backed by WE'RE Real Estate Inc — a team with over 1,312 sales and 656 verified reviews. You get the power of a top-performing team with the dedicated, one-on-one attention of a local specialist."
+        q: "How is Cuervo Homes Group different from other real estate agents?",
+        a: "We combine aggressive marketing and hard negotiation with a personal, family-first approach. Regina is backed by Nest Real Estate — a team with over 1,312 sales and 656 verified reviews. You get the power of a top-performing team with the dedicated, one-on-one attention of a local specialist."
     },
     {
         q: "What should I do to prepare my home for sale?",
@@ -704,7 +706,7 @@ const ServicesCTA = () => (
                 </Link>
             </motion.div>
             <motion.p {...fadeIn(0.5)} className="text-[9px] md:text-[10px] text-neutral-600 uppercase tracking-widest mt-5 md:mt-6">
-                Regina Cuervo, REALTOR® · Cal DRE #02144970 · WE'RE Real Estate Inc
+                Regina Cuervo, REALTOR® · Cal DRE #02144970 · Nest Real Estate
             </motion.p>
         </div>
     </section>

@@ -148,4 +148,4 @@ Plan on two to four months from pre-approval to keys, though it varies. Pre-appr
 - [California Association of REALTORS® — home sales and price report](https://www.car.org/marketdata) (June 2026 Orange County median: $1,490,000)
 - [Orange County Housing Report](https://www.ocrealestateinc.com/orange-county-housing-report/) (inventory and market time, August 3, 2026)
 
-Payment figures are calculated by Cuervo Homes and are illustrative, covering principal and interest only unless stated. Property tax, insurance, HOA, and Mello-Roos vary by property and must be verified individually. Loan limits and assistance program terms change — confirm current figures with a licensed lender. This is general information, not lending or tax advice.
+Payment figures are calculated by Cuervo Homes Group and are illustrative, covering principal and interest only unless stated. Property tax, insurance, HOA, and Mello-Roos vary by property and must be verified individually. Loan limits and assistance program terms change — confirm current figures with a licensed lender. This is general information, not lending or tax advice.

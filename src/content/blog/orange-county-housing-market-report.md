@@ -138,4 +138,4 @@ This report is refreshed monthly as new C.A.R. sales data and weekly Orange Coun
 - [Fannie Mae Housing Forecast](https://www.fanniemae.com/research-and-insights/forecast)
 - [Mortgage Bankers Association — Mortgage Finance Forecast](https://www.mba.org/news-and-research/forecasts-and-commentary)
 
-Months of supply and expected market time are calculated by Cuervo Homes from the published active-listing and pending-sale counts. Market data describes the county in aggregate and does not predict the outcome for any individual property.
+Months of supply and expected market time are calculated by Cuervo Homes Group from the published active-listing and pending-sale counts. Market data describes the county in aggregate and does not predict the outcome for any individual property.

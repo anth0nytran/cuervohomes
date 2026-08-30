@@ -1,4 +1,5 @@
 import { mkdir, writeFile } from "node:fs/promises";
+import { execFileSync } from "node:child_process";
 import path from "node:path";
 import { publishCutoff, readAllPosts } from "./lib/scheduled-posts.mjs";
 
@@ -7,6 +8,36 @@ const CUTOFF = publishCutoff();
 const TODAY = CUTOFF;
 
 const publicDir = path.resolve(process.cwd(), "public");
+
+/**
+ * Real last-modified dates, from git.
+ *
+ * These used to be stamped with the build date, which meant the monthly
+ * scheduled-post rebuild announced that the homepage, services, and contact
+ * pages had all changed — every month, whether or not they had. Google treats
+ * a sitemap whose lastmod is always "today" as unreliable and starts ignoring
+ * the field, which costs the whole file its crawl-scheduling value. The date
+ * of the last commit that actually touched a page's sources is the honest
+ * answer.
+ *
+ * Falls back to the build date if git history isn't available (shallow clone,
+ * tarball deploy), which is no worse than the previous behaviour.
+ */
+let gitAvailable = true;
+function lastCommitDate(...files) {
+  if (!gitAvailable) return TODAY;
+  try {
+    const out = execFileSync("git", ["log", "-1", "--format=%cs", "--", ...files], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim();
+    return /^\d{4}-\d{2}-\d{2}$/.test(out) ? out : TODAY;
+  } catch {
+    gitAvailable = false;
+    console.warn("[seo] git history unavailable — falling back to build date for lastmod.");
+    return TODAY;
+  }
+}
 
 // Scheduled posts are excluded from the sitemap and llms.txt as well as the
 // build — announcing a URL that returns 404 is worse than not announcing it.
@@ -18,10 +49,46 @@ const posts = allPosts
 
 const scheduled = allPosts.filter((post) => !post.published);
 
+const LAYOUT = "src/components/Layout.tsx";
+
+/*
+ * Images declared per URL so Google Images can attribute them to a page. The
+ * team headshots are the reason this exists: a headshot that ranks for an
+ * agent's name is a real discovery path in local real estate, and Google will
+ * not index an image it only ever sees lazy-loaded inside a grid.
+ */
+const TEAM_IMAGES = [
+  { loc: "/c_homes/team/regina-cuervo.jpg", title: "Regina Cuervo, REALTOR® — Cuervo Homes Group" },
+  { loc: "/c_homes/team/richard-mayen.jpg", title: "Richard Mayen, REALTOR® — Cuervo Homes Group" },
+  { loc: "/c_homes/team/agent-three.jpg", title: "Cuervo Homes Group REALTOR®" },
+  { loc: "/c_homes/team/agent-four.jpg", title: "Cuervo Homes Group REALTOR®" },
+];
+
 const routes = [
-  { path: "/", changefreq: "weekly", priority: "1.0", lastmod: TODAY },
-  { path: "/services", changefreq: "monthly", priority: "0.8", lastmod: TODAY },
-  { path: "/contact", changefreq: "monthly", priority: "0.8", lastmod: TODAY },
+  {
+    path: "/",
+    changefreq: "weekly",
+    priority: "1.0",
+    lastmod: lastCommitDate("src/pages/Home.tsx", LAYOUT, "index.html"),
+    images: [
+      { loc: "/c_homes/chg-cursive-black.png", title: "Cuervo Homes Group logo" },
+      ...TEAM_IMAGES,
+    ],
+  },
+  {
+    path: "/services",
+    changefreq: "monthly",
+    priority: "0.8",
+    lastmod: lastCommitDate("src/pages/Services.tsx", LAYOUT),
+    images: [TEAM_IMAGES[0]],
+  },
+  {
+    path: "/contact",
+    changefreq: "monthly",
+    priority: "0.8",
+    lastmod: lastCommitDate("src/pages/Contact.tsx", LAYOUT),
+    images: [TEAM_IMAGES[0]],
+  },
   {
     path: "/blog",
     changefreq: "weekly",
@@ -36,15 +103,30 @@ const routes = [
   })),
 ];
 
+const xml = (value) =>
+  String(value).replace(/[<>&'"]/g, (c) => `&${{ "<": "lt", ">": "gt", "&": "amp", "'": "apos", '"': "quot" }[c]};`);
+
+const imageNodes = (images = []) =>
+  images
+    .map(
+      (image) => `
+    <image:image>
+      <image:loc>${SITE_URL}${image.loc}</image:loc>
+      <image:title>${xml(image.title)}</image:title>
+    </image:image>`
+    )
+    .join("");
+
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${routes
   .map(
     (route) => `  <url>
     <loc>${SITE_URL}${route.path}</loc>
     <lastmod>${route.lastmod}</lastmod>
     <changefreq>${route.changefreq}</changefreq>
-    <priority>${route.priority}</priority>
+    <priority>${route.priority}</priority>${imageNodes(route.images)}
   </url>`
   )
   .join("\n")}
@@ -87,10 +169,10 @@ Sitemap: ${SITE_URL}/sitemap.xml
  * llms.txt — an emerging convention giving language models a curated, plain-text
  * map of a site instead of making them infer structure from rendered HTML.
  */
-const llms = `# Cuervo Homes
+const llms = `# Cuervo Homes Group
 
 > Orange County, California residential real estate. Regina Cuervo, REALTOR(R),
-> Cal DRE #02144970, WE'RE Real Estate Inc. Bilingual English and Spanish.
+> Cal DRE #02144970, brokered by Nest Real Estate. Bilingual English and Spanish.
 > Serving Newport Beach, Costa Mesa, Corona Del Mar, Huntington Beach, Irvine,
 > Santa Ana, Orange, Anaheim, North Tustin, Laguna Beach, and greater Orange County.
 
@@ -112,7 +194,7 @@ ${posts.map((post) => `- [${post.title}](${SITE_URL}/blog/${post.slug}): ${post.
 
 All market figures published on this site are dated and attributed to a named
 source (California Association of REALTORS(R), Freddie Mac, or the weekly Orange
-County housing report). Calculations derived by Cuervo Homes are labeled as
+County housing report). Calculations derived by Cuervo Homes Group are labeled as
 such. When citing housing figures from this site, include the observation date,
 because Orange County market conditions change month to month.
 `;

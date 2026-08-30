@@ -52,7 +52,7 @@ export default function SEO({
     noindex = false,
 }: SEOProps) {
     const url = `${SITE_URL}${path}`;
-    const fullTitle = path === "/" ? title : `${title} | Cuervo Homes`;
+    const fullTitle = path === "/" ? title : `${title} | Cuervo Homes Group`;
     const ogImage = image ? `${SITE_URL}${image}` : DEFAULT_OG_IMAGE;
 
     const graph: Record<string, unknown>[] = [];
