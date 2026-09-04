@@ -56,14 +56,20 @@ async function blackOnWhite(src, out, width) {
 }
 
 /**
- * Headshots come from four different shoots — studio grey, blue vignette,
- * garden, and a wood wall. Square-cropping to a common size is what keeps the
- * team grid from looking like a scrapbook; the CSS treatment does the rest.
+ * Headshots come from five different shoots — studio grey, blue vignette,
+ * garden, a wood wall, and a full-length outdoor portrait. Square-cropping to a
+ * common size is what keeps the team grid from looking like a scrapbook; the
+ * CSS treatment does the rest.
+ *
+ * `crop` is an explicit sharp extract region, for sources where a gravity
+ * crop cannot find the face on its own — Erik's frame is a 3:4.5 portrait, so
+ * a "north" crop lands on tree canopy and a "centre" crop cuts off his head.
  */
-async function headshot(src, slug, gravity = "north") {
+async function headshot(src, slug, { gravity = "north", crop = null } = {}) {
   const jpg = path.join(TEAM, `${slug}.jpg`);
   const webp = path.join(TEAM, `${slug}.webp`);
-  const base = sharp(src).resize(900, 900, { fit: "cover", position: gravity }).flatten({ background: "#ffffff" });
+  const input = crop ? sharp(src).extract(crop) : sharp(src);
+  const base = input.resize(900, 900, { fit: "cover", position: gravity }).flatten({ background: "#ffffff" });
   await base.clone().jpeg({ quality: 86, mozjpeg: true }).toFile(jpg);
   await base.clone().webp({ quality: 82 }).toFile(webp);
   console.log(`  ${(slug + ".jpg/.webp").padEnd(38)} 900x900`);
@@ -77,6 +83,9 @@ await trimTransparent(`${SRC}/Nest Logo OFFICIAL WHT.png`, `${OUT}/nest-real-est
 
 console.log("Headshots:");
 await headshot(`${SRC}/Regina New Headshot.JPG`, "regina-cuervo");
-await headshot(`${SRC}/Richard Mayen .jpg`, "richard-mayen", "centre");
-await headshot(`${SRC}/unknown_agent1.JPG`, "agent-three");
-await headshot(`${SRC}/unknown_agent2.png`, "agent-four", "centre");
+await headshot(`${SRC}/Elisa Ayala.JPG`, "elisa-ayala");
+await headshot(`${SRC}/Erik Ramires.jpg`, "erik-ramirez", {
+  crop: { left: 512, top: 1429, width: 2227, height: 2227 },
+});
+await headshot(`${SRC}/Christopher Bautista.png`, "christopher-bautista", { gravity: "centre" });
+await headshot(`${SRC}/Richard Mayen .jpg`, "richard-mayen", { gravity: "centre" });

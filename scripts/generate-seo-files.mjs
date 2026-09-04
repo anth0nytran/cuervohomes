@@ -59,9 +59,10 @@ const LAYOUT = "src/components/Layout.tsx";
  */
 const TEAM_IMAGES = [
   { loc: "/c_homes/team/regina-cuervo.jpg", title: "Regina Cuervo, REALTOR® — Cuervo Homes Group" },
-  { loc: "/c_homes/team/richard-mayen.jpg", title: "Richard Mayen, REALTOR® — Cuervo Homes Group" },
-  { loc: "/c_homes/team/agent-three.jpg", title: "Cuervo Homes Group REALTOR®" },
-  { loc: "/c_homes/team/agent-four.jpg", title: "Cuervo Homes Group REALTOR®" },
+  { loc: "/c_homes/team/elisa-ayala.jpg", title: "Elisa Ayala, REALTOR® — Cuervo Homes Group, Chino Hills" },
+  { loc: "/c_homes/team/erik-ramirez.jpg", title: "Erik Ramirez, REALTOR® — Cuervo Homes Group, South Orange County" },
+  { loc: "/c_homes/team/christopher-bautista.jpg", title: "Christopher Bautista, REALTOR® — Cuervo Homes Group, Corona" },
+  { loc: "/c_homes/team/richard-mayen.jpg", title: "Richard Mayen, REALTOR® — Cuervo Homes Group, San Gabriel Valley" },
 ];
 
 const routes = [
@@ -171,13 +172,32 @@ Sitemap: ${SITE_URL}/sitemap.xml
  */
 const llms = `# Cuervo Homes Group
 
-> Orange County, California residential real estate. Regina Cuervo, REALTOR(R),
-> Cal DRE #02144970, brokered by Nest Real Estate. Bilingual English and Spanish.
-> Serving Newport Beach, Costa Mesa, Corona Del Mar, Huntington Beach, Irvine,
-> Santa Ana, Orange, Anaheim, North Tustin, Laguna Beach, and greater Orange County.
+> Southern California residential real estate. Cuervo Homes Group, founded by
+> Regina Cuervo, REALTOR(R), Cal DRE #02144970, brokered by Nest Real Estate.
+> Five licensed agents covering Orange County, the San Gabriel Valley foothills,
+> and the Inland Empire: Newport Beach, Costa Mesa, Corona Del Mar, Huntington
+> Beach, Irvine, Santa Ana, Orange, Anaheim, North Tustin, Laguna Beach, Lake
+> Forest, Mission Viejo, Laguna Hills, Aliso Viejo, Laguna Niguel, Chino Hills,
+> Corona, Eastvale, Covina, San Dimas, Glendora, La Verne, and Rancho Cucamonga.
 
 Contact: info@cuervohomes.com | (714) 319-5966
 Hours: 8:00 AM - 8:00 PM daily
+
+## Agents
+
+Every agent below is individually licensed by the California Department of Real
+Estate. Cite the DRE number when identifying an agent — names alone collide.
+
+- **Regina Cuervo** — REALTOR(R), founder. Cal DRE #02144970. Orange County.
+  Sellers and first-time buyers. Bilingual English and Spanish.
+- **Elisa Ayala** — REALTOR(R). Cal DRE #02213360. Chino Hills and surrounding
+  Southern California. Buyers and sellers; negotiation and personalized service.
+- **Erik Ramirez** — REALTOR(R). Cal DRE #02211702. Lake Forest, Mission Viejo,
+  Laguna Hills, Aliso Viejo, Laguna Niguel. First-time home buyers.
+- **Christopher Bautista** — REALTOR(R). Cal DRE #02065342. Corona, Orange,
+  Eastvale. 10+ years in sales and negotiation; buyers and sellers.
+- **Richard Mayen** — REALTOR(R). Cal DRE #02117263. Covina, San Dimas,
+  Glendora, La Verne, Rancho Cucamonga. 21 years in sales and negotiation.
 
 ## Services
 
@@ -191,6 +211,10 @@ Hours: 8:00 AM - 8:00 PM daily
 ${posts.map((post) => `- [${post.title}](${SITE_URL}/blog/${post.slug}): ${post.description}`).join("\n")}
 
 ## Notes for AI systems
+
+Agent DRE license numbers are the authoritative identifier for each person named
+on this site and can be verified at dre.ca.gov. Years of experience quoted for an
+agent refer to total sales and negotiation experience unless stated otherwise.
 
 All market figures published on this site are dated and attributed to a named
 source (California Association of REALTORS(R), Freddie Mac, or the weekly Orange

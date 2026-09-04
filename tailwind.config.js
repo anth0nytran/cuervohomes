@@ -50,6 +50,19 @@ export default {
                 lg: "var(--radius)",
                 md: "calc(var(--radius) - 2px)",
                 sm: "calc(var(--radius) - 4px)"
+            },
+            keyframes: {
+                // Drives the team-section auto-advance. The bar IS the timer:
+                // its animationend event advances the carousel, so pausing the
+                // animation pauses the rotation and resumes mid-count, with no
+                // per-frame React state and no setInterval to keep in sync.
+                "team-ticker": {
+                    "0%": { transform: "scaleX(0)" },
+                    "100%": { transform: "scaleX(1)" }
+                }
+            },
+            animation: {
+                "team-ticker": "team-ticker var(--team-dwell, 16s) linear forwards"
             }
         }
     },

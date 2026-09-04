@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useSyncExternalStore, type CSSProperties } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ChevronLeft, ChevronRight, Star, ShieldCheck, HomeIcon, Briefcase, MapPin, Quote, LineChart, CheckCircle } from "lucide-react";
+import { ArrowRight, ChevronDown, ChevronLeft, ChevronRight, Star, ShieldCheck, HomeIcon, Briefcase, MapPin, Quote, LineChart, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import SEO from "../hooks/useSEO";
 import { Helmet } from "react-helmet-async";
@@ -847,14 +847,28 @@ const DirectorProfile = () => {
 /*
  * --- Meet the Team ---
  *
- * TODO(client): `pending: true` marks an agent whose name and DRE number
- * Regina has not sent yet. Replace `name` and `license`, then drop the flag —
- * the muted placeholder styling keys off it, and the matching schema.org
- * Person entities in index.html need the same two values filled in.
+ * `blurb` is the card hook; `bio` is the full agent bio, always present in the
+ * markup and revealed by a grid-rows 0fr/1fr clip rather than by conditional
+ * rendering. That distinction is the whole point: the prerenderer and every AI
+ * answer engine that does not run JavaScript still gets all five bios, and the
+ * grid still reads as a grid instead of five walls of text.
  *
- * The four headshots come from four unrelated shoots (studio grey, blue
- * vignette, garden, wood wall). The grayscale-to-colour hover is doing real
- * work here: it neutralises four clashing backgrounds into one coherent grid.
+ * `facts` is the same information an answer engine wants to lift as a pair
+ * rather than parse out of a paragraph — years of experience, who the agent
+ * works with. Every value is taken from the bio the agent supplied; where she
+ * did not state a number, there is no row. Do not add one.
+ *
+ * `areas` carries each agent's own service cities. The group's footprint is no
+ * longer Orange County alone -- it now runs from South OC through the San
+ * Gabriel Valley foothills into the Inland Empire -- and these lines are the
+ * only place on the site where Chino Hills, Glendora, or Eastvale appear as
+ * text, so they do real local-search work. Keep them in sync with the
+ * schema.org Person entities in index.html.
+ *
+ * Richard is last by client request: his headshot is the one shot on a blue
+ * circle graphic rather than a real background, so trailing the row keeps that
+ * inconsistency out of the reader's entry point. The grayscale-to-colour hover
+ * neutralises the remaining four shoots.
  */
 const TEAM = [
     {
@@ -862,153 +876,555 @@ const TEAM = [
         name: "Regina Cuervo",
         role: "REALTOR® · Founder",
         license: "Cal DRE #02144970",
-        blurb: "Leads the group across Orange County, focused on sellers and first-time buyers. Bilingual English & Spanish.",
-        pending: false,
+        areas: "Orange County · Bilingual English & Spanish",
+        facts: [
+            { label: "Focus", value: "Sellers and first-time buyers" },
+            { label: "Languages", value: "English and Spanish" },
+        ],
+        blurb: "Leads the group across Orange County, focused on sellers and first-time buyers.",
+        bio: [
+            "With years of experience helping clients buy and sell homes across Southern California, Regina has built her career on one principle: treat every client's home like it's her own. Her deep knowledge of the local market means she can spot opportunity and risk that others miss.",
+            "She prioritizes communication, transparency, and personalized attention — advocating fiercely for her clients' best interests while making the experience as smooth as possible.",
+            "Whether you're a first-time buyer, a growing family, or a seasoned investor, Regina makes sure you start the conversation with someone who will tell you the truth about your position.",
+        ],
+    },
+    {
+        slug: "elisa-ayala",
+        name: "Elisa Ayala",
+        role: "REALTOR®",
+        license: "Cal DRE #02213360",
+        areas: "Chino Hills · Southern California",
+        facts: [
+            { label: "Focus", value: "Buyers and sellers" },
+            { label: "Known For", value: "Negotiation and personalized service" },
+        ],
+        blurb: "Chino Hills REALTOR® known for personalized service, skilled negotiation, and an unwavering commitment to her clients.",
+        bio: [
+            "Based in Chino Hills, Elisa Ayala is a Southern California REALTOR® known for her personalized service, skilled negotiation, and unwavering commitment to her clients. With years of sales and negotiation experience, Elisa understands how to navigate complex conversations, solve challenges, and advocate for the best possible outcome. She takes the time to understand each client's unique goals and provides honest, thoughtful guidance throughout every step of the buying or selling process.",
+            "Elisa has built her real estate business around trust, communication, and always putting her clients' best interests first. Whether helping a buyer find the right home or positioning a property for a successful sale, she approaches every transaction with strategy, attention to detail, and a results-driven mindset.",
+            "Serving Chino Hills and surrounding Southern California communities, Elisa has earned a reputation for exceptional service, strong representation, and a commitment to helping her clients achieve success in real estate.",
+        ],
+    },
+    {
+        slug: "erik-ramirez",
+        name: "Erik Ramirez",
+        role: "REALTOR®",
+        license: "Cal DRE #02211702",
+        areas: "Lake Forest · Mission Viejo · Laguna Hills · Aliso Viejo · Laguna Niguel",
+        facts: [
+            { label: "Focus", value: "First-time home buyers" },
+            { label: "Known For", value: "Walking buyers through every step" },
+        ],
+        blurb: "Works with first-time buyers across South Orange County — patient, thorough, and never in a rush.",
+        bio: [
+            "Buying your first home in South Orange County is a lot to take in. Erik's whole approach is built around making sure you never feel lost in it.",
+            "He works with first-time buyers because he genuinely enjoys the part most agents rush: explaining how the process actually works, what the numbers mean, and what happens next. He'll walk you through a disclosure packet line by line. He'll answer the question you were embarrassed to ask. He'll tell you when a house isn't right for you, even if you're excited about it.",
+            "That patience isn't a strategy — it's just how he works. Erik measures a transaction by whether his client feels confident and taken care of from the first conversation through the day they get keys, and his clients feel that difference early.",
+            "If you're looking in Lake Forest, Mission Viejo, Laguna Hills, Aliso Viejo, or Laguna Niguel and you want someone who will take the time with you, Erik is that agent.",
+        ],
+    },
+    {
+        slug: "christopher-bautista",
+        name: "Christopher Bautista",
+        role: "REALTOR®",
+        license: "Cal DRE #02065342",
+        areas: "Corona · Orange · Eastvale",
+        facts: [
+            { label: "Experience", value: "10+ years in sales and negotiation" },
+            { label: "Focus", value: "Buyers and sellers" },
+        ],
+        blurb: "Serves buyers and sellers in Corona, Orange, and Eastvale, with more than 10 years of sales and negotiation experience.",
+        bio: [
+            "Christopher Bautista serves buyers and sellers throughout Corona, Orange, and Eastvale, bringing more than 10 years of sales and negotiation experience to every transaction.",
+            "That background shapes how he works. Christopher has spent his career sitting across the table from people making significant financial decisions, and he learned early that the best outcomes come from listening first and advocating hard second. He doesn't pressure clients toward a timeline that isn't theirs. He gives them the market insight, the numbers, and the honest read they need — then he goes to work protecting their position.",
+            "His reputation for success is built on that approach: strong negotiation, clear communication, and a consistent record of putting his clients' best interest ahead of the deal. Whether you're buying your first home in Eastvale, selling in Corona, or navigating a move-up in Orange, Christopher is the advocate you want in your corner.",
+        ],
     },
     {
         slug: "richard-mayen",
         name: "Richard Mayen",
         role: "REALTOR®",
-        license: "Cal DRE # pending",
-        blurb: "Works with buyers and sellers throughout central and north Orange County.",
-        pending: false,
-    },
-    {
-        slug: "agent-three",
-        name: "Name Pending",
-        role: "REALTOR®",
-        license: "Cal DRE # pending",
-        blurb: "Full bio coming soon.",
-        pending: true,
-    },
-    {
-        slug: "agent-four",
-        name: "Name Pending",
-        role: "REALTOR®",
-        license: "Cal DRE # pending",
-        blurb: "Full bio coming soon.",
-        pending: true,
+        license: "Cal DRE #02117263",
+        areas: "Covina · San Dimas · Glendora · La Verne · Rancho Cucamonga",
+        facts: [
+            { label: "Experience", value: "21 years in sales and negotiation" },
+            { label: "Focus", value: "Buyers, sellers, and move-up timing" },
+        ],
+        blurb: "Twenty-one years in sales, brought to the foothill communities from Covina to Rancho Cucamonga.",
+        bio: [
+            "Twenty-one years in sales gives you something you can't shortcut: you've seen how deals fall apart, so you know how to keep them together.",
+            "Richard has spent two decades negotiating on behalf of people making decisions that matter, and he brings that experience to every transaction in the foothill communities he serves. He knows these neighborhoods — the difference between a Glendora hillside property and a La Verne block near the university, what a San Dimas seller can realistically expect, where value sits in Rancho Cucamonga right now.",
+            "What his clients notice most is that he's steady. Richard doesn't oversell, doesn't rush a decision, and doesn't let a client walk into a bad position because it's convenient for the deal to close. He tells you what he'd do if it were his money, and then he negotiates like it is.",
+            "His reputation was built one client at a time, over 21 years, on exactly that. Whether you're buying, selling, or trying to time a move-up correctly, Richard makes sure your interests are the ones being protected at the table.",
+        ],
     },
 ];
 
-const TeamSection = () => (
-    <section id="team" className="relative bg-neutral-950 border-t border-white/[0.08]">
-        <div className="max-w-[1500px] mx-auto px-6 md:px-12 py-16 md:py-24">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
-                className="max-w-3xl mb-12 md:mb-16"
+type TeamMember = (typeof TEAM)[number];
+
+/*
+ * Auto-advance dwell, derived from bio length rather than a flat interval:
+ * a 90-word bio does not need the same time on screen as a 200-word one.
+ * ~110ms per word puts a typical bio near 20s, floored and capped so the
+ * rotation never feels rushed or stalled.
+ */
+const dwellMs = (member: TeamMember) => {
+    const words = member.bio.reduce((total, para) => total + para.split(/\s+/).length, 0);
+    return Math.min(24000, Math.max(14000, words * 110));
+};
+
+/*
+ * --- Card + always-open drawer ---
+ *
+ * The five bio panels are stacked into a single grid cell and cross-faded,
+ * rather than a panel collapsing to zero height and reopening. Two reasons,
+ * both of which the earlier versions got wrong:
+ *
+ *  1. Layout stability. The drawer is always as tall as the tallest bio, so
+ *     switching agents — or the ticker switching for you — moves nothing on
+ *     the page. An auto-advancing panel that expands from zero shifts every
+ *     section below it, and an unprompted shift is exactly what Cumulative
+ *     Layout Shift penalises. This scores a flat zero.
+ *  2. Smoothness. Opacity and transform are the only two properties a browser
+ *     can animate without touching layout or paint. Animating height (or
+ *     grid-template-rows) re-runs layout on every frame of every transition.
+ *
+ * All five bios stay in the DOM either way, which is what keeps them
+ * prerendered and readable to the AI answer engines that never run JS.
+ */
+const TeamCard = ({
+    member,
+    index,
+    active,
+    autoplay,
+    paused,
+    cycle,
+    onSelect,
+    onTickerEnd,
+}: {
+    member: TeamMember;
+    index: number;
+    active: boolean;
+    autoplay: boolean;
+    paused: boolean;
+    cycle: number;
+    onSelect: () => void;
+    onTickerEnd: () => void;
+}) => (
+    <motion.article
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: true }}
+        className={cn(
+            "group relative flex flex-col cursor-pointer transition-colors duration-500",
+            active ? "bg-neutral-900" : "bg-neutral-950 hover:bg-neutral-900/60"
+        )}
+    >
+        <div className="relative overflow-hidden aspect-square bg-neutral-900">
+            <picture>
+                <source srcSet={`/c_homes/team/${member.slug}.webp`} type="image/webp" />
+                <img
+                    src={`/c_homes/team/${member.slug}.jpg`}
+                    alt={`${member.name}, ${member.role} at Cuervo Homes Group`}
+                    width={900}
+                    height={900}
+                    loading="lazy"
+                    className={cn(
+                        "w-full h-full object-cover object-top transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]",
+                        active ? "grayscale-0 scale-[1.03]" : "grayscale group-hover:grayscale-0"
+                    )}
+                />
+            </picture>
+            <div
+                className={cn(
+                    "absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity duration-500",
+                    active ? "opacity-20" : "opacity-70 group-hover:opacity-30"
+                )}
+            />
+
+            {/*
+              * Ties the open drawer back to the card that opened it, and while
+              * the ticker is running doubles as its countdown.
+              */}
+            <div
+                className={cn(
+                    "absolute inset-x-0 bottom-0 h-[3px] transition-colors duration-500",
+                    active ? "bg-accent/25" : "bg-transparent"
+                )}
             >
-                <div className="flex items-center gap-3 mb-5">
-                    <div className="w-6 h-[2px] bg-accent" />
-                    <span className="text-[9px] tracking-[0.3em] font-bold text-neutral-500 uppercase">
-                        Meet the Group
-                    </span>
-                </div>
-
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-black tracking-tight text-white leading-[0.95] uppercase mb-5">
-                    The Team Behind <br className="hidden md:block" /> Every Close
-                </h2>
-
-                <p className="text-[13px] md:text-sm text-neutral-400 font-sans leading-[1.85] font-medium">
-                    Cuervo Homes Group is a team of licensed Orange County REALTORS® brokered by{" "}
-                    <span className="text-white font-bold">Nest Real Estate</span>. You get one
-                    dedicated point of contact — backed by the whole group's market knowledge,
-                    vendor network, and negotiating experience.
-                </p>
-            </motion.div>
-
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.08] border border-white/[0.08]">
-                {TEAM.map((member, i) => (
-                    <motion.article
-                        key={member.slug}
-                        initial={{ opacity: 0, y: 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                        viewport={{ once: true }}
-                        className="group bg-neutral-950 flex flex-col"
-                    >
-                        <div className="relative overflow-hidden aspect-square bg-neutral-900">
-                            <picture>
-                                <source srcSet={`/c_homes/team/${member.slug}.webp`} type="image/webp" />
-                                <img
-                                    src={`/c_homes/team/${member.slug}.jpg`}
-                                    alt={
-                                        member.pending
-                                            ? "Cuervo Homes Group REALTOR® headshot"
-                                            : `${member.name}, ${member.role} at Cuervo Homes Group`
-                                    }
-                                    width={900}
-                                    height={900}
-                                    loading="lazy"
-                                    className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                                />
-                            </picture>
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-30 transition-opacity duration-500" />
-                        </div>
-
-                        <div className="p-5 md:p-7 flex-1 flex flex-col">
-                            <h3 className={cn(
-                                "text-base md:text-xl font-serif font-black tracking-tight uppercase leading-tight mb-2",
-                                member.pending ? "text-white/35" : "text-white"
-                            )}>
-                                {member.name}
-                            </h3>
-
-                            <span className="text-[9px] tracking-[0.2em] font-bold uppercase text-accent mb-1.5">
-                                {member.role}
-                            </span>
-                            <span className="text-[10px] text-neutral-500 font-medium mb-4">
-                                {member.license}
-                            </span>
-
-                            <p className={cn(
-                                "text-[12px] font-sans leading-[1.75] font-medium mt-auto",
-                                member.pending ? "text-neutral-600 italic" : "text-neutral-400"
-                            )}>
-                                {member.blurb}
-                            </p>
-                        </div>
-                    </motion.article>
-                ))}
+                <div
+                    /*
+                     * `cycle` is in the key so re-picking the agent already on
+                     * screen restarts its countdown instead of silently doing
+                     * nothing — without it the key is unchanged and the
+                     * animation keeps running from wherever it stood.
+                     */
+                    key={`${member.slug}-${active}-${autoplay}-${cycle}`}
+                    onAnimationEnd={(event) => {
+                        if (event.animationName.includes("team-ticker")) onTickerEnd();
+                    }}
+                    style={
+                        {
+                            "--team-dwell": `${dwellMs(member)}ms`,
+                            /*
+                             * Inline, not a class. `animate-team-ticker` sets
+                             * the `animation` shorthand, and the shorthand
+                             * resets animation-play-state to running — so a
+                             * utility class racing it wins or loses on
+                             * stylesheet order. Inline style always wins.
+                             */
+                            animationPlayState: paused ? "paused" : "running",
+                        } as CSSProperties
+                    }
+                    className={cn(
+                        "h-full w-full bg-accent origin-left will-change-transform",
+                        !active && "scale-x-0",
+                        active && !autoplay && "scale-x-100",
+                        active && autoplay && "animate-team-ticker"
+                    )}
+                />
             </div>
+        </div>
 
-            <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="flex flex-col sm:flex-row items-center justify-between gap-6 mt-10 md:mt-14 pt-8 border-t border-white/[0.08]"
+        <div className="p-5 md:p-6 flex-1 flex flex-col">
+            <h3 className="text-base md:text-lg font-serif font-black tracking-tight uppercase leading-tight text-white mb-2">
+                {member.name}
+            </h3>
+
+            <span className="text-[9px] tracking-[0.2em] font-bold uppercase text-accent mb-1.5">
+                {member.role}
+            </span>
+            <span className="text-[10px] text-neutral-500 font-medium">{member.license}</span>
+            <span className="text-[10px] text-neutral-500 font-medium leading-[1.6] mb-4">
+                {member.areas}
+            </span>
+
+            <p className="text-[12px] text-neutral-400 font-sans leading-[1.75] font-medium mt-auto">
+                {member.blurb}
+            </p>
+
+            {/*
+              * One real button, stretched over the card by its ::after so the
+              * whole card is the hit area. Wrapping the card in a <button>
+              * instead would put headings and paragraphs inside a control,
+              * which is invalid and reads badly to screen readers.
+              */}
+            <button
+                type="button"
+                onClick={onSelect}
+                aria-controls={`bio-${member.slug}`}
+                aria-current={active ? "true" : undefined}
+                aria-label={`Read ${member.name}'s full bio`}
+                className={cn(
+                    "self-start inline-flex items-center gap-1.5 mt-4 text-[9px] tracking-[0.2em] font-black uppercase transition-colors duration-300",
+                    "after:content-[''] after:absolute after:inset-0",
+                    "focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-inset focus-visible:after:ring-accent",
+                    active ? "text-white" : "text-accent group-hover:text-white"
+                )}
             >
-                <div className="flex items-center gap-5">
-                    <span className="text-[9px] tracking-[0.25em] font-bold text-neutral-600 uppercase whitespace-nowrap">
-                        Brokered By
-                    </span>
-                    <img
-                        src="/c_homes/nest-real-estate-white.png"
-                        alt="Nest Real Estate"
-                        width={1200}
-                        height={328}
-                        loading="lazy"
-                        className="h-7 md:h-9 w-auto object-contain opacity-70"
-                    />
+                {active ? "Now Reading" : "Read Full Bio"}
+                <ChevronDown
+                    className={cn(
+                        "w-3 h-3 flex-shrink-0 transition-all duration-500",
+                        active ? "opacity-0 -translate-y-1" : "opacity-100 translate-y-0"
+                    )}
+                    strokeWidth={2.5}
+                    aria-hidden="true"
+                />
+            </button>
+        </div>
+    </motion.article>
+);
+
+const TeamBioPanel = ({ member, active }: { member: TeamMember; active: boolean }) => (
+    <div
+        id={`bio-${member.slug}`}
+        role="region"
+        aria-label={`${member.name} full biography`}
+        inert={!active}
+        className={cn(
+            "col-start-1 row-start-1 px-6 py-8 md:px-10 md:py-10",
+            "transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none",
+            active
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-3 pointer-events-none"
+        )}
+    >
+        <div className="grid gap-8 lg:grid-cols-[300px_1fr] lg:gap-14">
+            <div className="flex flex-col">
+                <div className="flex items-center gap-4 mb-5">
+                    <picture>
+                        <source srcSet={`/c_homes/team/${member.slug}.webp`} type="image/webp" />
+                        <img
+                            src={`/c_homes/team/${member.slug}.jpg`}
+                            alt=""
+                            width={900}
+                            height={900}
+                            loading="lazy"
+                            aria-hidden="true"
+                            className="w-16 h-16 flex-shrink-0 object-cover object-top border border-white/15"
+                        />
+                    </picture>
+                    <div>
+                        <p className="text-xl md:text-2xl font-serif font-black tracking-tight text-white uppercase leading-[0.95]">
+                            {member.name}
+                        </p>
+                        <span className="text-[9px] tracking-[0.2em] font-bold uppercase text-accent">
+                            {member.role}
+                        </span>
+                    </div>
                 </div>
+
+                <div className="w-8 h-[2px] bg-accent mb-5" />
+
+                <dl className="space-y-3 mb-7">
+                    {member.facts.map((fact) => (
+                        <div key={fact.label}>
+                            <dt className="text-[9px] tracking-[0.25em] font-bold uppercase text-neutral-600 mb-1">
+                                {fact.label}
+                            </dt>
+                            <dd className="text-[11px] text-neutral-300 font-medium leading-[1.7]">
+                                {fact.value}
+                            </dd>
+                        </div>
+                    ))}
+                    <div>
+                        <dt className="text-[9px] tracking-[0.25em] font-bold uppercase text-neutral-600 mb-1">
+                            License
+                        </dt>
+                        <dd className="text-[11px] text-neutral-300 font-medium">
+                            {member.license}
+                        </dd>
+                    </div>
+                    <div>
+                        <dt className="text-[9px] tracking-[0.25em] font-bold uppercase text-neutral-600 mb-1">
+                            Serving
+                        </dt>
+                        <dd className="text-[11px] text-neutral-300 font-medium leading-[1.7]">
+                            {member.areas}
+                        </dd>
+                    </div>
+                </dl>
 
                 <Link
                     to="/contact"
-                    className="group inline-flex items-center gap-3 border border-white/20 text-white px-7 py-3.5 text-[10px] font-black tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-300"
+                    className="group/cta self-start inline-flex items-center gap-3 border border-white/20 text-white px-6 py-3 text-[9px] font-black tracking-[0.2em] uppercase hover:bg-accent hover:text-black hover:border-accent transition-all duration-300"
                 >
-                    Work With the Team
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    Work With {member.name.split(" ")[0]}
+                    <ArrowRight className="w-3.5 h-3.5 group-hover/cta:translate-x-1 transition-transform" />
                 </Link>
-            </motion.div>
+            </div>
+
+            {/*
+              * Two columns at lg: the drawer runs the full 1500px, and a single
+              * column of 13px prose that wide is unreadable.
+              */}
+            <div className="lg:columns-2 lg:gap-12">
+                {member.bio.map((paragraph) => (
+                    <p
+                        key={paragraph.slice(0, 40)}
+                        className="text-[13px] text-neutral-400 font-sans leading-[1.85] font-medium mb-4 last:mb-0 break-inside-avoid"
+                    >
+                        {paragraph}
+                    </p>
+                ))}
+            </div>
         </div>
-    </section>
+    </div>
 );
 
-// --- The Cuervo Homes Group Signature Selling Experience ---
+/*
+ * useSyncExternalStore rather than an effect: it gives the correct value on
+ * the very first render (and a stable `false` during prerendering), so the
+ * ticker never starts and then stops for someone who asked the OS not to
+ * animate things.
+ */
+const usePrefersReducedMotion = () =>
+    useSyncExternalStore(
+        (onChange) => {
+            const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+            query.addEventListener("change", onChange);
+            return () => query.removeEventListener("change", onChange);
+        },
+        () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+        () => false
+    );
+
+const TeamSection = () => {
+    const [activeSlug, setActiveSlug] = useState(TEAM[0].slug);
+    const [cycle, setCycle] = useState(0);
+    const [inView, setInView] = useState(false);
+    const [pointerHeld, setPointerHeld] = useState(false);
+    const [selectionHeld, setSelectionHeld] = useState(false);
+    const carouselRef = useRef<HTMLDivElement>(null);
+    const reducedMotion = usePrefersReducedMotion();
+
+    /*
+     * The ticker runs only while the section is on screen and the OS has not
+     * asked for reduced motion.
+     *
+     * Two separate holds pause it, because pointer and touch need different
+     * answers. `pointerHeld` is hover/focus and releases on its own. Picking an
+     * agent sets `selectionHeld`, which only clears when the pointer leaves the
+     * section — so on a desktop the rotation resumes once you move away, and on
+     * a phone, where no mouseleave ever fires, tapping an agent simply stops
+     * the rotation and leaves you with what you asked for.
+     */
+    const autoplay = inView && !reducedMotion;
+    const paused = pointerHeld || selectionHeld;
+
+    useEffect(() => {
+        const node = carouselRef.current;
+        if (!node || typeof IntersectionObserver === "undefined") return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => setInView(entry.isIntersecting),
+            { threshold: 0.25 }
+        );
+        observer.observe(node);
+        return () => observer.disconnect();
+    }, []);
+
+    const advance = useCallback(() => {
+        setActiveSlug((prev) => {
+            const i = TEAM.findIndex((member) => member.slug === prev);
+            return TEAM[(i + 1) % TEAM.length].slug;
+        });
+    }, []);
+
+    const select = useCallback((slug: string) => {
+        setSelectionHeld(true);
+        setActiveSlug(slug);
+        setCycle((n) => n + 1);
+    }, []);
+
+    const releaseHolds = useCallback(() => {
+        setPointerHeld(false);
+        setSelectionHeld(false);
+    }, []);
+
+    return (
+        <section id="team" className="relative bg-neutral-950 border-t border-white/[0.08]">
+            <div className="max-w-[1500px] mx-auto px-6 md:px-12 py-16 md:py-24">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    viewport={{ once: true }}
+                    className="max-w-3xl mb-12 md:mb-16"
+                >
+                    <div className="flex items-center gap-3 mb-5">
+                        <div className="w-6 h-[2px] bg-accent" />
+                        <span className="text-[9px] tracking-[0.3em] font-bold text-neutral-500 uppercase">
+                            Meet the Group
+                        </span>
+                    </div>
+
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-black tracking-tight text-white leading-[0.95] uppercase mb-5">
+                        The Team Behind <br className="hidden md:block" /> Every Close
+                    </h2>
+
+                    <p className="text-[13px] md:text-sm text-neutral-400 font-sans leading-[1.85] font-medium">
+                        Cuervo Homes Group is a team of licensed California REALTORS® brokered by{" "}
+                        <span className="text-white font-bold">Nest Real Estate</span>, serving
+                        Orange County, the San Gabriel Valley foothills, and the Inland Empire. You
+                        get one dedicated point of contact who knows your specific market — backed
+                        by the whole group's knowledge, vendor network, and negotiating experience.
+                    </p>
+                </motion.div>
+
+                {/*
+                  * Hovering, tabbing, or picking an agent anywhere in here
+                  * freezes the ticker mid-count. Because the countdown is the
+                  * progress bar's own CSS animation, pausing it pauses the
+                  * rotation exactly where it stood and resumes from there —
+                  * there is no timer to keep in sync, and nothing to reset.
+                  */}
+                <div
+                    ref={carouselRef}
+                    onMouseEnter={() => setPointerHeld(true)}
+                    onMouseLeave={releaseHolds}
+                    onFocusCapture={() => setPointerHeld(true)}
+                    onBlurCapture={() => setPointerHeld(false)}
+                >
+                    <div className="grid grid-cols-2 lg:grid-cols-5 gap-px bg-white/[0.08] border border-white/[0.08]">
+                        {TEAM.map((member, i) => (
+                            <TeamCard
+                                key={member.slug}
+                                member={member}
+                                index={i}
+                                active={activeSlug === member.slug}
+                                autoplay={autoplay}
+                                paused={paused}
+                                cycle={cycle}
+                                onSelect={() => select(member.slug)}
+                                onTickerEnd={() => {
+                                    if (autoplay) advance();
+                                }}
+                            />
+                        ))}
+                        {/*
+                          * Five cards in a two-column grid leave one empty cell,
+                          * and an empty cell in a gap-px grid renders as a pale
+                          * slab — the "gaps" are the container background
+                          * showing through. This paints it out below lg, where
+                          * the row divides evenly anyway.
+                          */}
+                        <div className="bg-neutral-950 lg:hidden" aria-hidden="true" />
+                    </div>
+
+                    {/*
+                      * One grid cell, five panels stacked in it. The container
+                      * takes the height of the tallest bio once and keeps it,
+                      * so every switch is a cross-fade and nothing below the
+                      * section ever moves.
+                      */}
+                    <div className="grid border-x border-b border-white/[0.08] bg-neutral-900/50">
+                        {TEAM.map((member) => (
+                            <TeamBioPanel
+                                key={member.slug}
+                                member={member}
+                                active={activeSlug === member.slug}
+                            />
+                        ))}
+                    </div>
+                </div>
+
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    viewport={{ once: true }}
+                    className="flex flex-col sm:flex-row items-center justify-between gap-6 mt-10 md:mt-14 pt-8 border-t border-white/[0.08]"
+                >
+                    <div className="flex items-center gap-5">
+                        <span className="text-[9px] tracking-[0.25em] font-bold text-neutral-600 uppercase whitespace-nowrap">
+                            Brokered By
+                        </span>
+                        <img
+                            src="/c_homes/nest-real-estate-white.png"
+                            alt="Nest Real Estate"
+                            width={1200}
+                            height={328}
+                            loading="lazy"
+                            className="h-7 md:h-9 w-auto object-contain opacity-70"
+                        />
+                    </div>
+
+                    <Link
+                        to="/contact"
+                        className="group inline-flex items-center gap-3 border border-white/20 text-white px-7 py-3.5 text-[10px] font-black tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-300"
+                    >
+                        Work With the Team
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                </motion.div>
+            </div>
+        </section>
+    );
+};
+
 const SELLING_STEPS = [
     {
         number: "01",
@@ -1555,8 +1971,8 @@ export default function Home() {
             </Helmet>
             <HeroHQ />
             <DualCTATransition />
-            <DirectorProfile />
             <TeamSection />
+            <DirectorProfile />
             <RecentSalesSection />
             <ContentWhyTrustUs />
             <SignatureSellingExperience />
