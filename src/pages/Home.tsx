@@ -1018,6 +1018,10 @@ const TeamCard = ({
         viewport={{ once: true }}
         className={cn(
             "group relative flex flex-col cursor-pointer transition-colors duration-500",
+            // Below lg these are swipeable cards, wide enough to actually read
+            // a DRE number and five city names on. At 162px — two to a row on a
+            // 390px screen — they were neither readable nor tappable.
+            "w-[74vw] max-w-[300px] shrink-0 snap-start lg:w-auto lg:max-w-none",
             active ? "bg-neutral-900" : "bg-neutral-950 hover:bg-neutral-900/60"
         )}
     >
@@ -1081,7 +1085,8 @@ const TeamCard = ({
                         "h-full w-full bg-accent origin-left will-change-transform",
                         !active && "scale-x-0",
                         active && !autoplay && "scale-x-100",
-                        active && autoplay && "animate-team-ticker"
+                        // lg: only — see the note on TeamSection's carousel.
+                        active && autoplay && "lg:animate-team-ticker"
                     )}
                 />
             </div>
@@ -1148,12 +1153,25 @@ const TeamBioPanel = ({ member, active }: { member: TeamMember; active: boolean 
             "transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none",
             active
                 ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-3 pointer-events-none"
+                : "opacity-0 translate-y-3 pointer-events-none",
+            /*
+             * At lg every panel stays in flow inside one grid cell, so the
+             * drawer is permanently as tall as the longest bio and the ticker
+             * can swap agents without moving the page.
+             *
+             * Below lg that same trick reserved 1166px for a bio that needed
+             * 500px, on a screen 844px tall. Taking the inactive panels out of
+             * flow lets the drawer size to the bio actually on screen. The
+             * height then changes when you switch — which is fine here only
+             * because the ticker is disabled below lg, so every change follows
+             * a tap.
+             */
+            !active && "absolute inset-x-0 top-0 lg:static"
         )}
     >
-        <div className="grid gap-8 lg:grid-cols-[300px_1fr] lg:gap-14">
+        <div className="grid gap-6 lg:grid-cols-[300px_1fr] lg:gap-14">
             <div className="flex flex-col">
-                <div className="flex items-center gap-4 mb-5">
+                <div className="hidden lg:flex items-center gap-4 mb-5">
                     <picture>
                         <source srcSet={`/c_homes/team/${member.slug}.webp`} type="image/webp" />
                         <img
@@ -1176,7 +1194,7 @@ const TeamBioPanel = ({ member, active }: { member: TeamMember; active: boolean 
                     </div>
                 </div>
 
-                <div className="w-8 h-[2px] bg-accent mb-5" />
+                <div className="hidden lg:block w-8 h-[2px] bg-accent mb-5" />
 
                 <dl className="space-y-3 mb-7">
                     {member.facts.map((fact) => (
@@ -1189,7 +1207,7 @@ const TeamBioPanel = ({ member, active }: { member: TeamMember; active: boolean 
                             </dd>
                         </div>
                     ))}
-                    <div>
+                    <div className="hidden lg:block">
                         <dt className="text-[9px] tracking-[0.25em] font-bold uppercase text-neutral-600 mb-1">
                             License
                         </dt>
@@ -1197,7 +1215,7 @@ const TeamBioPanel = ({ member, active }: { member: TeamMember; active: boolean 
                             {member.license}
                         </dd>
                     </div>
-                    <div>
+                    <div className="hidden lg:block">
                         <dt className="text-[9px] tracking-[0.25em] font-bold uppercase text-neutral-600 mb-1">
                             Serving
                         </dt>
@@ -1348,7 +1366,22 @@ const TeamSection = () => {
                     onFocusCapture={() => setPointerHeld(true)}
                     onBlurCapture={() => setPointerHeld(false)}
                 >
-                    <div className="grid grid-cols-2 lg:grid-cols-5 gap-px bg-white/[0.08] border border-white/[0.08]">
+                    {/*
+                      * Below lg: one swipeable row, bled to the screen edges so
+                      * the next card peeks and the row reads as scrollable
+                      * without a scrollbar. Three stacked rows of 162px cards
+                      * ran 1506px tall and still could not fit a DRE number on
+                      * one line. At lg it goes back to the five-up grid.
+                      */}
+                    <div
+                        className={cn(
+                            "flex gap-px overflow-x-auto snap-x snap-mandatory",
+                            "-mx-6 px-6 md:-mx-12 md:px-12 lg:mx-0 lg:px-0",
+                            "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+                            "lg:grid lg:grid-cols-5 lg:overflow-visible",
+                            "bg-white/[0.08] border-y lg:border border-white/[0.08]"
+                        )}
+                    >
                         {TEAM.map((member, i) => (
                             <TeamCard
                                 key={member.slug}
@@ -1364,14 +1397,6 @@ const TeamSection = () => {
                                 }}
                             />
                         ))}
-                        {/*
-                          * Five cards in a two-column grid leave one empty cell,
-                          * and an empty cell in a gap-px grid renders as a pale
-                          * slab — the "gaps" are the container background
-                          * showing through. This paints it out below lg, where
-                          * the row divides evenly anyway.
-                          */}
-                        <div className="bg-neutral-950 lg:hidden" aria-hidden="true" />
                     </div>
 
                     {/*
@@ -1380,7 +1405,10 @@ const TeamSection = () => {
                       * so every switch is a cross-fade and nothing below the
                       * section ever moves.
                       */}
-                    <div className="grid border-x border-b border-white/[0.08] bg-neutral-900/50">
+                    {/* Bled to the same edges as the card row above it, so the
+                      * two read as one component rather than a full-width strip
+                      * sitting on an inset box. */}
+                    <div className="relative grid -mx-6 md:-mx-12 lg:mx-0 border-b lg:border-x border-white/[0.08] bg-neutral-900/50">
                         {TEAM.map((member) => (
                             <TeamBioPanel
                                 key={member.slug}
