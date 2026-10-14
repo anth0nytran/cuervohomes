@@ -6,8 +6,8 @@ category: "Neighborhoods"
 datePublished: "2027-03-09"
 dateModified: "2027-03-09"
 readingTime: "9 min read"
-image: "/neighborhoods/hero/newport-beach-1600.webp"
-imageAlt: "Newport Beach harbor and coastal homes in Orange County, California"
+image: "/images/blog/newport-beach-vs-irvine-vs-costa-mesa.webp"
+imageAlt: "Boats moored in Newport Harbor, Newport Beach"
 tags:
   - Neighborhoods
   - Buying

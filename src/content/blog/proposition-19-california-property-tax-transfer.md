@@ -6,8 +6,8 @@ category: "Selling"
 datePublished: "2027-01-09"
 dateModified: "2027-01-09"
 readingTime: "9 min read"
-image: "/neighborhoods/hero/north-tustin-1600.webp"
-imageAlt: "Established residential neighborhood in North Tustin, Orange County, California"
+image: "/images/blog/proposition-19-california-property-tax-transfer.webp"
+imageAlt: "Smiling older couple at home"
 tags:
   - Selling
   - Property Tax

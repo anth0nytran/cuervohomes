@@ -6,8 +6,8 @@ category: "Market Reports"
 datePublished: "2026-09-09"
 dateModified: "2026-09-09"
 readingTime: "6 min read"
-image: "/neighborhoods/hero/newport-beach-1600.webp"
-imageAlt: "Newport Beach coastline and homes in Orange County, California"
+image: "/images/blog/oc-housing-update-rates-dip-fall-inventory-thinning.webp"
+imageAlt: "House key, calculator, and model homes representing mortgage rates"
 tags:
   - Orange County
   - Market Report

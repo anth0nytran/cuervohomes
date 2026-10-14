@@ -6,8 +6,8 @@ category: "Selling"
 datePublished: "2026-10-09"
 dateModified: "2026-10-09"
 readingTime: "10 min read"
-image: "/neighborhoods/hero/north-tustin-1600.webp"
-imageAlt: "Hillside homes in North Tustin, Orange County, California"
+image: "/images/blog/how-to-sell-a-house-in-orange-county.webp"
+imageAlt: "Bright, professionally staged living room ready for listing photos"
 tags:
   - Selling
   - Escrow

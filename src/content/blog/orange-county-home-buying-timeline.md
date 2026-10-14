@@ -6,8 +6,8 @@ category: "Buying"
 datePublished: "2027-02-09"
 dateModified: "2027-02-09"
 readingTime: "10 min read"
-image: "/neighborhoods/hero/santa-ana-1600.webp"
-imageAlt: "Residential neighborhood in Santa Ana, Orange County, California"
+image: "/images/blog/orange-county-home-buying-timeline.webp"
+imageAlt: "Couple unpacking moving boxes in their new kitchen"
 tags:
   - Buying
   - Escrow

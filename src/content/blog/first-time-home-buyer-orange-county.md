@@ -6,8 +6,8 @@ category: "First-Time Buyers"
 datePublished: "2026-08-04"
 dateModified: "2026-08-09"
 readingTime: "11 min read"
-image: "/neighborhoods/hero/anaheim-1600.webp"
-imageAlt: "Residential neighborhood in Anaheim, Orange County, California"
+image: "/images/blog/first-time-home-buyer-orange-county.webp"
+imageAlt: "Hand holding the keys to a new home"
 tags:
   - First-Time Buyers
   - Down Payment

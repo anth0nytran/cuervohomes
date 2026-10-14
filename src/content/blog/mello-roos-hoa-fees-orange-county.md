@@ -6,8 +6,8 @@ category: "Buying"
 datePublished: "2026-11-09"
 dateModified: "2026-11-09"
 readingTime: "9 min read"
-image: "/neighborhoods/hero/irvine-1600.webp"
-imageAlt: "Master-planned residential community in Irvine, Orange County, California"
+image: "/images/blog/mello-roos-hoa-fees-orange-county.webp"
+imageAlt: "Aerial view of a master-planned Southern California neighborhood"
 tags:
   - Buying
   - Mello-Roos

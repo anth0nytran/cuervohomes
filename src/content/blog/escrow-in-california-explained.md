@@ -6,8 +6,8 @@ category: "Buying"
 datePublished: "2027-09-09"
 dateModified: "2027-09-09"
 readingTime: "10 min read"
-image: "/neighborhoods/hero/santa-ana-1600.webp"
-imageAlt: "Residential street with mature trees in Santa Ana, Orange County, California"
+image: "/images/blog/escrow-in-california-explained.webp"
+imageAlt: "Person signing real estate closing documents"
 tags:
   - Escrow
   - Buying

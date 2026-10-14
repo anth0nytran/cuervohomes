@@ -6,8 +6,8 @@ category: "Buying"
 datePublished: "2027-07-09"
 dateModified: "2027-07-09"
 readingTime: "10 min read"
-image: "/neighborhoods/hero/irvine-1600.webp"
-imageAlt: "Master-planned neighborhood with parks in Irvine, Orange County, California"
+image: "/images/blog/relocating-to-orange-county.webp"
+imageAlt: "Huntington Beach Pier on a clear day"
 tags:
   - Relocation
   - Buying

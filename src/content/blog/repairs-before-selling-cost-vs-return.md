@@ -6,8 +6,8 @@ category: "Selling"
 datePublished: "2027-04-09"
 dateModified: "2027-04-09"
 readingTime: "9 min read"
-image: "/neighborhoods/hero/costa-mesa-1600.webp"
-imageAlt: "Single-family homes in Costa Mesa, Orange County, California"
+image: "/images/blog/repairs-before-selling-cost-vs-return.webp"
+imageAlt: "Paint roller refreshing a wall before a home sale"
 tags:
   - Selling
   - Home Improvement

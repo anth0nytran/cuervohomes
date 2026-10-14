@@ -6,8 +6,8 @@ category: "Commissions"
 datePublished: "2026-08-05"
 dateModified: "2026-08-09"
 readingTime: "9 min read"
-image: "/neighborhoods/hero/orange-1600.webp"
-imageAlt: "Homes in the city of Orange, Orange County, California"
+image: "/images/blog/who-pays-real-estate-agent-commission-california.webp"
+imageAlt: "Handshake closing a real estate agreement"
 tags:
   - Commissions
   - Buying

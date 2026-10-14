@@ -6,8 +6,8 @@ category: "Selling"
 datePublished: "2026-12-09"
 dateModified: "2026-12-09"
 readingTime: "8 min read"
-image: "/neighborhoods/hero/orange-1600.webp"
-imageAlt: "Residential street in the city of Orange, Orange County, California"
+image: "/images/blog/selling-your-home-during-the-holidays.webp"
+imageAlt: "Home decorated with warm holiday lights at night"
 tags:
   - Selling
   - Seasonality

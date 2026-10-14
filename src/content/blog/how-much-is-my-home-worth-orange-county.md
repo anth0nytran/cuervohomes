@@ -6,8 +6,8 @@ category: "Selling"
 datePublished: "2026-08-07"
 dateModified: "2026-08-09"
 readingTime: "8 min read"
-image: "/neighborhoods/hero/costa-mesa-1600.webp"
-imageAlt: "Residential homes in Costa Mesa, Orange County, California"
+image: "/images/blog/how-much-is-my-home-worth-orange-county.webp"
+imageAlt: "Coastal California home with landscaped front garden"
 tags:
   - Selling
   - Home Valuation

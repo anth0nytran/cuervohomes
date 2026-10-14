@@ -6,8 +6,8 @@ category: "Buying"
 datePublished: "2026-08-08"
 dateModified: "2026-08-09"
 readingTime: "10 min read"
-image: "/neighborhoods/hero/irvine-1600.webp"
-imageAlt: "Residential neighborhood in Irvine, Orange County, California"
+image: "/images/blog/is-now-a-good-time-to-buy-a-home-in-orange-county.webp"
+imageAlt: "Modern home with an illuminated front walkway at dusk"
 tags:
   - Buying
   - Mortgage Rates

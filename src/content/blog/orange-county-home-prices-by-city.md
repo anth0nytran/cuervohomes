@@ -6,8 +6,8 @@ category: "Market Data"
 datePublished: "2026-08-06"
 dateModified: "2026-08-09"
 readingTime: "8 min read"
-image: "/neighborhoods/hero/huntington-beach-1600.webp"
-imageAlt: "Huntington Beach coastline and residential neighborhoods in Orange County, California"
+image: "/images/blog/orange-county-home-prices-by-city.webp"
+imageAlt: "Hillside homes overlooking the ocean in Laguna Beach"
 tags:
   - Orange County
   - Home Prices

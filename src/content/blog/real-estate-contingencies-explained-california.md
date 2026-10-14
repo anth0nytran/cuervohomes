@@ -6,8 +6,8 @@ category: "Buying"
 datePublished: "2027-06-09"
 dateModified: "2027-06-09"
 readingTime: "9 min read"
-image: "/neighborhoods/hero/huntington-beach-1600.webp"
-imageAlt: "Residential neighborhood near the coast in Huntington Beach, California"
+image: "/images/blog/real-estate-contingencies-explained-california.webp"
+imageAlt: "Model house beside a magnifying glass, representing a home inspection"
 tags:
   - Buying
   - Contingencies

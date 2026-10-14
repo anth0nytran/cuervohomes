@@ -6,8 +6,8 @@ category: "Investing"
 datePublished: "2027-05-09"
 dateModified: "2027-05-09"
 readingTime: "10 min read"
-image: "/neighborhoods/hero/anaheim-1600.webp"
-imageAlt: "Residential neighborhood in Anaheim, Orange County, California"
+image: "/images/blog/orange-county-investment-property.webp"
+imageAlt: "Apartment building framed by palm trees"
 tags:
   - Investing
   - Rental Property

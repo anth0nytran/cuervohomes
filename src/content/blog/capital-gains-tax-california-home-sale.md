@@ -6,8 +6,8 @@ category: "Selling"
 datePublished: "2027-08-09"
 dateModified: "2027-08-09"
 readingTime: "10 min read"
-image: "/neighborhoods/hero/newport-beach-1600.webp"
-imageAlt: "Coastal homes overlooking the water in Newport Beach, California"
+image: "/images/blog/capital-gains-tax-california-home-sale.webp"
+imageAlt: "Calculator and federal tax forms on a desk"
 tags:
   - Selling
   - Taxes
