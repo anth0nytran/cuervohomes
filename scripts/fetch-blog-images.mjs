@@ -27,7 +27,7 @@ const photos = {
     "how-much-is-my-home-worth-orange-county": "1749169981877-746c576d8be0", // coastal home, landscaped
     "how-to-sell-a-house-in-orange-county": "1632829882891-5047ccc421bc", // staged living room
     "is-now-a-good-time-to-buy-a-home-in-orange-county": "1762811054947-605b20298615", // modern home at dusk
-    "mello-roos-hoa-fees-orange-county": "1791229289047-5a0630aba49b", // master-planned suburb aerial
+    "mello-roos-hoa-fees-orange-county": "1565402170291-8491f14678db", // HOA community aerial, tile roofs + roundabout
     "newport-beach-vs-irvine-vs-costa-mesa": "1724204322371-ecd2e71c6b33", // Newport Harbor
     "oc-housing-update-rates-dip-fall-inventory-thinning": "1724304406928-c43b01912fa1", // calculator, key, houses
     "orange-county-home-buying-timeline": "1580709510343-94c4027ac9b7", // couple unpacking

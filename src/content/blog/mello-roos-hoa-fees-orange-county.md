@@ -7,7 +7,7 @@ datePublished: "2026-11-09"
 dateModified: "2026-11-09"
 readingTime: "9 min read"
 image: "/images/blog/mello-roos-hoa-fees-orange-county.webp"
-imageAlt: "Aerial view of a master-planned Southern California neighborhood"
+imageAlt: "Aerial view of a landscaped HOA community with tile-roof homes, pools, and a roundabout"
 tags:
   - Buying
   - Mello-Roos
